@@ -1,0 +1,254 @@
+
+@import '~/assets/core/stepper.scss';
+@import '~/assets/core/dropzone.scss';
+// Fonte da marca do Imobia
+@font-face {
+  font-family: 'Visby';
+  src: url(~assets/fonts/VisbyCF-Heavy.eot);
+  src: local('Visby'), local('VisbyCF-Heavy'),
+    url(~assets/fonts/VisbyCF-Heavy.eot?#iefix) format('embedded-opentype'),
+    url(~assets/fonts/VisbyCF-Heavy.woff2) format('woff2'),
+    url(~assets/fonts/VisbyCF-Heavy.woff) format('woff'),
+    url(~assets/fonts/VisbyCF-Heavy.ttf) format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Visby';
+  src: url(~assets/fonts/VisbyCF-Bold.eot);
+  src: local('Visby'), local('VisbyCF-Bold'),
+    url(~assets/fonts/VisbyCF-Bold.eot?#iefix) format('embedded-opentype'),
+    url(~assets/fonts/VisbyCF-Bold.woff2) format('woff2'),
+    url(~assets/fonts/VisbyCF-Bold.woff) format('woff'),
+    url(~assets/fonts/VisbyCF-Bold.ttf) format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Visby';
+  src: url(~assets/fonts/VisbyCF-DemiBold.eot);
+  src: local('Visby'), local('VisbyCF-DemiBold'),
+    url(~assets/fonts/VisbyCF-DemiBold.eot?#iefix) format('embedded-opentype'),
+    url(~assets/fonts/VisbyCF-DemiBold.woff2) format('woff2'),
+    url(~assets/fonts/VisbyCF-DemiBold.woff) format('woff'),
+    url(~assets/fonts/VisbyCF-DemiBold.ttf) format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Visby';
+  src: url(~assets/fonts/VisbyCF-Medium.eot);
+  src: local('Visby'), local('VisbyCF-Medium'),
+    url(~assets/fonts/VisbyCF-Medium.eot?#iefix) format('embedded-opentype'),
+    url(~assets/fonts/VisbyCF-Medium.woff2) format('woff2'),
+    url(~assets/fonts/VisbyCF-Medium.woff) format('woff'),
+    url(~assets/fonts/VisbyCF-Medium.ttf) format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Visby';
+  src: url(~assets/fonts/VisbyCF-Light.eot);
+  src: local('Visby'), local('VisbyCF-Light'),
+    url(~assets/fonts/VisbyCF-Light.eot?#iefix) format('embedded-opentype'),
+    url(~assets/fonts/VisbyCF-Light.woff2) format('woff2'),
+    url(~assets/fonts/VisbyCF-Light.woff) format('woff'),
+    url(~assets/fonts/VisbyCF-Light.ttf) format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Visby';
+  src: url(~assets/fonts/VisbyCF-Thin.eot);
+  src: local('Visby'), local('VisbyCF-Thin'),
+    url(~assets/fonts/VisbyCF-Thin.eot?#iefix) format('embedded-opentype'),
+    url(~assets/fonts/VisbyCF-Thin.woff2) format('woff2'),
+    url(~assets/fonts/VisbyCF-Thin.woff) format('woff'),
+    url(~assets/fonts/VisbyCF-Thin.ttf) format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+.font-visby {
+  font-family: 'Visby' !important;
+}
+// ----------------------------------
+
+// Tira a estilizaçao padrão das inputs
+input[type='number'] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  display: none;
+}
+// ----------------------------------------
+
+small {
+    font-size: 70%;
+}
+
+// Estilização da scrollbar
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--v-background-lighten1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--v-primary-base);
+  background-size: cover;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--v-primary-base);
+  background-size: cover;
+}
+// ---------------------------------
+
+// Estilização da aplicação
+.container {
+  max-width: 1500px !important;
+}
+.v-application {
+  background: var(--v-background-base) !important;
+
+ .v-select__selections  {
+       flex-wrap: nowrap !important;
+ }
+
+  .v-autocomplete__content {
+    .v-list {
+      background: var(--v-background-base) !important;
+
+      .v-list-item:hover::before {
+        opacity: 0.03;
+      }
+    }
+  }
+
+  .v-tabs-slider-wrapper {
+    display: none;
+  }
+  .v-select.v-text-field input {
+    width: 0;
+}
+
+  // &.theme--dark {
+  //   color: #a2a5b9;
+
+  //   .v-list-item {
+  //     &:not(.v-list-item--active) {
+  //       &:not(.v-list-item--disabled) {
+  //         color: #a2a5b9;
+  //       }
+  //     }
+  //   }
+
+  //   .v-input input,
+  //   .v-input textarea {
+  //     color: #aaaab3;
+  //   }
+  // }
+
+  .transparent-bg {
+    background-color: transparent;
+  }
+
+  // Estilização dos inputs
+  &.layout-default {
+    .v-text-field--outlined {
+      .v-input__control {
+        .v-input__slot {
+          background-color: var(--v-background-base);
+        }
+      }
+
+      &:not(.v-input--is-focused):not(.error--text) fieldset {
+        border-color: var(--v-background2border-base);
+      }
+    }
+  }
+  // .v-input--is-disabled {
+  //   opacity: 0.7;
+  // }
+}
+.v-slide-group__prev--disabled {
+  opacity: 0.4;
+}
+.v-slide-group__next--disabled {
+  opacity: 0.4;
+}
+.v-data-table__wrapper table tbody tr td {
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+}
+// ----------------------------
+
+//helper classes
+.h-100 {
+  height: 100% !important;
+}
+.h-auto {
+  height: auto !important;
+}
+.w-max-content {
+  width: max-content !important;
+}
+.maw-100 {
+  max-width: 100% !important;
+}
+.miw-0 {
+  min-width: 0 !important;
+}
+.w-100 {
+  width: 100% !important;
+}
+.w-75 {
+  width: 75% !important;
+}
+.w-50 {
+  width: 50% !important;
+}
+.lh-0 {
+  line-height: 0 !important;
+}
+.lh-1 {
+  line-height: 1 !important;
+}
+.opacity-1 {
+  opacity: 1 !important;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.select-none {
+  user-select: none;
+}
+.clickable-text {
+  cursor: pointer;
+}
+.clickable-text:hover {
+  text-decoration: underline;
+}
+
+.centered-input input {
+  text-align: center;
+}
+.separador {
+  border-bottom: 1px solid var(--v-background2border-base);
+}
+.ar-1 {
+  aspect-ratio: 1
+}
+// -------------

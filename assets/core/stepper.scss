@@ -1,0 +1,25 @@
+.v-stepper.v-sheet--outlined {
+  padding: 16px !important;
+  background-color: var(--v-background2-base) !important;
+  border: 1px solid var(--v-background2border-base) !important;
+}
+
+.v-stepper__label {
+  font-size: 18px;
+}
+
+.theme--dark {
+  &.v-stepper {
+    .v-stepper__step {
+      &:not(.v-stepper__step--active) {
+        &:not(.v-stepper__step--complete) {
+          &:not(.v-stepper__step--error) {
+            .v-stepper__step__step {
+              background: var(--v-background-base) !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
