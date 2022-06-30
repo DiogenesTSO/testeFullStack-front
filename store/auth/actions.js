@@ -16,7 +16,7 @@ export default {
         usuario: user,
         expiresAt,
       })
-      axios.get('auth/user').then((response) => {
+      axios.get('controle/user').then((response) => {
         commit('STORE_USERDATA', {
           accessToken: state.bearer,
           expiresAt: state.expiresAt,
@@ -31,7 +31,7 @@ export default {
   login({ commit, state }, dados) {
     return new Promise((resolve, reject) => {
       axios
-        .post('auth/login', dados)
+        .post('controle/login', dados)
         .then((response) => {
           // redirecionamento para a página que o usuário estava tentando acessar
           if (response.data.usuario.is_master) {
@@ -65,7 +65,7 @@ export default {
   atualizarUsuarioEmpresa({ commit, state }, form) {
     return new Promise((resolve, reject) => {
       axios
-        .patch('auth/user', form)
+        .patch('controle/user', form)
         .then((response) => {
           commit('STORE_USERDATA', {
             accessToken: state.bearer,

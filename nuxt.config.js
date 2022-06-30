@@ -8,12 +8,12 @@ let env = {
 let appName = ''
 // Ambiente de Produção
 if (process.env.NODE_ENV === 'production') {
-  appName = 'Imobia'
+  appName = 'Imobia Controle-3'
   env = {
     ...env,
     ...{
       domain: '.imobia.app',
-      backendUrl: 'https://api3-prod.useimobia.com.br/',
+      backendUrl: 'https://apicontrole.useimobia.com.br/',
       app3Url: 'https://legado.imobia.app/',
       linkShare: 'http://compartilhamento.imobia.app/',
     },
@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'production') {
     ...env,
     ...{
       domain: '.sistemaimobia.com.br',
-      backendUrl: 'https://api3-testes.useimobia.com.br/',
+      backendUrl: 'http://apicontrole.useimobia.com.br/',
       app3Url: 'http://legado.sistemaimobia.com.br/',
       linkShare: 'https://compartilhamento.sistemaimobia.com.br/',
     },
@@ -126,7 +126,7 @@ export default {
     manifest: {
       name: appName,
       short_name: appName,
-      description: 'Aplicativo do melhor sistema imobiliário do Brasil',
+      description: 'Controle Imobia-3',
     },
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
