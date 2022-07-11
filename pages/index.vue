@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <imobia-modal id="modalImg" v-model="imagemHome" clean large>
+    <imobia-modal id="modalImg" clean large>
       <!-- <a :href="banner.link || '#'" target="_blank">
         <v-img v-ripple :src="banner.url_completa" />
       </a> -->

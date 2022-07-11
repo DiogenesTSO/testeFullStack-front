@@ -1,134 +1,81 @@
-<template>
+<template :loading="loading">
   <div>
-    <v-row>
+    <v-row align="center" class="my-2">
       <v-col cols="12">
-        <imobia-col-list
-          hide-header
-          :rows="banners"
-          :cols="colunas"
-          clickable
-          @clickItem="showModal"
-        >
-          <template #options>
-            <v-btn
-              dark
-              color="primary"
-              small
-              @click="abrirModal()"
-            >
-              <v-icon left>
-                mdi-plus
-              </v-icon>
-              Novo banner
-            </v-btn>
-          </template>
-          <template #nome="{ row }">
-            <v-row>
-              <v-col cols="12" lg="4">
-                <v-card color="card" width="100%">
-                  <v-img
-                    width="100%"
-                    max-height="150px"
-                    :src="(row.foto_capa
-                      ? row.foto_capa.url
-                      : $vuetify.theme.dark
-                        ? 'http://placekitten.com/200/300'
-                        : 'https://static.useimobia.com.br/sistema/nao_encontrada.png'
-                    )"
-                  />
-                </v-card>
-              </v-col>
-              <v-col cols="12" lg="8">
-                <v-row>
-                  <v-col>
-                    <span>
-                      <span>
-                        <h2
-                 
-                 
-                          class="text--secondary text-truncate mt-2 text-wrap pb-2"
-                          style="max-width: 40rem;"
-                        >
-                          <strong>Banner para o carnaval</strong>
-                        </h2>
-                      </span>
-                    </span>
-                  </v-col>
-                </v-row>
-                <v-divider class="mt-1 mr-12 mb-2" />
-                <v-row>
-                  <v-col>
-                    <span class="text--secondary">
-                      <strong>Sistema:</strong>
-                      <span>
-                        Imobia-2
-                      </span>
- 
-                    </span>
-                  </v-col>
-                </v-row>
-                <br>
-                <v-row>
-                  <v-col
-                    class="text-left"
-                  />
-                </v-row>
-                <div class="d-flex flex-column-reverse">
-                  <span>
-                    <v-tooltip>
-                      <template #activator="{ on, attrs} ">
-                        <span v-bind="attrs" v-on="on">
-                          <div
-                            style="display: inline-block;"
-                            class="text--secondary "
-                          >
-                            <span>Data de Inicio</span>
-                            <p>
-                     
-                              <strong>
-                                16/03/2022
-                              </strong>
-                            </p>
-                          </div>
-                         
-                          <div
-                            style="display: inline-block;padding-left: 10%; "
-                            class=" text--secondary "
-                          >
-                            <span>Data do fim:</span>
-                            <br>
- 
-                            <p>
-                     
-                              <strong>
-                                16/03/2022
-                              </strong>
-                            </p>
-                 
-                          </div>
-                        </span>
-                
-                      </template>
-                      
-                    </v-tooltip>
- 
-                  </span>
-                </div>
-              </v-col>
-            </v-row>
-          </template>
- 
-          <template #opcoes="{row}">
-            <imobia-button-menu :items="menu" @editar="abrirModal(row)" />
-          </template>
-        </imobia-col-list>
+        <div class="d-flex justify-space-between">
+          <v-btn
+            small
+            color="primary"
+            class="ml-2"
+            @click="abrirModal()"
+          >
+            <v-icon left>
+              mdi-plus 
+            </v-icon>
+            Cadastrar Banner
+          </v-btn>
+        </div>
       </v-col>
     </v-row>
- 
-    <banner-modal-banner v-model="showModalCadastroTipo" />
+    <v-row>
+      <v-col
+        v-for="item in banner.data"
+        :key="item.data"
+        cols="12"
+        md="4"
+        lg="6"
+      >
+        <v-card max-width="100%">
+          <div class="d-flex align-center">
+            <v-img
+              width="100%"
+              max-height="170px"
+              :src="(item.url
+                ? item.url
+                : $vuetify.theme.dark
+                  ? 'https://static.useimobia.com.br/sistema/nao_encontrada_dark.png'
+                  : 'https://static.useimobia.com.br/sistema/nao_encontrada.png'
+              )"
+            />
+          </div>
+          <v-card-text>
+            <div class="d-flex align-center">
+              <div>
+                <v-card-title class="text-truncate">
+                  Imobia-{{ item.sistema }}
+                </v-card-title>
+                <v-card-subtitle class="text-left text-disabled">
+                  Banner do dia {{ $format.date(item.data_inicio, 'DD/MM/YYYY') }} até {{ $format.date(item.data_fim, 'DD/MM/YYYY') }}
+                </v-card-subtitle>
+              </div>
+            </div>
+            
+            <v-btn
+              color="primary"
+              block
+              class="mt-4"
+              @click="abrirModal(item)"
+            >
+              Editar
+            </v-btn>
+            <v-btn
+              color="red"
+              block
+              class="mt-4"
+              @click="removerBanner(item.id)"
+            >
+              Excluir
+            </v-btn>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+    <banner-modal-banner :current-banner="bannerModal" />
   </div>
 </template>
 <script>
+
+import moment from 'moment'
 export default {
   name: 'Baners',
  
@@ -138,56 +85,15 @@ export default {
  
   data() {
     return {
-      status: '1',
-      nome: '',
-      tipo: {},
-      loading: false,
-      menu: [
-        {
-          icon: 'pencil',
-          title: 'Editar',
-          subtitle: 'Editar banner',
-          action: 'editar',
-        },
-        {
-          icon: 'trash',
-          title: 'Excluir',
-          subtitle: 'Remover banner',
-          action: 'remover',
-        },
-      ],
-      colunas: [
-        {
-          cols: '12',
-          lg: '10',
-          text: 'Imagem',
-          value: 'nome',
-          align: 'center',
-        },
-      
-
-        {
-          cols: '12',
-          lg: '2',
-          text: '',
-          customClass: 'text-right',
-          value: 'opcoes',
-          align: 'center',
-        },
-      ],
-      statusOptions: {
-        A: {
-          cor: 'green',
-          nome: 'Ativo',
-        },
-        B: {
-          cor: 'yellow',
-          nome: 'Bloqueado',
-        },
-        I: {
-          cor: 'red',
-          nome: 'Inativo',
-        },
+      banner: {},
+      bannerModal: {
+        id: '',
+        sistema: '3',
+        url: [],
+        link: '',
+        status: 1,
+        data_inicio: moment().format('YYYY-MM-DD'),
+        data_fim: moment().format('YYYY-MM-DD'),
       },
     }
   },
@@ -196,41 +102,41 @@ export default {
       title: 'Listagem de banners',
     }
   },
- 
-  computed: {
- 
-    banners() {
-      return this.$store.state.usuarios.tiposUsuarios.map(tipo => ({
-        ...tipo,
-        ...{
-          permissoesFormatada: this.$help.removeDuplicates(
-            tipo.permissoes.map((p) => {
-              const words = p.nome.split(' ')
-              words.shift()
-              const group = words.join(' ')
-              return group
-            }),
-          ),
-        },
-      }))
-    },
+
+
+  mounted (){
+    this.$store
+      .dispatch('banners/carregarBanner') 
+      .then((res) => {
+        this.banner = res
+      })
   },
- 
-  mounted() {
-    this.$store.dispatch('layout/carregando', true)
-    this.$store.dispatch('usuarios/carregarUsuariosTipos').then(() => {
-      this.$store.dispatch('layout/carregando', false)
-    })
-    this.$store.dispatch('usuarios/carregarUsuariosPermissoes')
-  },
- 
+
   methods: {
+    removerBanner(id) {
+      this.$nuxt.$emit('confirm', {
+        title: 'Remover Banner',
+        text:
+          'Você tem certeza que deseja remover esse Banner? Isso não poderá ser revertido.',
+        okText: 'Remover',
+        okColor: 'red',
+        done: () => {
+          this.$store.dispatch('layout/carregando', true)
+
+          this.$store
+            .dispatch('banners/removerBanner', id)
+            .finally(() => {
+              this.$store.dispatch('layout/carregando', false)
+            })
+        },
+      })
+    },
     abrirModal(banner) {
       this.$root.$emit('modalBanner', true)
       this.bannerModal = banner
     },
- 
   },
+ 
 }
 </script>
  
