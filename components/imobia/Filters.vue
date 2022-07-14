@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-card :disabled="loading" :loading="true" color="card" class="mb-7">
+    <v-card
+      :disabled="loading"
+      :loading="true"
+      :color="transparent ? 'transparent' : 'card'"
+      :class="transparent ? 'elevation-0' : 'mb-7'"
+      class="elevation-0"
+    >
       <v-card-title class="text-h6">
         {{ title }}
       </v-card-title>
@@ -49,6 +55,7 @@
             </v-col>
             <v-col class="d-lg-block d-none" lg="4" />
             <v-col
+              v-if="!noAction"
               class="d-flex d-lg-block text-right justify-center"
               cols="12"
               lg="3"
@@ -70,6 +77,7 @@
         </v-form>
       </v-card-text>
     </v-card>
+    <v-divider v-if="transparent && resume" class="mb-5 mt-n5" />
     <v-row v-if="resume" class="mt-n4 mb-4 text-h6" justify="center">
       <slot name="resume" />
     </v-row>
@@ -95,6 +103,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    transparent: {
+      type: Boolean,
+      default: false,
+    },
     openResume: {
       type: Boolean,
       default: false,
@@ -114,6 +126,10 @@ export default {
     action: {
       type: String,
       default: '',
+    },
+    noAction: {
+      type: Boolean,
+      default: false,
     },
     filters: {
       type: [Object, Array],
@@ -152,9 +168,25 @@ export default {
     action() {
       this.filter()
     },
+
     currentMeta: {
       handler() {
         this.resumoCollapse = true
+      },
+      deep: true,
+    },
+
+    /*   filters: {
+      handler() {
+        this.filter()
+      },
+      deep: true,
+    }, */
+    ordenacao: {
+      handler() {
+        // o campo de filtros deveria ser um v-model, com o campo ordenação dentro
+        // como não foi estruturado assim, a gente chama essa função
+        this.$emit('ordenar', this.ordenacao)
       },
       deep: true,
     },

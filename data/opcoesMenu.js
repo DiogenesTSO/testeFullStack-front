@@ -8,6 +8,28 @@ export default [
  
   {
     icon: 'image',
+    text: 'Portais',
+    active: false,
+    group: 'portal',
+    children: [
+      {
+        icon: 'image',
+        text: 'Tipo Destaque',
+        active: false,
+        group: 'portal',
+        to: 'portal-listagem-destaques'
+      },
+      {
+        icon: 'image',
+        text: 'Listar portais',
+        active: false,
+        group: 'portal',
+        to: 'portal-listagem'
+      }
+    ]
+  },
+  {
+    icon: 'image',
     text: 'Banner',
     active: false,
     group: 'banner',
