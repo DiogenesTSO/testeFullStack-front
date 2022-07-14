@@ -33,6 +33,13 @@
               label="Padrão XML"
             />
           </v-col>
+          <v-col v-show="destaque.id" cols="12">
+            <imobia-select
+              v-model="destaque.status"
+              :items="statusOptions"
+              label="Status"
+            />
+          </v-col>
         </v-col>
       </v-row>
     </v-form>
@@ -70,7 +77,11 @@ export default {
         { id: 3, nome: 'Padrão Imovel Web' },
         { id: 4, nome: 'Padrão Imoveis Santa Catarina' },
         { id: 5, nome: 'Padrão Mercado Livre' },
-      ]
+      ],
+      statusOptions: [
+        { id: 1, nome: 'Ativo' },
+        { id: 0, nome: 'Inativo' },
+      ],
     }
   },          
   

@@ -25,7 +25,7 @@
               <v-col cols="1" class="d-flex flex-column">             
                 {{ item.id }}
               </v-col>
-              <v-col cols="4" class="d-flex flex-column">             
+              <v-col cols="3" class="d-flex flex-column">             
                 {{ item.nome }}
               </v-col>
               <v-col cols="3" class="d-flex flex-column">
@@ -34,7 +34,20 @@
               <v-col cols="3" class="d-flex flex-column">
                 {{ padroesXML[item.id_padrao_xml].nome }}
               </v-col>
-              <v-col cols="1" class="d-flex flex-column">
+
+              <v-col cols="2" class="d-flex justify-end">
+                <v-tooltip bottom>
+                  <template #activator="{ on, attrs }">
+                    <span v-bind="attrs" style=" margin-top: 8px;" v-on="on">
+                      <v-avatar
+                        left
+                        size="10"
+                        :class="status[item.status].cor + ' mr-3'"
+                      />
+                    </span>
+                  </template>
+                  {{ status[item.status].nome }}
+                </v-tooltip>
                 <v-menu
                   offset-y
                   bottom
@@ -91,6 +104,16 @@ export default {
         { id: 4, nome: 'Padrão Imoveis Santa Catarina' },
         { id: 5, nome: 'Padrão Mercado Livre' },
       ],
+      status: {
+        1: {
+          cor: 'green',
+          nome: 'Ativo',
+        },
+        0: {
+          cor: 'red',
+          nome: 'Inativo',
+        },
+      },
     }
   },
 
