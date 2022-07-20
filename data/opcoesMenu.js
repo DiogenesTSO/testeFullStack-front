@@ -3,7 +3,23 @@ export default [
     icon: 'account-group',
     text: 'Empresas',
     active: false,
-    group: 'pessoas',
+    group: 'empresas',
+    children: [
+      {
+        icon: 'account-group',
+        text: 'Listar empresas ',
+        active: false,
+        group: 'empresas',
+        to: 'empresas-listagem'
+      },
+      {
+        icon: 'account-group',
+        text: 'Cadastrar empresas ',
+        active: false,
+        group: 'empresas',
+        
+      }
+    ]
   },
  
   {
