@@ -17,6 +17,7 @@ export default [
         text: 'Cadastrar empresas ',
         active: false,
         group: 'empresas',
+        to: 'empresas-cadastro'
         
       }
     ]
