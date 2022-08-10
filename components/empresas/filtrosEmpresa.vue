@@ -51,6 +51,7 @@ export default {
         nome: '',
         status: 'A',
         id: '',
+        per_page: 20,
       },
 
       statusEmpresas: [
@@ -81,6 +82,7 @@ export default {
       this.filtros = {
         allinone: '',
         status: 1,
+        per_page: 20,
       }
     },
   },

@@ -4,22 +4,23 @@
       <v-row>
         <v-col cols="12" md="6">
           <imobia-input
-            v-model="empresa.nome_admin"
+            v-model="empresa.user.nome"
             required
+            disabled
             label="Nome do administrador"
           />
         </v-col>
         <v-col cols="12" md="5">
           <imobia-input
-            v-model="empresa.email"
-            required
+            v-model="empresa.user.email"
+            disabled
             label="E-mail do administrador"
           />
         </v-col>
-        <v-col cols="12" md="6" lg="3">
-          <imobia-select v-model="empresa.tipo_acesso" :items="tipoAcessoEmpresa" required label="Tipo de acesso" />
+        <v-col cols="12" md="8" lg="3">
+          <imobia-select v-model="empresa.configuracoes.tipo_acesso" :items="tipoAcessoEmpresa" required label="Tipo de acesso" />
         </v-col>
-        <v-col cols="12" md="6" lg="3">
+        <v-col cols="12" md="3">
           <imobia-value
             v-model="empresa.plano.valor_real"
             label="Valor da taxa de cobrança"
@@ -64,7 +65,7 @@ export default {
       tipoAcessoEmpresa: [
         { id: 'acesso_basico', nome: 'Acesso básico' },
         { id: 'acesso_completo', nome: 'Acesso completo' },
-      ]
+      ],
     }
   },
   watch: {
@@ -74,6 +75,29 @@ export default {
       },
       deep: true,
     },
+  },
+  mounted(){
+    this.formatarModulos()
+  },
+
+  methods: {
+    formatarModulos(){
+      this.empresa.modulos.map((modulo) => {
+        if (modulo.modulo === "venda"){
+          this.empresa.venda = true
+        }
+        if (modulo.modulo === "locacao"){
+          this.empresa.locacao = true
+        }
+        if (modulo.modulo === "nota_fiscal"){
+          this.empresa.nota_fiscal = true
+        }
+        if (modulo.modulo === "financeiro"){
+          this.empresa.financeiro = true
+        }
+        return true
+      })
+    }
   },
 }
 </script>

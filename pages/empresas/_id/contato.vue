@@ -3,13 +3,13 @@
     <v-col>
       <v-row>
         <v-col cols="12" md="4">
-          <imobia-input v-model="empresa.telefone_01" type="telefone" required label="Telefone primário" />
+          <imobia-input v-model="empresa.filial.telefone_01" type="telefone" required label="Telefone primário" />
         </v-col>
         <v-col cols="6" md="4">
-          <imobia-input v-model="empresa.telefone_02" type="telefone" label="Telefone secundário" />
+          <imobia-input v-model="empresa.filial.telefone_02" type="telefone" label="Telefone secundário" />
         </v-col>
         <v-col cols="6" md="4">
-          <imobia-input v-model="empresa.celular" type="telefone" label="Celular" />
+          <imobia-input v-model="empresa.filial.celular" type="telefone" label="Celular" />
         </v-col>
       </v-row>
     </v-col>
@@ -28,10 +28,16 @@ export default {
   },
   data() {
     return {
-      empresa: this.value,
+      empresa: this.$help.deepClone(this.value)
     }
   },
   watch: {
+    value: {
+      handler() {
+        this.empresa = this.value
+      },
+      deep: true,
+    },
     empresa: {
       handler() {
         this.$emit('input', this.empresa)

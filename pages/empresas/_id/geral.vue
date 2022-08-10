@@ -10,7 +10,7 @@
             <imobia-input v-model="empresa.nome_fantasia" required label="Nome fantasia" />
           </v-col>
           <v-col cols="12" md="4">
-            <imobia-input v-model="empresa.nome_empresa" required label="Razão social" />
+            <imobia-input v-model="empresa.nome" required label="Razão social" />
           </v-col>
         </v-row>
       </v-col>
@@ -52,6 +52,12 @@ export default {
   },
 
   watch: {
+    value: {
+      handler() {
+        this.empresa = this.value
+      },
+      deep: true,
+    },
     empresa: {
       handler() {
         this.$emit('input', this.empresa)
@@ -61,5 +67,6 @@ export default {
   },
 
 }
+
 </script>
 

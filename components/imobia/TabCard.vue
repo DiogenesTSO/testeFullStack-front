@@ -44,19 +44,21 @@
               center-active
               background-color="card"
             >
-              <v-tab
-                v-for="(item, i) in tabs"
-                :key="'tab-' + i"
-                nuxt
-                :to="item.to"
-              >
-                <v-icon class="mr-2">
-                  {{ item.icon }}
-                </v-icon>
-                <span class="font-visby font-weight-black">
-                  {{ item.text }}
-                </span>
-              </v-tab>
+              <template v-for="(item, i) in tabs">
+                <v-tab
+                  v-if="(item.render ? item.render(object) : true)"
+                  :key="'tab-' + i"
+                  nuxt
+                  :to="item.to"
+                >
+                  <v-icon class="mr-2">
+                    {{ item.icon }}
+                  </v-icon>
+                  <span class="font-visby font-weight-black">
+                    {{ item.text }}
+                  </span>
+                </v-tab>
+              </template>
             </v-tabs>
             <v-spacer />
             <v-divider v-if="tabs.length" class="my-2" />
@@ -125,20 +127,54 @@
             class="d-none d-md-inline-flex"
             vertical
           />
-          <v-col cols="12" md="9" class="d-flex">
-            <slot name="leftButton" />
-            <v-spacer />
-            <v-tooltip left color="transparent" content-class="opacity-1">
+          <v-col
+            cols="12"
+            md="9"
+            class="d-flex justify-space-between align-center"
+          >
+            <div>
+              <slot name="actionLeft" />
+            </div>
+            <div>
+              <slot name="actionCenter">
+                <v-btn
+                  small
+                  color="primary"
+                  class="mr-1"
+                  :disabled="currentTabIndex <= 0"
+                  @click="changeTab(-1)"
+                >
+                  <v-icon>
+                    mdi-chevron-left
+                  </v-icon>
+                </v-btn>
+                <v-btn
+                  small
+                  color="primary"
+                  class="ml-1"
+                  :disabled="currentTabIndex >= tabs.length - 1"
+                  @click="changeTab(+1)"
+                >
+                  <v-icon>
+                    mdi-chevron-right
+                  </v-icon>
+                </v-btn>
+              </slot>
+            </div>
+
+            <v-tooltip left color="transparent">
               <template #activator="{ on, attrs }">
                 <div v-bind="attrs" v-on="on">
                   <v-btn
-                    dark
                     :loading="loading"
                     :disabled="disableSave"
                     color="success"
                     class="mr-3"
                     @click="$emit('save')"
                   >
+                    <v-icon left>
+                      mdi-check
+                    </v-icon>
                     Salvar
                   </v-btn>
                 </div>
@@ -181,7 +217,10 @@ export default {
       type: Boolean,
       default: false,
     },
-
+    object: {
+      type: Object,
+      default: () => {},
+    },
     disableSave: {
       type: [Boolean, Number, String],
       default: false,
@@ -201,7 +240,23 @@ export default {
       model: 1,
     }
   },
-  mounted() {},
+  computed: {
+    currentTabIndex() {
+      return this.tabs.findIndex(
+        tab => tab.to === this.model || tab.to.name === this.$route.name,
+      )
+    },
+  },
+  methods: {
+    changeTab(value) {
+      if (
+        this.currentTabIndex + value >= 0 &&
+        this.currentTabIndex + value < this.tabs.length
+      ) {
+        this.$router.push(this.tabs[this.currentTabIndex + value].to)
+      }
+    },
+  },
 }
 </script>
 

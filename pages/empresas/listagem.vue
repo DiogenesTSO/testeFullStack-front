@@ -13,7 +13,7 @@
           color="primary"
           small
           class="ml-1"
-          @click="abrirModal()"
+          :to="{ name: 'empresas-cadastro' }"
         >
           <v-icon left>
             mdi-plus
@@ -74,17 +74,17 @@
       </template>
       <template #informacoes="{row}">
         <div class="d-flex flex-column-reverse justify-center">
-          <span>
-            {{ $format.mask(row.filiais[0].celular, 'telefone') }} /  {{ $format.mask(row.filiais[0].telefone_01 || row.filiais[0].telefone_02, 'telefone') }} 
-          </span>
-          <span>
+          <!-- <span>
+            {{ $format.mask(row.filiais[0].celular, 'telefone') }} /  {{ $format.mask(row.filiais[0].telefone_01 || row.filiais[0].telefone_02, 'telefone') }}
+          </span> -->
+          <!-- <span>
             {{ row.filiais[0].email_01 }}
-          </span>
+          </span> -->
           <span>
             {{ row.url_site ? url_site : 'Url do site não informada' }}
           </span>
           <span>
-            Data de cadastro: {{ $format.date(row.created_at, 'DD/MM/YYYY') }} 
+            Data de cadastro: {{ $format.date(row.created_at, 'DD/MM/YYYY') }}
           </span>
         </div>
       </template>
@@ -104,7 +104,7 @@
           </span>
         </div>
       </template>
-      <template #opcoes>
+      <template #opcoes="{row}">
         <v-menu
           offset-y
           bottom
@@ -119,7 +119,7 @@
           </template>
 
           <v-list color="card">
-            <v-list-item @click="abrirModal(row)">
+            <v-list-item :to="{ name: 'empresas-id-geral', params: { id: row.id }}">
               <v-list-item-avatar class="ma-0">
                 <v-icon>mdi-square-edit-outline</v-icon>
               </v-list-item-avatar>
@@ -138,7 +138,7 @@
     <imobia-load-more
       color="primary"
       :filters="filtros"
-      module="portais"
+      module="empresas"
       action="carregarEmpresas"
       @ordenar="filtros.ordenacao = $event"
       @loading="loading = true"
@@ -159,7 +159,11 @@ export default {
         nome: '',
         status: 'A',
         id: '',
+        per_page: 20,
       },
+
+      filiais: [],
+
 
       statusEmpresas: {
         A: { cor: 'green', nome: 'Ativo' },
@@ -219,6 +223,7 @@ export default {
       this.$root.$emit('modalPortal', true)
       this.portalModal = portal
     }
+
 
   }
 

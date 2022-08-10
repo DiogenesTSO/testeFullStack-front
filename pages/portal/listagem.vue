@@ -184,12 +184,12 @@ export default {
       },
 
       statusGratuidade: {
-        0: {
+        1: {
           text: 'Grátis',
           color: 'green',
           colorText: 'white--text',
         },
-        1: {
+        0: {
           text: 'Pago',
           color: 'red',
           colorText: 'white--text',

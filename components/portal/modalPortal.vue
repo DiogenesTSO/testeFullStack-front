@@ -71,8 +71,8 @@ export default {
         { id: 0, nome: 'Inativo' },
       ],
       gratuidadeOptions: [
-        { id: 0, nome: 'Grátis' },
-        { id: 1, nome: 'Pago' },
+        { id: 1, nome: 'Grátis' },
+        { id: 0, nome: 'Pago' },
       ],
       padroesXML: [
         { id: 1, nome: 'Padrão Viva Real' },
@@ -82,8 +82,8 @@ export default {
         { id: 5, nome: 'Padrão Mercado Livre' },
       ]
     }
-  },          
-  
+  },
+
 
 
   watch: {

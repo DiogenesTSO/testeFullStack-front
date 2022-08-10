@@ -6,23 +6,23 @@ export default [
     group: 'empresas',
     children: [
       {
-        icon: 'account-group',
+        icon: 'format-list-bulleted-square',
         text: 'Listar empresas ',
         active: false,
         group: 'empresas',
         to: 'empresas-listagem'
       },
       {
-        icon: 'account-group',
-        text: 'Cadastrar empresas ',
+        icon: 'plus-thick',
+        text: 'Cadastrar empresa ',
         active: false,
         group: 'empresas',
         to: 'empresas-cadastro'
-        
+
       }
     ]
   },
- 
+
   {
     icon: 'image',
     text: 'Portais',

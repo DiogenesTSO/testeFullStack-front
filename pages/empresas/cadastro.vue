@@ -14,22 +14,22 @@
               <v-list-item-avatar class="justify-center">
                 <v-avatar color="primary">
                   <span class="white--text">
-                    I
+                    {{ $format.initials(empresa.nome_fantasia || 'Nova empresa') }}
                   </span>
                 </v-avatar>
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title>
-                  Imobia
+                  {{ (empresa.nome_fantasia || 'Nova empresa') }}
                 </v-list-item-title>
                 <v-list-item-subtitle>
-                  CNPJ: 123123123123
+                  CNPJ: {{ $format.mask(empresa.cnpj, 'cnpj') }}
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list>
         </template>
-        <NuxtChild v-model="empresas" />
+        <NuxtChild v-model="empresa" />
       </imobia-tab-card>
     </v-col>
   </v-row>
@@ -46,10 +46,14 @@ export default {
     return {
       loading: false,
       empresa: {
+        plano: {
+          valor_real: '',
+        },
         tipo: '',
         nome_empresa: '',
         nome_fantasia: '',
         cpfcnpj: '',
+        cnpj: '',
         creci: '',
         cep: '',
         endereco: '',
@@ -62,11 +66,12 @@ export default {
         celular: '',
         nome_admin: '',
         email: '',
+        tipo_acesso: '',
         suporte: 1,
-        taxa_cobranca: {
-          valor_real: '',
-          valor_percentual: '',
-        },
+        financeiro: 0,
+        nota_fiscal: 0,
+        venda: 0,
+        locacao: 0,
       },
       cidades: [],
 
@@ -74,21 +79,24 @@ export default {
         {
           icon: 'mdi-account',
           text: 'Geral',
+          disabled: true,
           to: '/empresas/cadastro/geral',
         },
 
         {
           icon: 'mdi-map-marker',
           text: 'Endereço',
+          disabled: true,
           to: '/empresas/cadastro/endereco',
         },
         {
-          icon: 'mdi-map-marker',
+          icon: 'mdi-phone',
           text: 'Contatos',
+          disabled: true,
           to: '/empresas/cadastro/contatos',
         },
         {
-          icon: 'mdi-map-marker',
+          icon: 'mdi-monitor-screenshot',
           text: 'Sistema',
           to: '/empresas/cadastro/sistema',
         },
@@ -96,104 +104,84 @@ export default {
     }
   },
   computed: {
+    disableSave() {
+      return !(
+        this.empresa.nome_admin
+      )
+    },
   },
   methods: {
-    submit() {
-      if (this.pessoa.tipo_pessoa === 'J') {
-        this.pessoa.cpf = ''
-      } else {
-        this.pessoa.cnpj = ''
+
+    verificarModulos(empresa){
+      const modulos = [
+        {
+          modulo: 'pessoas'
+        },
+        {
+          modulo: 'imoveis'
+        }]
+
+      if (empresa.locacao === true){
+        modulos.push({ modulo: 'locacao' })
       }
+      if (empresa.venda === true){
+        modulos.push({ modulo: 'venda' })
+      }
+      if (empresa.financeiro === true){
+        modulos.push({ modulo: 'financeiro' })
+      }
+      if (empresa.nota_fiscal === true){
+        modulos.push({ modulo: 'nota_fiscal' })
+      }
+
+      return modulos
+    },
+
+    submit() {
       this.loading = true
 
       const form = {
-        ...this.pessoa,
+        ...this.empresa,
         ...{
-          representantes: this.pessoa.representante?.id
-            ? [this.pessoa.representante.id]
-            : null,
-          conjuges: this.pessoa.conjuge?.id ? [this.pessoa.conjuge.id] : null,
-          tipos_cliente: this.pessoa.tipos_cliente.filter(item => item),
-          arquivos: null,
-          fornecedor: 0,
-          email_01: this.pessoa.email_01,
-          cidade_id: this.pessoa.cidade?.id,
-          filial_id: this.pessoa.filial?.id,
-          corretor_id: this.pessoa.corretor?.id,
-          conjuge_id: this.pessoa.conjuge?.id,
-          // representantes: this.pessoa.representantes.map(rep => rep.id),
+          // Cadastro geral de empresa
+          tipo: this.empresa.tipo,
+          nome_fantasia: this.empresa.nome_fantasia,
+          nome: this.empresa.nome_empresa,
+          cnpj: this.empresa.cnpj,
+          cpf: this.empresa.cnpj,
+          creci: this.empresa.creci,
+          // Cadastro de endereço de empresas
+          cep: this.empresa.cep,
+          cidade_id: this.empresa.cidade_id,
+          bairro: this.empresa.bairro,
+          endereco: this.empresa.endereco,
+          numero: this.empresa.numero,
+          complemento: this.empresa.complemento,
+          // Cadastro do contato da empresa
+          telefone_01: this.empresa.telefone_01,
+          telefone_02: this.empresa.telefone_02,
+          celular: this.empresa.celular,
+          // Cadastro das informações de sistema da empresa
+          valor_real: this.empresa.plano.valor_real,
+          taxa_cobranca: this.empresa.plano,
+          tipo_acesso: this.empresa.tipo_acesso,
+          suporte: this.empresa.suporte,
+          // Formata os modulos
+          modulos: this.verificarModulos(this.empresa),
+          // Criando usuario para a empresa
+          email: this.empresa.email,
+          nome_admin: this.empresa.nome_admin,
         },
       }
 
       this.$store
-        .dispatch('pessoas/cadastrarPessoa', form)
-        .then((res) => {
-          if (this.pessoa.arquivos.length) {
-            const promises = []
-
-            promises.push(
-              this.$store.dispatch('pessoas/cadastrarPessoaArquivos', {
-                id: res.id,
-                arquivos: this.pessoa.arquivos.map(item => ({
-                  nome: item.name,
-                  arquivo: item.src,
-                })),
-              }),
-            )
-            Promise.all(promises)
-              .then((data) => {
-                this.$nuxt.$emit('notify', {
-                  type: 'success',
-                  message: 'Contas cadastradas com sucesso.',
-                })
-              })
-              .finally(() => {
-                this.loading = false
-                this.$router.push({
-                  name: 'pessoas-id-geral',
-                  params: { id: res.id },
-                })
-              })
-          } else {
-            this.loading = false
-            this.$router.push({
-              name: 'pessoas-id-geral',
-              params: { id: res.id },
-            })
-          }
-          if (this.pessoa.dados_bancarios.length) {
-            const promises = []
-            this.pessoa.dados_bancarios.forEach((conta) => {
-              promises.push(
-                this.$store.dispatch('pessoas/cadastrarPessoaDadosBancarios', {
-                  id: res.id,
-                  data: conta,
-                }),
-              )
-            })
-            Promise.all(promises)
-              .then((data) => {
-                this.$nuxt.$emit('notify', {
-                  type: 'success',
-                  message: 'Contas cadastradas com sucesso.',
-                })
-              })
-              .finally(() => {
-                this.loading = false
-                this.$router.push({
-                  name: 'pessoas-id-geral',
-                  params: { id: res.id },
-                })
-              })
-          } else {
-            this.loading = false
-            this.$router.push({
-              name: 'pessoas-id-geral',
-              params: { id: res.id },
-            })
-          }
+        .dispatch('empresas/cadastrarEmpresa', form)
+        .finally(() => {
+          this.loading = false
+          this.$router.push({
+            name: 'empresas-listagem',
+          })
         })
-        .catch(() => (this.loading = false))
     },
   },
 }

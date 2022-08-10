@@ -180,6 +180,21 @@ const functions = {
     element.click()
     document.body.removeChild(element)
   },
+  deepClone(objArr) {
+    if (Array.isArray(objArr)) {
+      return objArr.map(val =>
+        val === Object(val) ? this.deepClone(val) : val,
+      )
+    } else {
+      const objectFilled = Object.entries(objArr)
+      return Object.fromEntries(
+        objectFilled.map(([key, val]) => [
+          key,
+          val === Object(val) ? this.deepClone(val) : val,
+        ]),
+      )
+    }
+  },
 }
 Vue.prototype.$help = functions
 
