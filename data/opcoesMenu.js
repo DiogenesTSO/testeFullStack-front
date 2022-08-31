@@ -6,51 +6,50 @@ export default [
     group: 'empresas',
     children: [
       {
-        icon: 'format-list-bulleted-square',
-        text: 'Listar empresas ',
-        active: false,
-        group: 'empresas',
-        to: 'empresas-listagem'
-      },
-      {
         icon: 'plus-thick',
         text: 'Cadastrar empresa ',
         active: false,
         group: 'empresas',
-        to: 'empresas-cadastro'
-
-      }
-    ]
+        to: 'empresas-cadastro',
+      },
+      {
+        icon: 'format-list-bulleted-square',
+        text: 'Listar empresas ',
+        active: false,
+        group: 'empresas',
+        to: 'empresas-listagem',
+      },
+    ],
   },
 
   {
-    icon: 'image',
+    icon: 'web',
     text: 'Portais',
     active: false,
     group: 'portal',
     children: [
       {
-        icon: 'image',
-        text: 'Tipo Destaque',
+        icon: 'box-shadow',
+        text: 'Tipo Destaques',
         active: false,
         group: 'portal',
-        to: 'portal-listagem-destaques'
+        to: 'portal-listagem-destaques',
       },
       {
-        icon: 'image',
+        icon: 'format-list-bulleted-square',
         text: 'Listar portais',
         active: false,
         group: 'portal',
-        to: 'portal-listagem'
-      }
-    ]
+        to: 'portal-listagem',
+      },
+    ],
   },
   {
     icon: 'image',
     text: 'Banner',
     active: false,
     group: 'banner',
-    to: 'banner'
+    to: 'banner',
   },
   {
     icon: 'link',
@@ -64,14 +63,13 @@ export default [
     text: 'Indices',
     active: false,
     group: 'Indice',
-    to: 'indice'
+    to: 'indice',
   },
   {
     icon: 'database',
     text: 'Banco de dados',
     active: false,
     group: 'vendas',
-
   },
   // {
   //   icon: 'sign-real-estate',

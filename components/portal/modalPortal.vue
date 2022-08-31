@@ -15,22 +15,45 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-col cols="12">
-            <imobia-input v-model="portal.nome" label="Nome do portal" required />
+            <imobia-input
+              v-model="portal.nome"
+              label="Nome do portal"
+              required
+            />
           </v-col>
           <v-col cols="12">
-            <imobia-select v-model="portal.gratuito" label="Gratuidade" :items="gratuidadeOptions" required />
+            <imobia-select
+              v-model="portal.gratuito"
+              label="Gratuidade"
+              :items="gratuidadeOptions"
+              required
+            />
           </v-col>
           <v-col cols="12">
-            <imobia-input v-model="portal.descricao" label="descricao" required />
+            <imobia-input
+              v-model="portal.descricao"
+              label="descricao"
+              required
+            />
           </v-col>
           <v-col cols="12">
-            <imobia-select v-model="portal.id_padrao_xml" :items="padroesXML" label="Padrão XML" required />
+            <imobia-select
+              v-model="portal.id_padrao_xml"
+              :items="padroesXML"
+              label="Padrão XML"
+              required
+            />
           </v-col>
           <v-col cols="12">
             <imobia-input v-model="portal.url" label="url do portal" required />
           </v-col>
           <v-col cols="12">
-            <imobia-select v-model="portal.status" label="Status" :items="statusOptions" required />
+            <imobia-select
+              v-model="portal.status"
+              label="Status"
+              :items="statusOptions"
+              required
+            />
           </v-col>
         </v-col>
       </v-row>
@@ -67,12 +90,12 @@ export default {
       loading: false,
       valid: false,
       statusOptions: [
-        { id: 1, nome: 'Ativo' },
-        { id: 0, nome: 'Inativo' },
+        { id: 'ativo', nome: 'Ativo' },
+        { id: 'inativo', nome: 'Inativo' },
       ],
       gratuidadeOptions: [
-        { id: 1, nome: 'Grátis' },
-        { id: 0, nome: 'Pago' },
+        { id: 'gratis', nome: 'Grátis' },
+        { id: 'pago', nome: 'Pago' },
       ],
       padroesXML: [
         { id: 1, nome: 'Padrão Viva Real' },
@@ -80,11 +103,9 @@ export default {
         { id: 3, nome: 'Padrão Imovel Web' },
         { id: 4, nome: 'Padrão Imoveis Santa Catarina' },
         { id: 5, nome: 'Padrão Mercado Livre' },
-      ]
+      ],
     }
   },
-
-
 
   watch: {
     currentPortal: {
@@ -94,8 +115,6 @@ export default {
       deep: true,
     },
   },
-
-
 
   methods: {
     validar() {
@@ -112,7 +131,6 @@ export default {
       this.validar().then((valid) => {
         if (valid) {
           this.loading = true
-
           let action = ''
 
           if (this.portal.id) {
@@ -120,7 +138,10 @@ export default {
           } else {
             action = 'portais/cadastrarPortal'
           }
-
+          this.portal = {...this.portal, ...{
+                status: this.portal.gratuito === 'gratis' ?
+            }
+          }}
           this.$store
             .dispatch(action, this.portal)
             .then(() => {
@@ -139,7 +160,7 @@ export default {
         nome: '',
         status: 1,
         gratuito: '',
-        url_logo: null
+        url_logo: null,
       }
       this.$refs.form_portal.resetValidation()
 
