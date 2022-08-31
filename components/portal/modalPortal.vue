@@ -144,7 +144,6 @@ export default {
             ...{
               gratuito: this.portal.gratuito === 'gratis' ? 1 : 0,
               status: this.status === 'ativo' ? 1 : 0,
-              nome_tag: this.
             },
           }
 
