@@ -60,7 +60,9 @@ export default {
   carregarCaixa({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`controle/empresas/${data.empresa_id}/caixas`, { params: data.data })
+        .get(`controle/empresas/${data.empresa_id}/caixas`, {
+          params: data.data,
+        })
         .then((response) => {
           resolve(response.data.data)
         })
@@ -111,7 +113,10 @@ export default {
   editarCaixa({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios
-        .patch(`controle/empresas/${data.empresa_id}/caixas/${data.caixa_id}`, data.data)
+        .patch(
+          `controle/empresas/${data.empresa_id}/caixas/${data.caixa_id}`,
+          data.data,
+        )
         .then((response) => {
           resolve(response.data.data)
         })
@@ -119,5 +124,14 @@ export default {
     })
   },
 
-
+  cadastrarPix({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`controle/empresas/${data.empresa_id}/pix`, data.data)
+        .then((response) => {
+          resolve(response.data.data)
+        })
+        .catch(err => reject(err))
+    })
+  },
 }
