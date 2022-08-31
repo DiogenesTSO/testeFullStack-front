@@ -132,16 +132,22 @@ export default {
         if (valid) {
           this.loading = true
           let action = ''
-
           if (this.portal.id) {
-            action = 'portais/atualizarTipoDestaque'
+            action = 'portais/atualizarPortal'
           } else {
             action = 'portais/cadastrarPortal'
           }
-          this.portal = {...this.portal, ...{
-                status: this.portal.gratuito === 'gratis' ?
-            }
-          }}
+
+          console.log(this.portal)
+          this.portal = {
+            ...this.portal,
+            ...{
+              gratuito: this.portal.gratuito === 'gratis' ? 1 : 0,
+              status: this.status === 'ativo' ? 1 : 0,
+              nome_tag: this.
+            },
+          }
+
           this.$store
             .dispatch(action, this.portal)
             .then(() => {
