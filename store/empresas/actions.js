@@ -134,4 +134,16 @@ export default {
         .catch(err => reject(err))
     })
   },
+
+  carregarChavesPix({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`controle/empresas/${data.empresa_id}/pix`, data.data)
+        .then((response) => {
+          commit('STORE', { item: 'chaves', data: response.data.data })
+          resolve(response.data.data)
+        })
+        .catch(err => reject(err))
+    })
+  },
 }

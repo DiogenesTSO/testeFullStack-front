@@ -51,9 +51,10 @@
                   nuxt
                   :to="item.to"
                 >
-                  <v-icon class="mr-2">
+                  <v-icon v-if="!item.tipo" class="mr-2">
                     {{ item.icon }}
                   </v-icon>
+                  <component :is="`svgs-${item.icon}`" v-else />
                   <span class="font-visby font-weight-black">
                     {{ item.text }}
                   </span>

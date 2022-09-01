@@ -3,5 +3,6 @@ export default () => ({
   currentEmpresa: {},
   caixas: {},
   bancos: [],
+  chaves: [],
   currentMeta: {},
 })

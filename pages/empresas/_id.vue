@@ -57,7 +57,7 @@ export default {
           valor_real: '',
         },
         configuracoes: {
-          url_logo: ''
+          url_logo: '',
         },
         tipo: '',
         nome_empresa: '',
@@ -115,10 +115,15 @@ export default {
           text: 'Caixa digital',
           to: 'caixa',
         },
+        {
+          icon: 'pix',
+          tipo: 'svg',
+          text: 'Pix',
+          to: 'pix',
+        },
       ],
     }
   },
-
 
   mounted() {
     this.carregarEmpresa()
@@ -126,34 +131,34 @@ export default {
   },
 
   methods: {
-    carregarEmpresa(){
+    carregarEmpresa() {
       this.$store
-        .dispatch('empresas/carregarEmpresa',
-          this.$route.params.id)
+        .dispatch('empresas/carregarEmpresa', this.$route.params.id)
         .then((response) => {
           this.empresa = {
             ...this.empresa,
             ...response,
             ...{
-              plano: response.plano === null
-                ? {
-                    valor_real: 0,
-                  }
-                : response.plano
-            }
+              plano:
+                response.plano === null
+                  ? {
+                      valor_real: 0,
+                    }
+                  : response.plano,
+            },
           }
         })
     },
 
-    carregarCaixa(){
+    carregarCaixa() {
       const form = {
         empresa_id: this.$route.params.id,
-        tipo: "bancario"
+        tipo: 'bancario',
       }
       this.$store
         .dispatch('empresas/carregarCaixa', {
           empresa_id: this.$route.params.id,
-          data: form
+          data: form,
         })
         .then((response) => {
           this.empresa.caixas = response
@@ -189,29 +194,28 @@ export default {
           },
           // Edição das informações de sistema da empresa
           taxa_cobranca: {
-            valor_real: this.empresa.plano.valor_real
+            valor_real: this.empresa.plano.valor_real,
           },
           tipo_acesso: this.empresa.configuracoes.tipo_acesso,
           suporte: this.empresa.suporte,
           // Edição de modulos de acesso
           modulos: [
             {
-              modulo: "venda",
-              valor: this.empresa.venda === true ? 1 : 0
+              modulo: 'venda',
+              valor: this.empresa.venda === true ? 1 : 0,
             },
             {
-              modulo: "locacao",
-              valor: this.empresa.locacao === true ? 1 : 0
+              modulo: 'locacao',
+              valor: this.empresa.locacao === true ? 1 : 0,
             },
             {
-              modulo: "nota_fiscal",
-              valor: this.empresa.nota_fiscal === true ? 1 : 0
+              modulo: 'nota_fiscal',
+              valor: this.empresa.nota_fiscal === true ? 1 : 0,
             },
             {
-              modulo: "financeiro",
-              valor: this.empresa.financeiro === true ? 1 : 0
+              modulo: 'financeiro',
+              valor: this.empresa.financeiro === true ? 1 : 0,
             },
-
           ],
           // edicão da senha de acesso do Asaas
           senha_asaas: this.empresa.senha_asaas,
@@ -221,7 +225,7 @@ export default {
       this.$store
         .dispatch('empresas/editarEmpresa', {
           id: this.empresa.id,
-          data: form
+          data: form,
         })
         .finally(() => {
           this.loading = false
