@@ -103,7 +103,7 @@ export default {
     criarChave() {
       this.$store.dispatch('empresas/cadastrarPix', {
         empresa_id: this.empresa.id,
-        data: { apelido: 'testePix', type: 'EVP' },
+        data: { apelido: 'ChavePixImobia', type: 'EVP' },
       })
     },
   },
