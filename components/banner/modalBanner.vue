@@ -15,16 +15,31 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-col cols="12">
-            <imobia-select v-model="banner.sistema" :items="SistemaOptions" label="Sistema" />
+            <imobia-select
+              v-model="banner.sistema"
+              :items="SistemaOptions"
+              label="Sistema"
+            />
           </v-col>
           <v-col cols="12">
-            <imobia-date-picker v-model="banner.data_inicio" label="Data do Inicio" required />
+            <imobia-date-picker
+              v-model="banner.data_inicio"
+              label="Data do Inicio"
+              required
+            />
           </v-col>
           <v-col cols="12">
-            <imobia-date-picker v-model="banner.data_fim" label="Data do fim" required />
+            <imobia-date-picker
+              v-model="banner.data_fim"
+              label="Data do fim"
+              required
+            />
           </v-col>
           <v-col cols="12">
-            <imobia-input v-model="banner.link" label="Link ao clicar no banner" />
+            <imobia-input
+              v-model="banner.link"
+              label="Link ao clicar no banner"
+            />
           </v-col>
         </v-col>
       </v-row>
@@ -76,8 +91,6 @@ export default {
     },
   },
 
-
-
   methods: {
     validar() {
       return new Promise((resolve, reject) => {
@@ -97,32 +110,25 @@ export default {
           const action = ''
 
           const formData = new FormData()
-   
+
           Object.entries(this.banner).forEach(([key, value]) => {
             if (value !== null) {
               formData.append(key, value)
             }
           })
-          if (
-            typeof this.banner.url === 'string' ||
-          this.banner.url === null
-          ) {
+          if (typeof this.banner.url === 'string' || this.banner.url === null) {
             formData.delete('url')
           }
 
-          this.$store.dispatch(
-            'banners/cadastrarBanner',
-            formData,
-          )
-
           this.$store
-            .dispatch(action, this.banner)
-            .then(() => {
-              this.$root.$emit('modalBanner', false)
-            })
+            .dispatch('banners/cadastrarBanner', formData)
             .finally(() => {
               this.loading = false
             })
+
+          this.$store.dispatch(action, this.banner).then(() => {
+            this.$root.$emit('modalBanner', false)
+          })
         }
       })
     },
