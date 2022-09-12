@@ -56,6 +56,15 @@ export default [
     text: 'Chaves de API',
     active: false,
     group: 'chaves',
+    children: [
+      {
+        icon: 'format-list-bulleted-square',
+        text: 'Listar chaves',
+        active: false,
+        group: 'chaves',
+        to: 'sites-listagem',
+      },
+    ],
   },
 
   {
