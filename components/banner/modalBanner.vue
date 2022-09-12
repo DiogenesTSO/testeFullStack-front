@@ -124,6 +124,7 @@ export default {
             .dispatch('banners/cadastrarBanner', formData)
             .finally(() => {
               this.loading = false
+              this.$root.$emit('modalBanner', false)
             })
 
           this.$store.dispatch(action, this.banner).then(() => {
