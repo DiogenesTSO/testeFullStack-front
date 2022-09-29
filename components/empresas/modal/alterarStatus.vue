@@ -11,22 +11,48 @@
       <v-row justify="center">
         <v-col cols="12" md="12">
           <v-col cols="12">
-            <imobia-select v-model="status.status" label="Status" :items="statusEmpresas" required />
+            <imobia-select
+              v-model="status.status"
+              label="Status"
+              :items="statusEmpresas"
+              required
+            />
           </v-col>
           <v-col v-if="status.status === 'C'" cols="12">
-            <imobia-date-picker v-model="status.data_cancelamento" label="Cancelado em" required />
+            <imobia-date-picker
+              v-model="status.data_cancelamento"
+              label="Cancelado em"
+              required
+            />
           </v-col>
           <v-col v-if="status.status === 'T'" cols="12">
-            <imobia-date-picker v-model="status.data_fim_teste" label="Data para fim do teste" required />
+            <imobia-date-picker
+              v-model="status.data_fim_teste"
+              label="Data para fim do teste"
+              required
+            />
           </v-col>
           <v-col v-if="status.status === 'B'" cols="12">
-            <imobia-date-picker v-model="status.data_ultimo_bloqueio" label="Bloqueado em" required />
+            <imobia-date-picker
+              v-model="status.data_ultimo_bloqueio"
+              label="Bloqueado em"
+              required
+            />
           </v-col>
           <v-col v-if="status.status === 'E'" cols="12">
-            <imobia-date-picker v-model="status.data_fim_teste" label="Data para fim do teste" required />
+            <imobia-date-picker
+              v-model="status.data_fim_teste"
+              label="Data para fim do teste"
+              required
+            />
           </v-col>
           <v-col cols="12">
-            <imobia-input v-model="status.motivo_status" large label="Motivo da alteração" required />
+            <imobia-input
+              v-model="status.motivo_status"
+              large
+              label="Motivo da alteração"
+              required
+            />
           </v-col>
         </v-col>
       </v-row>
@@ -50,7 +76,7 @@ export default {
           motivo_status: '',
           data_fim_teste: moment().format('YYYY-MM-DD'),
           data_cancelamento: moment().format('YYYY-MM-DD'),
-          data_ultimo_bloqueio: moment().format('YYYY-MM-DD'), 
+          data_ultimo_bloqueio: moment().format('YYYY-MM-DD'),
         }
       },
     },
@@ -70,9 +96,7 @@ export default {
         { id: 'T', nome: 'Em teste' },
       ],
     }
-  },          
-  
-
+  },
 
   watch: {
     currentStatus: {
@@ -82,8 +106,6 @@ export default {
       deep: true,
     },
   },
-
-
 
   methods: {
     validar() {
@@ -103,8 +125,9 @@ export default {
 
           this.$store
             .dispatch('empresas/atualizarStatusEmpresa', this.status)
-            .then(() => {
-              this.$root.$emit('alterarStatus', false)
+            .then((res) => {
+              this.$root.$emit('notify', res),
+                this.$root.$emit('alterarStatus', false)
             })
             .finally(() => {
               this.loading = false
@@ -120,7 +143,7 @@ export default {
         motivo_status: '',
         data_fim_teste: moment().format('YYYY-MM-DD'),
         data_cancelamento: moment().format('YYYY-MM-DD'),
-        data_ultimo_bloqueio: moment().format('YYYY-MM-DD'), 
+        data_ultimo_bloqueio: moment().format('YYYY-MM-DD'),
       }
       this.$refs.form_status.resetValidation()
 
