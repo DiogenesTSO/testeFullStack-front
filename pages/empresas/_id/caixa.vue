@@ -292,12 +292,12 @@ export default {
         })
         .then((res) => {
           if (res) {
-            this.$router.push({
+            /* this.$router.push({
               name: 'empresas-empresa_id-editar-caixa',
               params: {
                 empresa_id: this.empresa.id,
               },
-            })
+            }) */
           }
         })
     },
