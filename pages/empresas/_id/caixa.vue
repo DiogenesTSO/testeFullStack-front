@@ -87,12 +87,7 @@
     </v-row>
     <v-row>
       <v-col class="d-flex justify-center">
-        <v-btn
-
-          color="primary"
-          class="mb-3"
-          @click="submit"
-        >
+        <v-btn color="primary" class="mb-3" @click="submit">
           Cadastrar caixa
         </v-btn>
       </v-col>
@@ -105,9 +100,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-radio-group
-          hide-details
-        >
+        <v-radio-group hide-details>
           <v-simple-table class="card elevation-2">
             <thead>
               <tr>
@@ -133,10 +126,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(caixa, i) in empresa.caixas"
-                :key="'caixa_' + i"
-              >
+              <tr v-for="(caixa, i) in empresa.caixas" :key="'caixa_' + i">
                 <td>{{ caixa.nome }}</td>
                 <td>{{ caixa.correntista }}</td>
                 <td>{{ $format.mask(caixa.correntista_documento, 'cnpj') }}</td>
@@ -145,7 +135,7 @@
                 <td>
                   {{
                     caixa.conta +
-                      (caixa.conta_digito ? '-' + caixa.conta_digito : '')
+                    (caixa.conta_digito ? '-' + caixa.conta_digito : '')
                   }}
                 </td>
                 <td>
@@ -171,7 +161,6 @@
     </v-row>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -236,7 +225,6 @@ export default {
         }
       })
     },
-
   },
 
   watch: {
@@ -260,10 +248,10 @@ export default {
   },
 
   methods: {
-    setup(){
+    setup() {
       if (this.value.banco_codigo !== this.bancoObj.id) {
         this.bancoObj = this.bancos.find(
-          item => item.id === this.value.banco_codigo,
+          (item) => item.id === this.value.banco_codigo,
         ) ?? {
           id: this.value.banco_codigo,
           nome: this.value.banco,
@@ -279,8 +267,7 @@ export default {
     },
 
     carregarnovobanco() {
-      this.$store
-        .dispatch('empresas/carregarBancos')
+      this.$store.dispatch('empresas/carregarBancos')
     },
 
     submit() {
@@ -292,25 +279,30 @@ export default {
           banco_codigo: this.bancoObj.id,
           conta: this.caixa.conta,
           conta_digito: this.caixa.conta_digito,
-          tipo: "bancario",
+          tipo: 'bancario',
           correntista_documento: this.empresa.cnpj,
           conta_tipo: this.caixa.tipo,
-        }
+        },
       }
 
       this.$store
         .dispatch('empresas/cadastrarCaixa', {
           id: this.empresa.id,
-          data: form
+          data: form,
         })
-        .finally(() => {
-          this.$router.go(this.$router.currentRoute)
+        .then((res) => {
+          if (res) {
+            this.$router.go(this.$router.currentRoute)
+          }
         })
     },
 
     formatConta() {
       this.$nextTick(() => {
-        this.caixa.contaComDigito = this.caixa.contaComDigito?.replace(/[^0-9]+/g, '')
+        this.caixa.contaComDigito = this.caixa.contaComDigito?.replace(
+          /[^0-9]+/g,
+          '',
+        )
         this.caixa.contaComDigito = this.caixa.contaComDigito?.replace('-', '')
 
         if (this.caixa.contaComDigito?.length > 1) {
@@ -327,7 +319,6 @@ export default {
         }
       })
     },
-  }
+  },
 }
-
 </script>
