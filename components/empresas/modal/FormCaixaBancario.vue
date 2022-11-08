@@ -123,6 +123,7 @@ export default {
         return {
           id: banco.id,
           nome: banco.name,
+          code: banco.code,
         }
       })
     },
@@ -158,12 +159,16 @@ export default {
   methods: {
     setup() {
       this.formatConta()
-      if (this.caixa.banco_codigo !== this.bancoObj.id) {
+      console.log(this.bancoObj)
+      console.log(this.caixa)
+
+      if (this.caixa.banco_codigo !== this.bancoObj.code) {
         this.bancoObj = this.bancos.find(
-          (item) => item.id === this.caixa.banco_codigo,
+          (item) => item.code === this.caixa.banco_codigo,
         ) ?? {
           id: this.caixa.banco_codigo,
           nome: this.caixa.banco.Nome,
+          code: this.caixa.banco.Codigo,
         }
       }
       if (this.caixa.conta_tipo === 'CONTA_CORRENTE') {
