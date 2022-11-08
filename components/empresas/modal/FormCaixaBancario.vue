@@ -157,7 +157,6 @@ export default {
   },
   methods: {
     setup() {
-      this.formatConta()
       if (this.caixa.banco_codigo !== this.bancoObj.id) {
         this.bancoObj = this.bancos.find(
           (item) => item.id === this.caixa.banco_codigo,
@@ -197,7 +196,8 @@ export default {
           this.caixa.contaComDigito = conta + '-' + digito
           this.caixa.conta = conta
           this.caixa.conta_digito = digito
-          // como o nextTick não irá dar trigger no watch da conta, temos que emitir a input manualmente
+          // como o nextTick não irá dar trigger no watch da conta, temos que emitir a input manualmente7
+          this.setup()
           this.$emit('input', this.caixa)
         }
       })
