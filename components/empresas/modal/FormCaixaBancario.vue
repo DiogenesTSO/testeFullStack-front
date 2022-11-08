@@ -123,7 +123,7 @@ export default {
         return {
           id: banco.id,
           nome: banco.name,
-          code: banco.code,
+          banco_codigo: banco.code,
         }
       })
     },
@@ -142,8 +142,8 @@ export default {
     },
     bancoObj: {
       handler() {
-        this.caixa.banco = this.bancoObj.code + ' - ' + this.bancoObj.nome
-        this.caixa.banco_codigo = this.bancoObj.code
+        this.caixa.banco = this.bancoObj.nome
+        this.caixa.banco_codigo = this.bancoObj.banco_codigo
       },
       deep: true,
     },
@@ -158,17 +158,15 @@ export default {
   },
   methods: {
     setup() {
-      this.formatConta()
       console.log(this.bancoObj)
       console.log(this.caixa)
-
-      if (this.caixa.banco_codigo !== this.bancoObj.code) {
+      if (this.caixa.banco_codigo !== this.bancoObj.banco_codigo) {
         this.bancoObj = this.bancos.find(
           (item) => item.code === this.caixa.banco_codigo,
         ) ?? {
           id: this.caixa.banco_codigo,
           nome: this.caixa.banco.Nome,
-          code: this.caixa.banco.Codigo,
+          banco_codigo: this.caixa.banco.Codigo,
         }
       }
       if (this.caixa.conta_tipo === 'CONTA_CORRENTE') {
@@ -182,6 +180,7 @@ export default {
           value: 'CONTA_POUPANCA',
         }
       }
+      this.formatConta()
     },
     formatConta() {
       this.$nextTick(() => {

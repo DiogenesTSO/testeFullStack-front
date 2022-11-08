@@ -6,10 +6,7 @@
     @close="clearData()"
   >
     <v-form ref="formCaixa" v-model="valid" @submit.prevent="emitData">
-      <empresas-modal-form-caixa-bancario
-        v-model="caixa"
-        :reset="show"
-      />
+      <empresas-modal-form-caixa-bancario v-model="caixa" :reset="show" />
     </v-form>
     <template #actions="{uid}">
       <v-btn dark color="primary" type="submit" :form="uid" @click="pushData()">
@@ -75,7 +72,8 @@ export default {
   methods: {
     createModal() {
       this.caixa = this.contaProp
-      this.caixa.contaComDigito = this.caixa.conta + '-' + this.caixa.conta_digito
+      this.caixa.contaComDigito =
+        this.caixa.conta + '-' + this.caixa.conta_digito
     },
     clearData() {
       if (!this.contaProp?.id) {
@@ -97,21 +95,21 @@ export default {
       this.caixa = {
         ...this.caixa,
         ...{
-          nome: this.caixa.nome,
+          nome: this.caixa.banco_codigo + ' - ' + this.caixa.nome,
           banco: this.caixa.banco,
           banco_codigo: this.caixa.banco_codigo,
           conta: this.caixa.conta,
           conta_digito: this.caixa.conta_digito,
           correntista_documento: this.caixa.correntista_documento,
           conta_tipo: this.caixa.tipo.value,
-          tipo: "bancario",
-        }
+          tipo: 'bancario',
+        },
       }
       this.$store
         .dispatch('empresas/editarCaixa', {
           empresa_id: this.empresa.id,
           caixa_id: this.caixa.id,
-          data: this.caixa
+          data: this.caixa,
         })
         .finally(() => {
           this.$router.go(this.$router.currentRoute)
