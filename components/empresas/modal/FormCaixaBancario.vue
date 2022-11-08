@@ -141,8 +141,8 @@ export default {
     },
     bancoObj: {
       handler() {
-        this.caixa.banco = this.bancoObj.nome
-        this.caixa.banco_codigo = this.bancoObj.id
+        this.caixa.banco = this.bancoObj.code + ' - ' + this.bancoObj.nome
+        this.caixa.banco_codigo = this.bancoObj.code
       },
       deep: true,
     },
@@ -156,17 +156,17 @@ export default {
     this.setup()
   },
   methods: {
-    setup(){
+    setup() {
       this.formatConta()
       if (this.caixa.banco_codigo !== this.bancoObj.id) {
         this.bancoObj = this.bancos.find(
-          item => item.id === this.caixa.banco_codigo,
+          (item) => item.id === this.caixa.banco_codigo,
         ) ?? {
           id: this.caixa.banco_codigo,
           nome: this.caixa.banco.Nome,
         }
       }
-      if (this.caixa.conta_tipo === 'CONTA_CORRENTE'){
+      if (this.caixa.conta_tipo === 'CONTA_CORRENTE') {
         this.caixa.tipo = {
           text: 'Conta Corrente',
           value: 'CONTA_CORRENTE',
@@ -180,7 +180,10 @@ export default {
     },
     formatConta() {
       this.$nextTick(() => {
-        this.caixa.contaComDigito = this.caixa.contaComDigito?.replace(/[^0-9]+/g, '')
+        this.caixa.contaComDigito = this.caixa.contaComDigito?.replace(
+          /[^0-9]+/g,
+          '',
+        )
         this.caixa.contaComDigito = this.caixa.contaComDigito?.replace('-', '')
 
         if (this.caixa.contaComDigito?.length > 1) {
