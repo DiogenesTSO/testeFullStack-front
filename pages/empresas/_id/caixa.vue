@@ -135,7 +135,7 @@
                 <td>
                   {{
                     caixa.conta +
-                    (caixa.conta_digito ? '-' + caixa.conta_digito : '')
+                      (caixa.conta_digito ? '-' + caixa.conta_digito : '')
                   }}
                 </td>
                 <td>
@@ -222,6 +222,7 @@ export default {
         return {
           id: banco.id,
           nome: banco.name,
+          banco_codigo: banco.code,
         }
       })
     },
@@ -249,9 +250,9 @@ export default {
 
   methods: {
     setup() {
-      if (this.value.banco_codigo !== this.bancoObj.id) {
+      if (this.value.banco_codigo !== this.bancoObj.banco_codigo) {
         this.bancoObj = this.bancos.find(
-          (item) => item.id === this.value.banco_codigo,
+          item => item.code === this.value.banco_codigo,
         ) ?? {
           id: this.value.banco_codigo,
           nome: this.value.banco,
@@ -275,8 +276,8 @@ export default {
       const form = {
         ...this.caixa,
         ...{
-          banco: this.bancoObj.nome,
-          banco_codigo: this.bancoObj.id,
+          banco: this.bancoObj.banco_codigo + ' - ' + this.bancoObj.nome,
+          banco_codigo: this.bancoObj.banco_codigo,
           conta: this.caixa.conta,
           conta_digito: this.caixa.conta_digito,
           tipo: 'bancario',
