@@ -180,7 +180,6 @@ export default {
           value: 'CONTA_POUPANCA',
         }
       }
-      this.formatConta()
     },
     formatConta() {
       this.$nextTick(() => {
@@ -202,6 +201,7 @@ export default {
           this.caixa.conta = conta
           this.caixa.conta_digito = digito
           // como o nextTick não irá dar trigger no watch da conta, temos que emitir a input manualmente
+          this.setup()
           this.$emit('input', this.caixa)
         }
       })
