@@ -121,7 +121,7 @@ export default {
     bancos() {
       return this.$store.state.empresas.bancos.map((banco) => {
         return {
-          id: banco.code,
+          id: banco.id,
           nome: banco.name,
         }
       })
@@ -157,9 +157,10 @@ export default {
   },
   methods: {
     setup() {
+      this.formatConta()
       if (this.caixa.banco_codigo !== this.bancoObj.id) {
         this.bancoObj = this.bancos.find(
-          (item) => item.id === this.caixa.banco_codigo,
+          item => item.id === this.caixa.banco_codigo,
         ) ?? {
           id: this.caixa.banco_codigo,
           nome: this.caixa.banco.Nome,
@@ -196,8 +197,7 @@ export default {
           this.caixa.contaComDigito = conta + '-' + digito
           this.caixa.conta = conta
           this.caixa.conta_digito = digito
-          // como o nextTick não irá dar trigger no watch da conta, temos que emitir a input manualmente7
-          this.setup()
+          // como o nextTick não irá dar trigger no watch da conta, temos que emitir a input manualmente
           this.$emit('input', this.caixa)
         }
       })
