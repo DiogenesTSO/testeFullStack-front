@@ -121,9 +121,8 @@ export default {
     bancos() {
       return this.$store.state.empresas.bancos.map((banco) => {
         return {
-          id: banco.id,
+          id: banco.code,
           nome: banco.name,
-          banco_codigo: banco.code,
         }
       })
     },
@@ -143,7 +142,7 @@ export default {
     bancoObj: {
       handler() {
         this.caixa.banco = this.bancoObj.nome
-        this.caixa.banco_codigo = this.bancoObj.banco_codigo
+        this.caixa.banco_codigo = this.bancoObj.id
       },
       deep: true,
     },
@@ -158,15 +157,13 @@ export default {
   },
   methods: {
     setup() {
-      console.log(this.bancoObj)
-      console.log(this.caixa)
-      if (this.caixa.banco_codigo !== this.bancoObj.banco_codigo) {
+      this.formatConta()
+      if (this.caixa.banco_codigo !== this.bancoObj.id) {
         this.bancoObj = this.bancos.find(
-          (item) => item.code === this.caixa.banco_codigo,
+          (item) => item.id === this.caixa.banco_codigo,
         ) ?? {
           id: this.caixa.banco_codigo,
           nome: this.caixa.banco.Nome,
-          banco_codigo: this.caixa.banco.Codigo,
         }
       }
       if (this.caixa.conta_tipo === 'CONTA_CORRENTE') {
@@ -201,7 +198,6 @@ export default {
           this.caixa.conta = conta
           this.caixa.conta_digito = digito
           // como o nextTick não irá dar trigger no watch da conta, temos que emitir a input manualmente
-          this.setup()
           this.$emit('input', this.caixa)
         }
       })
