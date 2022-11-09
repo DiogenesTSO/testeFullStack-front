@@ -3,5 +3,5 @@ export default () => ({
   isAuthenticated: false,
   bearer: '',
   expiresAt: '',
-  route: '',
+  route: {},
 })

@@ -35,15 +35,9 @@ export default {
         .then((response) => {
           // redirecionamento para a página que o usuário estava tentando acessar
           if (response.data.usuario.is_master) {
-            this.$router.push({
-              name: state.route || 'index',
-              params: { isMaster: true, loggedIn: true },
-            })
+            this.$router.push(state.route.name ? state.route : '/')
           } else {
-            this.$router.push({
-              name: state.route || 'index',
-              params: { loggedIn: true },
-            })
+            this.$router.push(state.route.name ? state.route : '/')
           }
 
           commit('STORE_USERDATA', {

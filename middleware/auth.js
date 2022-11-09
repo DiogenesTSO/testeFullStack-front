@@ -2,7 +2,7 @@ export default function ({ route, store, redirect }) {
   if (!store.state.auth.isAuthenticated && !route.meta?.[0]?.public) {
     store.dispatch('auth/verificarLogin')
     if (!store.state.auth.isAuthenticated) {
-      store.commit('auth/STORE', { item: 'route', data: route.name })
+      store.commit('auth/STORE', { item: 'route', data: route })
       return redirect('/login')
     }
   }

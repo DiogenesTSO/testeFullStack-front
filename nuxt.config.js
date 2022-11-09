@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
   env = {
     ...env,
     ...{
-      domain: '.imobia.app',
+      domain: '.useimobia.com.br',
       backendUrl: 'https://apicontrole.useimobia.com.br/',
       app3Url: 'https://legado.imobia.app/',
       linkShare: 'http://compartilhamento.imobia.app/',
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'production') {
   env = {
     ...env,
     ...{
-      domain: '.sistemaimobia.com.br',
+      domain: '.useimobia.com.br',
       backendUrl: 'http://apicontrole.useimobia.com.br/',
       app3Url: 'http://legado.sistemaimobia.com.br/',
       linkShare: 'https://compartilhamento.sistemaimobia.com.br/',
@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'production') {
     ...env,
     ...{
       domain: null,
-      backendUrl: 'http://127.0.0.1:8000/',
+      backendUrl: 'http://127.0.0.1:8001/',
       // se for abrir com o servidor do imobia antigo, abrir primeiro o servidor novo para manter as portas certas
       app3Url: 'http://localhost:8081/',
       linkShare: 'http://localhost:8080/',
@@ -77,10 +77,7 @@ export default {
   css: ['~/assets/main.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '~/plugins/helpers.js',
-    '~/plugins/formatters.js',
-  ],
+  plugins: ['~/plugins/helpers.js', '~/plugins/formatters.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
