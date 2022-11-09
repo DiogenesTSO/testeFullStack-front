@@ -272,6 +272,7 @@ export default {
     },
 
     submit() {
+      console.log('to')
       this.formatConta()
       const form = {
         ...this.caixa,
