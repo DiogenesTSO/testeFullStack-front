@@ -17,7 +17,8 @@
       <v-col cols="12">
         <v-row justify="center">
           <v-col cols="12" md="3">
-            <imobia-input v-model="empresa.cnpj" required type="cpf cnpj" label="CNPJ" />
+            <imobia-input v-if="empresa.tipo === 'PF'" v-model="empresa.cnpj" required type="cpf cnpj" label="CPF" />
+            <imobia-input v-else v-model="empresa.cnpj" required type="cpf cnpj" label="CNPJ" />
           </v-col>
           <v-col cols="12" md="3">
             <imobia-input v-model="empresa.creci" required label="CRECI" />
