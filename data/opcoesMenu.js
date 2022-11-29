@@ -79,6 +79,7 @@ export default [
     text: 'Banco de dados',
     active: false,
     group: 'vendas',
+    to: 'bancoDeDados'
   },
   // {
   //   icon: 'sign-real-estate',
