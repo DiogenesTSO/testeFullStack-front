@@ -5,12 +5,13 @@ phases:
     runtime-versions:
       nodejs: latest
     commands:
-      - npm i npm@latest -g
+      - n 14.19.1
+      - node -v
       - pip install --upgrade pip
       - pip install --upgrade awscli
   pre_build:
     commands:
-      - npm install 
+      - npm install
   build:
     commands:
       - npm run $BUILD_MODE
