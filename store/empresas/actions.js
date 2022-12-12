@@ -13,7 +13,7 @@ export default {
           commit('STORE_META', { name: 'empresas', data: response.data.meta })
           resolve(response.data.data)
         })
-        .catch((err) => reject(err))
+        .catch(err => reject(err))
     })
   },
   atualizarStatusEmpresa({ commit }, dados) {
@@ -27,7 +27,7 @@ export default {
           })
           resolve(response.data.data)
         })
-        .catch((err) => reject(err))
+        .catch(err => reject(err))
     })
   },
   cadastrarEmpresa({ commit }, dados) {
@@ -39,7 +39,7 @@ export default {
           commit('ADD_META', { name: 'empresas' })
           resolve(response.data.message)
         })
-        .catch((err) => reject(err))
+        .catch(err => reject(err))
     })
   },
   carregarEmpresa({ commit }, id) {
@@ -53,7 +53,7 @@ export default {
           })
           resolve(response.data.data)
         })
-        .catch((err) => reject(err))
+        .catch(err => reject(err))
     })
   },
 
@@ -66,7 +66,7 @@ export default {
         .then((response) => {
           resolve(response.data.data)
         })
-        .catch((err) => reject(err))
+        .catch(err => reject(err))
     })
   },
   cadastrarCaixa({ commit }, data) {
@@ -78,7 +78,7 @@ export default {
           commit('ADD_META', { name: 'caixas' })
           resolve(response.data.message)
         })
-        .catch((err) => reject(err))
+        .catch(err => reject(err))
     })
   },
   carregarBancos({ commit, state }, data) {
@@ -106,7 +106,7 @@ export default {
           })
           resolve(response.data.data)
         })
-        .catch((err) => reject(err))
+        .catch(err => reject(err))
     })
   },
 
@@ -120,7 +120,7 @@ export default {
         .then((response) => {
           resolve(response.data.data)
         })
-        .catch((err) => reject(err))
+        .catch(err => reject(err))
     })
   },
 
@@ -131,7 +131,7 @@ export default {
         .then((response) => {
           resolve(response.data.data)
         })
-        .catch((err) => reject(err))
+        .catch(err => reject(err))
     })
   },
 
@@ -143,7 +143,7 @@ export default {
           commit('STORE', { item: 'chaves', data: response.data.data })
           resolve(response.data.data)
         })
-        .catch((err) => reject(err))
+        .catch(err => reject(err))
     })
   },
 }

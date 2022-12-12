@@ -73,7 +73,7 @@
         </v-row>
       </template>
       <template #padrao="{row}">
-        {{ padroesXML[row.id_padrao_xml].nome }}
+        {{ padroesXML[row.id_padrao_xml - 1].nome }}
       </template>
       <template #negociacoes="{row}">
         <div class="d-flex flex-column-reverse justify-center">
@@ -207,7 +207,7 @@ export default {
         {
           cols: '12',
           lg: '5',
-          text: 'Imoveis',
+          text: 'Portal',
           value: 'imoveis',
         },
         {
@@ -225,7 +225,7 @@ export default {
         {
           cols: '12',
           lg: '1',
-          text: 'opções',
+          text: 'Opções',
           customClass: 'text-right',
           value: 'status',
         },

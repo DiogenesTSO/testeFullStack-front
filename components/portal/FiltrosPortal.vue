@@ -4,7 +4,7 @@
     :reset-function="limparFiltros"
     module="portais"
     action="carregarPortais"
-    title="Pesquisar portal"
+    title="Pesquisar Portal"
     hide-more
   >
     <v-row>
