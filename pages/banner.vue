@@ -30,8 +30,8 @@
             <v-img
               width="100%"
               max-height="170px"
-              :src="(item.url
-                ? item.url
+              :src="(item.url_completa
+                ? item.url_completa
                 : $vuetify.theme.dark
                   ? 'https://static.useimobia.com.br/sistema/nao_encontrada_dark.png'
                   : 'https://static.useimobia.com.br/sistema/nao_encontrada.png'
@@ -90,6 +90,7 @@ export default {
         id: '',
         sistema: '3',
         url: [],
+        url_completa: [],
         link: '',
         status: 1,
         data_inicio: moment().format('YYYY-MM-DD'),
