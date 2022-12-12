@@ -9,7 +9,7 @@
           <imobia-input v-model="empresa.telefone_02" type="telefone" label="Telefone secundário" />
         </v-col>
         <v-col cols="6" md="4">
-          <imobia-input v-model="empresa.celular" type="telefone" label="Celular" />
+          <imobia-input v-model="empresa.celular" type="celular" label="Celular" />
         </v-col>
       </v-row>
     </v-col>

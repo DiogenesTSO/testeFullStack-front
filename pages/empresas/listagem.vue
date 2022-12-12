@@ -18,7 +18,7 @@
           <v-icon left>
             mdi-plus
           </v-icon>
-          Nova empresas
+          Nova Empresa
         </v-btn>
       </template>
       <template #filters>
@@ -126,7 +126,7 @@
               <v-list-item-content class="pa-0">
                 <v-list-item-title>Editar</v-list-item-title>
                 <v-list-item-subtitle>
-                  Ver ou editar Empresas
+                  Ver ou editar Empresa
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -178,7 +178,7 @@ export default {
         {
           cols: '12',
           lg: '5',
-          text: 'Logo empresas',
+          text: 'Logo Empresa',
           value: 'logo',
         },
         {
@@ -196,7 +196,7 @@ export default {
         {
           cols: '12',
           lg: '1',
-          text: 'opções',
+          text: 'Opções',
           customClass: 'text-right',
           value: 'opcoes',
         },

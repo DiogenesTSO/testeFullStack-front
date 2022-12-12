@@ -14,7 +14,7 @@
         </v-col>
         <v-col cols="12" md="4">
           <imobia-auto-complete
-            v-model="empresa.cidade_id"
+            v-model="empresa.cidade"
             :loading="loadingCidade"
             module="cidades"
             label="Cidade"
