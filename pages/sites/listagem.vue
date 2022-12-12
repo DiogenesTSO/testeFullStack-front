@@ -138,13 +138,13 @@ export default {
         {
           cols: '12',
           lg: '1',
-          text: 'id',
+          text: 'Id',
           value: 'id',
         },
         {
           cols: '12',
           lg: '3',
-          text: 'Empresa nome',
+          text: 'Nome',
           value: 'nome',
         },
         {
