@@ -119,7 +119,6 @@ export default {
           if (typeof this.banner.url === 'string' || this.banner.url === null) {
             formData.delete('url')
           }
-
           this.$store
             .dispatch('banners/cadastrarBanner', formData)
             .finally(() => {

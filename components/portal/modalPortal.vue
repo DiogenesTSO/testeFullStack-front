@@ -32,7 +32,7 @@
           <v-col cols="12">
             <imobia-input
               v-model="portal.descricao"
-              label="descricao"
+              label="Descrição"
               required
             />
           </v-col>
@@ -45,7 +45,7 @@
             />
           </v-col>
           <v-col cols="12">
-            <imobia-input v-model="portal.url" label="url do portal" required />
+            <imobia-input v-model="portal.url" label="Url do portal" required />
           </v-col>
           <v-col cols="12">
             <imobia-select
@@ -147,8 +147,20 @@ export default {
             },
           }
 
+          const formData = new FormData()
+          Object.entries(this.portal).forEach(([key, value]) => {
+            if (value !== null) {
+              formData.append(key, value)
+            }
+          })
+          if (typeof this.portal.url_logo === 'string' || this.portal.url_logo === null) {
+            formData.delete('url_logo')
+          }
+
+          console.log(formData)
+
           this.$store
-            .dispatch(action, this.portal)
+            .dispatch(action, formData)
             .then(() => {
               this.$root.$emit('modalPortal', false)
             })
