@@ -196,6 +196,7 @@ export default {
         },
       },
       padroesXML: [
+        { id: 0, nome: 'Sem Padrão' },
         { id: 1, nome: 'Padrão Viva Real' },
         { id: 2, nome: 'Padrão Zap' },
         { id: 3, nome: 'Padrão Imovel Web' },
