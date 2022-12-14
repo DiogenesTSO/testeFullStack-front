@@ -73,7 +73,7 @@
         </v-row>
       </template>
       <template #padrao="{row}">
-        {{ padroesXML[row.id_padrao_xml - 1].nome }}
+        {{ padroesXML[row.id_padrao_xml].nome }}
       </template>
       <template #negociacoes="{row}">
         <div class="d-flex flex-column-reverse justify-center">
