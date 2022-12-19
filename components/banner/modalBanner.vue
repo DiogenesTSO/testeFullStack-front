@@ -10,7 +10,7 @@
       <v-row justify="center">
         <v-col cols="12" md="4">
           <v-col cols="12" md="12">
-            <imobia-image-upload v-model="banner.url_completa" />
+            <imobia-image-upload v-model="banner.url" />
           </v-col>
         </v-col>
         <v-col cols="12" md="6">
