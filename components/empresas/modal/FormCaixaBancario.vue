@@ -119,12 +119,14 @@ export default {
   },
   computed: {
     bancos() {
-      return this.$store.state.empresas.bancos.map((banco) => {
+      const bancosFiltrados = this.$store.state.empresas.bancos.map((banco) => {
         return {
           id: banco.id,
-          nome: banco.name,
+          nome: `${banco.code + ' - ' + banco.name}`,
+          banco_codigo: parseInt(banco.code),
         }
       })
+      return bancosFiltrados
     },
   },
   watch: {
