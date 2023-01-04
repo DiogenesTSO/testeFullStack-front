@@ -39,12 +39,21 @@
           <v-list-item-content v-text="data.item" />
         </template>
         <template v-else>
+          <v-img
+            v-if="imgField"
+            max-height="40px"
+            max-width="40px"
+            aspect-ratio="1"
+            class="rounded elevation-2 my-2 mr-4"
+            :src="
+              data.item.extra[imgField]
+                ? data.item.extra[imgField]
+                : '/ImobiaPlaceholder.svg'
+            "
+          />
           <v-list-item-content class="py-3">
             <v-list-item-title v-html="data.item.nome" />
-            <v-list-item-subtitle
-              v-if="subtitleField"
-              v-html="data.item[subtitleField]"
-            />
+            <v-list-item-subtitle v-if="subtitleField" v-html="data.item[subtitleField]" />
           </v-list-item-content>
         </template>
       </slot>
@@ -76,13 +85,17 @@ export default {
     },
     value: {
       type: [Number, String, Boolean, Object, Array],
-      default: () => {},
+      default: () => { },
     },
     readonly: {
       type: Boolean,
       default: false,
     },
     subtitleField: {
+      type: String,
+      default: '',
+    },
+    imgField: {
       type: String,
       default: '',
     },
@@ -119,7 +132,7 @@ export default {
     },
     extraQuery: {
       type: [Object, null],
-      default: () => {},
+      default: () => { },
     },
   },
 
@@ -260,4 +273,6 @@ export default {
 }
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+
+</style>

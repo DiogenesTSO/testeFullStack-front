@@ -241,6 +241,13 @@ export default {
       },
       deep: true,
     },
+    bancoObj: {
+      handler() {
+        this.conta.banco = this.bancoObj.nome
+        this.conta.banco_codigo = this.bancoObj.id
+      },
+      deep: true,
+    },
   },
 
   mounted() {
