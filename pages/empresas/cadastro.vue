@@ -72,6 +72,7 @@ export default {
         nota_fiscal: 0,
         venda: 0,
         locacao: 0,
+        numero_locacao: 0
       },
       cidades: [],
 
@@ -122,7 +123,7 @@ export default {
         }]
 
       if (empresa.locacao === true){
-        modulos.push({ modulo: 'locacao' })
+        modulos.push({ modulo: 'locacao', valor: empresa.numero_locacao })
       }
       if (empresa.venda === true){
         modulos.push({ modulo: 'venda' })

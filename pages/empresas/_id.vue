@@ -85,6 +85,7 @@ export default {
         nota_fiscal: false,
         venda: false,
         locacao: false,
+        valor_modulo_locacao: 0,
       },
       cidades: [],
 
@@ -167,6 +168,8 @@ export default {
 
     submit() {
       this.loading = true
+      this.$store.dispatch('layout/carregando', true)
+      this.$store.dispatch('layout/mensagemCarregando', 'Atualizando Empresa')
 
       const form = {
         ...this.empresa,
@@ -206,7 +209,7 @@ export default {
             },
             {
               modulo: 'locacao',
-              valor: this.empresa.locacao === true ? 1 : 0,
+              valor: this.empresa.locacao === true ? this.empresa.valor_modulo_locacao : 0,
             },
             {
               modulo: 'nota_fiscal',
@@ -226,10 +229,18 @@ export default {
         .dispatch('empresas/editarEmpresa', {
           id: this.empresa.id,
           data: form,
-        })
-        .finally(() => {
+        }).then(() => {
+          this.$nuxt.$emit('notify', {
+            type: 'success',
+            message: 'Empresa editada com sucesso',
+          })
           this.loading = false
-          this.$router.go(this.$router.currentRoute)
+          this.$store.dispatch('layout/carregando', false)
+
+          // this.carregarEmpresa()
+        }).catch(() => {
+          this.loading = false
+          this.$store.dispatch('layout/carregando', false)
         })
     },
   },

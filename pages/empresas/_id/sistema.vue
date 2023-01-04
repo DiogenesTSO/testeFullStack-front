@@ -45,6 +45,18 @@
           <v-checkbox v-model="empresa.venda" class="ma-1" label="Venda" />
         </v-col>
       </v-row>
+      <v-row>
+        <v-col cols="12" md="6" lg="3">
+          <imobia-input-number
+            v-if="empresa.locacao"
+            v-model="empresa.valor_modulo_locacao"
+            label="Limite de locações"
+            :max="255"
+            :min="0"
+            required
+          />
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
@@ -86,8 +98,9 @@ export default {
         if (modulo.modulo === "venda"){
           this.empresa.venda = true
         }
-        if (modulo.modulo === "locacao"){
+        if (modulo.modulo === "locacao") {
           this.empresa.locacao = true
+          this.empresa.valor_modulo_locacao = modulo.valor
         }
         if (modulo.modulo === "nota_fiscal"){
           this.empresa.nota_fiscal = true
