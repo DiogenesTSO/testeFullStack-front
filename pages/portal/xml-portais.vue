@@ -117,8 +117,8 @@ export default {
     //     this.empresas = response
     //   })
 
-    this.$store
-      .dispatch('portais/carregarPortais')
+    this.$store 
+      .dispatch('portais/carregarPortais', { per_page: 100 })
       .then((response) => {
         this.portais = response
       })
