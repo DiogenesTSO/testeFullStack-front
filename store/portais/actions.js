@@ -5,7 +5,7 @@ export default {
       axios
         .get('controle/portal', { params: data })
         .then((response) => {
-          if (data.page > 1) {
+          if (data && data.page > 1) {
             commit('STORE_PUSH', { item: 'portal', data: response.data.data })
           } else {
             commit('STORE', { item: 'portal', data: response.data.data })

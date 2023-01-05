@@ -1,5 +1,5 @@
 export default () => ({
-  empresas: {},
+  empresas: [],
   currentEmpresa: {},
   caixas: {},
   bancos: [],

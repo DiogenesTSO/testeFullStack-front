@@ -42,6 +42,13 @@ export default [
         group: 'portal',
         to: 'portal-listagem',
       },
+      {
+        icon: 'xml',
+        text: 'Gerar XML de portais',
+        active: false,
+        group: 'empresas',
+        to: 'portal-xml-portais',
+      },
     ],
   },
   {
