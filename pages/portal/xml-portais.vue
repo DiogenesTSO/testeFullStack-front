@@ -2,14 +2,21 @@
   <div class="ml-auto mr-auto">
     <v-row cols="6" class="d-flex justify-center">
       <v-col cols="4">
-        <span>Primeiro selecione o ID da empresa:</span>
-        <imobia-auto-complete
+        <span>Primeiro digite o código da empresa:</span>
+        <!-- <imobia-auto-complete
           v-model="empresa"
           return-object
           :items="empresas"
+          :xmlportal="true"
           class="mt-3"
           required
           label="Empresa"
+        /> -->
+        <imobia-input 
+          v-model="empresa"
+          class="mt-3"
+          required
+          label="Código da Empresa"
         />
       </v-col>
     </v-row>
@@ -96,7 +103,7 @@ export default {
 
   computed: {
     url() {
-      return `http://integracoes.useimobia.com.br/api/xml/${this.padrao_xml.id}/${this.empresa.id}/${this.portal.id}`
+      return `http://integracoes.useimobia.com.br/api/xml/${this.padrao_xml.id}/${this.empresa}/${this.portal.id}`
     },
     loadingSistema() {
       return this.$store.state.layout.loading
@@ -104,11 +111,11 @@ export default {
   },
 
   mounted(){
-    this.$store
-      .dispatch('empresas/carregarEmpresas', { per_page: 1000 })
-      .then((response) => {
-        this.empresas = response
-      })
+    // this.$store
+    //   .dispatch('empresas/carregarEmpresas', { per_page: 1000 })
+    //   .then((response) => {
+    //     this.empresas = response
+    //   })
 
     this.$store
       .dispatch('portais/carregarPortais')
