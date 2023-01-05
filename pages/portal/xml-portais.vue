@@ -105,7 +105,7 @@ export default {
 
   mounted(){
     this.$store
-      .dispatch('empresas/carregarEmpresas')
+      .dispatch('empresas/carregarEmpresas', { per_page: 1000 })
       .then((response) => {
         this.empresas = response
       })
