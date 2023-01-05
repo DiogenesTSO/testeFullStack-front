@@ -60,7 +60,6 @@
                 label
                 small
                 :class="statusSite[row.status].cor + ' mr-3'"
-                @click="alterarStatus(row)"
               >
                 {{ statusSite[row.status].nome }}
               </v-btn>
@@ -68,7 +67,7 @@
           </span>
         </div>
       </template>
-      <!-- <template #opcoes="{row}">
+      <template #opcoes="{row}">
         <v-menu
           offset-y
           bottom
@@ -83,23 +82,24 @@
           </template>
 
           <v-list color="card">
-            <v-list-item @click="alterarStatus(row)">
+            <v-list-item @click="abrirModal(row)">
               <v-list-item-avatar class="ma-0">
                 <v-icon>mdi-square-edit-outline</v-icon>
               </v-list-item-avatar>
               <v-list-item-content class="pa-0">
                 <v-list-item-title>Editar</v-list-item-title>
                 <v-list-item-subtitle>
-                  Ver ou editar Empresas
+                  Ver ou editar chave
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list>
         </v-menu>
-      </template> -->
+      </template>
     </imobia-col-list>
-    <sites-modal-alterar-status :current-status="statusModal" />
+    <!-- <sites-modal-alterar-status :current-status="chaveModal" /> -->
     <sites-modal-criar-site />
+    <sites-editar-site :current-site="siteModal" />
     <imobia-load-more
       color="primary"
       :filters="filtros"
@@ -155,7 +155,7 @@ export default {
         },
         {
           cols: '12',
-          lg: '4',
+          lg: '3',
           text: 'API key',
           value: 'apiKey',
         },
@@ -165,17 +165,20 @@ export default {
           text: 'Status',
           value: 'status',
         },
-        /* {
+        {
           cols: '12',
           lg: '1',
-          text: 'opções',
+          text: 'Opções',
           customClass: 'text-right',
           value: 'opcoes',
-        }, */
+        },
       ],
-      statusModal: {
+      siteModal: {
         id: '',
-        empresa_id: '',
+        url: '',
+        empresa: {},
+        email_interesse_imovel: '',
+        api_key: '',
         status: '',
       },
     }
@@ -186,15 +189,10 @@ export default {
     },
   },
 
-  mounted() {},
   methods: {
-    alterarStatus(status) {
-      this.$root.$emit('alterarStatusSitesSites', status)
-      this.$root.$emit('alterarStatusSites', true)
-    },
-    abrirModal(portal) {
-      this.$root.$emit('modalPortal', true)
-      this.portalModal = portal
+    abrirModal(site) {
+      this.$root.$emit('editarSite', true)
+      this.siteModal = site
     },
   },
 }
