@@ -9,22 +9,38 @@
   >
     <v-form ref="form_usuario" v-model="valid" lazy-validation class="pt-5">
       <v-row justify="center">
-        <v-col v-if="!usuario.id" cols="12">
-          <imobia-input v-model="usuario.nome" label="Nome" required />
+        <v-col cols="12">
+          <imobia-input 
+            v-model="usuario.nome" 
+            label="Nome" 
+            required 
+          />
         </v-col>
         <v-col cols="12">
-          <imobia-input v-model="usuario.email" label="E-mail" required />
+          <imobia-input 
+            v-model="usuario.email" 
+            label="E-mail" 
+            required 
+          />
         </v-col>
         <v-col cols="12">
           <imobia-select
             v-model="usuario.funcao"
             required
-            :disabled="!user.is('administrador') || user.id === usuario.id"
+            :disabled="!user.is_master"
             label="Tipo de usuário"
             :items="tiposUsuarios"
           />
         </v-col>
-        <v-col v-show="usuario.id" cols="12" lg="5">
+        <v-col cols="12">
+          <imobia-select
+            v-model="usuario.is_master"
+            :disabled="!user.is_master"
+            label="Usuario Master"
+            :items="tiposMaster"
+          />
+        </v-col>
+        <v-col v-show="usuario.id" cols="12">
           <v-checkbox
             v-model="alterarSenha"
             label="Alterar senha"
@@ -34,7 +50,7 @@
             hide-details="auto"
           />
         </v-col>
-        <v-col cols="12" :class="!alterarSenha ? 'py-0' : ''">
+        <v-col cols="12">
           <v-expand-transition>
             <v-row v-if="alterarSenha || !usuario.id">
               <v-col cols="12">
@@ -85,6 +101,7 @@ export default {
           password: '',
           password_confirmation: '',
           status: 'A',
+          is_master: ''
         }
       },
     },
@@ -102,18 +119,25 @@ export default {
         { id: 'B', nome: 'Bloqueado' },
         { id: 'I', nome: 'Inativo' },
       ],
+      tiposUsuarios: [
+        { id: 'administrador', nome: 'Administrador' },
+      ],
+      tiposMaster: [
+        { id: 0, nome: 'Não' },
+        { id: 1, nome: 'Sim' },
+      ],
     }
   },
 
   computed: {
-    tiposUsuarios() {
-      return this.$store.getters['usuarios/tiposUsuarios'].map((tipo) => {
-        return {
-          id: tipo.nome.toLowerCase().replace(/ /g, '_'),
-          nome: tipo.nome,
-        }
-      })
-    },
+    // tiposUsuarios() {
+    //   return this.$store.getters['usuarios/tiposUsuarios'].map((tipo) => {
+    //     return {
+    //       id: tipo.nome.toLowerCase().replace(/ /g, '_'),
+    //       nome: tipo.nome,
+    //     }
+    //   })
+    // },
     user() {
       return this.$store.state.auth.user
     },
@@ -124,7 +148,7 @@ export default {
       handler() {
         this.usuario = { ...this.currentUsuario }
         if (this.currentUsuario.nome) {
-          this.usuario.nome = this.currentUsuario.cliente.nome
+          this.usuario.nome = this.currentUsuario.nome
         }
         if (this.currentUsuario.id) {
           this.usuario.id = this.currentUsuario.id
@@ -167,7 +191,6 @@ export default {
 
     submit() {
       this.validar().then((valid) => {
-        console.log(this.usuario)
         if (valid) {
           this.loading = true
 

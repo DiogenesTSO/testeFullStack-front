@@ -1,6 +1,13 @@
 export default [
   {
     icon: 'account-group',
+    text: 'Usuarios',
+    active: false,
+    group: 'empresas',
+    to: 'usuarios-listagem'
+  },
+  {
+    icon: 'domain',
     text: 'Empresas',
     active: false,
     group: 'empresas',

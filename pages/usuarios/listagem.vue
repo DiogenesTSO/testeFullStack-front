@@ -16,7 +16,7 @@
       </template>
 
       <template #nome="{ row }">
-        {{ row.cliente.nome ? row.cliente.nome : 'Pessoa não encontrada' }}
+        {{ row.nome ? row.nome : 'Pessoa não encontrada' }}
       </template>
 
       <template #email="{ row }">
@@ -24,7 +24,7 @@
       </template>
 
       <template #tipo="{ row }">
-        {{ $format.userType(row.funcao) }}
+        {{ row.is_master === 1 ? 'Sim' : 'Não' }}
       </template>
 
       <template #opcoes="{ row }">
@@ -55,19 +55,6 @@
 
           <v-list color="card">
             <v-list-item
-              :to="{ name: 'pessoas-id-geral', params: { id: row.cliente.id } }"
-            >
-              <v-list-item-avatar class="ma-0">
-                <v-icon>mdi-square-edit-outline</v-icon>
-              </v-list-item-avatar>
-              <v-list-item-content class="pa-0">
-                <v-list-item-title>Detalhes</v-list-item-title>
-                <v-list-item-subtitle>
-                  Ver ou editar pessoa
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item
               v-if="
                 user.is_master || user.is('administrador') || user.id === row.id
               "
@@ -79,7 +66,7 @@
               <v-list-item-content class="pa-0">
                 <v-list-item-title>Usuário</v-list-item-title>
                 <v-list-item-subtitle>
-                  Ver ou editar acesso do usuário
+                  Ver ou editar usuário
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -134,13 +121,13 @@ export default {
         {
           cols: '12',
           lg: '2',
-          text: 'Tipo',
+          text: 'Master',
           value: 'tipo',
         },
         {
           cols: '12',
           lg: '1',
-          text: '',
+          text: 'Opções',
           customClass: 'text-right',
           value: 'opcoes',
         },
@@ -175,6 +162,7 @@ export default {
         funcao: '',
         senha: '',
         status: 'A',
+        is_master: ''
       },
     }
   },
@@ -210,6 +198,7 @@ export default {
         funcao: '',
         senha: '',
         status: 'A',
+        is_master: ''
       }
     },
   },

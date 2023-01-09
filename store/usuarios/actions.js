@@ -3,7 +3,7 @@ export default {
   carregarUsuarios({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios
-        .get('usuarios', { params: data })
+        .get('controle/usuarios', { params: data })
         .then((response) => {
           if (data.page > 1) {
             commit('STORE_PUSH', { item: 'usuarios', data: response.data.data })
@@ -42,7 +42,7 @@ export default {
   cadastrarUsuario({ commit }, dados) {
     return new Promise((resolve, reject) => {
       axios
-        .post('usuarios', dados)
+        .post('controle/usuarios', dados)
         .then((response) => {
           commit('STORE_PUSH', { item: 'usuarios', data: response.data.data })
           commit('ADD_META', { name: 'usuarios' })
@@ -65,7 +65,7 @@ export default {
   atualizarUsuario({ commit }, dados) {
     return new Promise((resolve, reject) => {
       axios
-        .patch(`usuarios/${dados.id}`, dados)
+        .patch(`controle/usuarios/${dados.id}`, dados)
         .then((response) => {
           commit('UPDATE', {
             item: 'usuarios',
