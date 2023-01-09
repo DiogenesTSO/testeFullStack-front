@@ -88,6 +88,10 @@ export default {
       type: [Number, Boolean, String],
       default: false,
     },
+    number: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -100,7 +104,7 @@ export default {
         cpf: '###.###.###-##',
         cnpj: '##.###.###/####-##',
         celular: '(##) #####-####',
-        telefone: '(##) ####-####',
+        telefone: '(##) #####-####',
         cep: '#####-###',
         password: '',
       },
@@ -149,6 +153,13 @@ export default {
       .split(' ')
       .sort((a, b) => this.options[a].length - this.options[b].length)
     this.maskInput(this.value)
+  },
+
+  mounted() {
+    this.currentMask =
+      this.options[this.types[0]].split('#')?.length - 1 < this.val?.length
+        ? this.options[this.types[1]] ?? this.options[this.types[0]]
+        : this.options[this.types[0]]
   },
   methods: {
     clearPaste(e) {
@@ -234,7 +245,6 @@ export default {
               .querySelector('input')
               .setSelectionRange(this.cursorPosition, this.cursorPosition)
           })
-
           this.$emit(
             'input',
             value.slice(0, this.currentMask.length).replace(/\D/g, ''),
@@ -292,4 +302,6 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+
+</style>
