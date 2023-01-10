@@ -24,12 +24,10 @@
           />
         </v-col>
         <v-col cols="12">
-          <imobia-select
-            v-model="usuario.funcao"
-            required
-            :disabled="!user.is_master"
+          <imobia-input
+            v-model="tipoUsuario"
+            disabled
             label="Tipo de usuário"
-            :items="tiposUsuarios"
           />
         </v-col>
         <v-col cols="12">
@@ -40,7 +38,7 @@
             :items="tiposMaster"
           />
         </v-col>
-        <v-col v-show="usuario.id" cols="12">
+        <v-col v-if="usuario.id === user.id" v-show="usuario.id" cols="12">
           <v-checkbox
             v-model="alterarSenha"
             label="Alterar senha"
@@ -97,7 +95,7 @@ export default {
           id: '',
           nome: '',
           email: '',
-          funcao: '',
+          funcao: 'administrador',
           password: '',
           password_confirmation: '',
           status: 'A',
@@ -119,9 +117,7 @@ export default {
         { id: 'B', nome: 'Bloqueado' },
         { id: 'I', nome: 'Inativo' },
       ],
-      tiposUsuarios: [
-        { id: 'administrador', nome: 'Administrador' },
-      ],
+      tipoUsuario: 'Administrador',
       tiposMaster: [
         { id: 0, nome: 'Não' },
         { id: 1, nome: 'Sim' },
@@ -130,14 +126,6 @@ export default {
   },
 
   computed: {
-    // tiposUsuarios() {
-    //   return this.$store.getters['usuarios/tiposUsuarios'].map((tipo) => {
-    //     return {
-    //       id: tipo.nome.toLowerCase().replace(/ /g, '_'),
-    //       nome: tipo.nome,
-    //     }
-    //   })
-    // },
     user() {
       return this.$store.state.auth.user
     },
@@ -219,7 +207,7 @@ export default {
         id: '',
         nome: '',
         email: '',
-        funcao: '',
+        funcao: 'administrador',
         password: '',
         password_confirmation: '',
         status: 'A',
