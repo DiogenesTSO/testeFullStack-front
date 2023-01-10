@@ -70,6 +70,7 @@ export default {
         numero: '',
         complemento: '',
         bairro: '',
+        cidade_id: '',
         cidade: {},
         filial: {
           telefone_01: '',

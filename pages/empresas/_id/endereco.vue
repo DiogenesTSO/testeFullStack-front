@@ -74,11 +74,12 @@ export default {
         .dispatch('autocomplete/carregarCidades', queryCidade)
         .then((res) => {
           this.empresa.cidade = res
+          this.empresa.cidade_id = res.id
         })
         .finally(() => {
           this.loadingCidade = false
         })
-
+        
       this.empresa.rua = endereco.rua
       this.empresa.bairro = endereco.bairro
       this.empresa.complemento = endereco.complemento
