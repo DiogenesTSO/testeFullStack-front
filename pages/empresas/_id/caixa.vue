@@ -286,7 +286,7 @@ export default {
       const form = {
         ...this.caixa,
         ...{
-          banco: this.bancoObj.banco_codigo + ' - ' + this.bancoObj.nome,
+          banco: this.bancoObj.nome,
           banco_codigo: this.bancoObj.banco_codigo,
           conta: this.caixa.conta,
           conta_digito: this.caixa.conta_digito,
