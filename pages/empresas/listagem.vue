@@ -74,14 +74,11 @@
       </template>
       <template #informacoes="{row}">
         <div class="d-flex flex-column-reverse justify-center">
-          <!-- <span>
-            {{ $format.mask(row.filiais[0].celular, 'telefone') }} /  {{ $format.mask(row.filiais[0].telefone_01 || row.filiais[0].telefone_02, 'telefone') }}
-          </span> -->
-          <!-- <span>
-            {{ row.filiais[0].email_01 }}
-          </span> -->
           <span>
-            {{ row.url_site ? url_site : 'Url do site não informada' }}
+            {{ $format.mask(row.cnpj, 'cnpj') }}
+          </span>
+          <span>
+            {{ row.url ? row.url : 'Url do site não informada' }}
           </span>
           <span>
             Data de cadastro: {{ $format.date(row.created_at, 'DD/MM/YYYY') }}
