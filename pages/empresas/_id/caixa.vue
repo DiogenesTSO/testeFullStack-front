@@ -222,7 +222,7 @@ export default {
         return {
           id: banco.id,
           nome: `${banco.code + ' - ' + banco.name}`,
-          banco_codigo: parseInt(banco.code),
+          banco_codigo: banco.code,
         }
       })
       return bancosFiltrados
@@ -281,7 +281,6 @@ export default {
     },
 
     submit() {
-      console.log('to')
       this.formatConta()
       const form = {
         ...this.caixa,
