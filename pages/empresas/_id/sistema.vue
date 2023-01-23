@@ -56,6 +56,16 @@
             required
           />
         </v-col>
+        <v-col cols="12" md="6" lg="3">
+          <imobia-input-number 
+            v-if="empresa.locacao && empresa.configuracoes.expectativa_operacoes" 
+            v-model="empresa.configuracoes.expectativa_operacoes" 
+            label="Expectativa de locações"
+            :max="255" 
+            :min="0"
+            required 
+          />
+        </v-col>
       </v-row>
     </v-col>
   </v-row>
@@ -81,6 +91,13 @@ export default {
     }
   },
   watch: {
+    value: {
+      handler() {
+        this.empresa = this.value
+      },
+      deep: true,
+    },
+
     empresa: {
       handler() {
         this.$emit('input', this.empresa)

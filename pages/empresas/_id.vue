@@ -58,6 +58,7 @@ export default {
         },
         configuracoes: {
           url_logo: '',
+          expectativa_operacoes: 0
         },
         tipo: '',
         nome_empresa: '',
@@ -148,6 +149,10 @@ export default {
                     }
                   : response.plano,
             },
+            ...{
+              configuracoes: 
+                response.configuracoes
+            },
           }
         })
     },
@@ -236,9 +241,9 @@ export default {
             message: 'Empresa editada com sucesso',
           })
           this.loading = false
+          this.carregarCaixa()
+          this.carregarEmpresa()
           this.$store.dispatch('layout/carregando', false)
-
-          // this.carregarEmpresa()
         }).catch(() => {
           this.loading = false
           this.$store.dispatch('layout/carregando', false)

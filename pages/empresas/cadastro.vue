@@ -72,7 +72,8 @@ export default {
         nota_fiscal: 0,
         venda: 0,
         locacao: 0,
-        numero_locacao: 0
+        numero_locacao: 0,
+        expectativa_operacoes: 0
       },
       cidades: [],
 
