@@ -58,7 +58,7 @@
         </v-col>
         <v-col cols="12" md="6" lg="3">
           <imobia-input-number 
-            v-if="empresa.locacao && empresa.configuracoes.expectativa_operacoes" 
+            v-if="empresa.locacao" 
             v-model="empresa.configuracoes.expectativa_operacoes" 
             label="Expectativa de locações"
             :max="255" 
