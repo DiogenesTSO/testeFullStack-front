@@ -50,7 +50,6 @@
             v-if="empresa.locacao" 
             v-model="empresa.numero_locacao" 
             label="Limite de locações" 
-            :max="255" 
             :min="0"
             required
           />
@@ -60,7 +59,6 @@
             v-if="empresa.locacao" 
             v-model="empresa.expectativa_operacoes" 
             label="Expectativa de locações" 
-            :max="255"
             :min="0" 
             required 
           />
