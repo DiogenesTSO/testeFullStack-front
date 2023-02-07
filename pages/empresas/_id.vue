@@ -58,7 +58,10 @@ export default {
         },
         configuracoes: {
           url_logo: '',
-          expectativa_operacoes: 0
+          expectativa_operacoes: 0,
+          temMensalidade: false,
+          valor_mensalidade: 0,
+          tipo_acesso: ''
         },
         tipo: '',
         nome_empresa: '',
@@ -88,6 +91,9 @@ export default {
         venda: false,
         locacao: false,
         valor_modulo_locacao: 0,
+        altera_mensalidade: false,
+        documentos: [],
+        documentosRemovidos: [],
       },
       cidades: [],
 
@@ -124,6 +130,11 @@ export default {
           text: 'Pix',
           to: 'pix',
         },
+        {
+          icon: 'mdi-file-document',
+          text: 'Contratos',
+          to: 'contratos',
+        },
       ],
     }
   },
@@ -150,8 +161,15 @@ export default {
                   : response.plano,
             },
             ...{
-              configuracoes: 
-                response.configuracoes
+              altera_mensalidade: response.configuracoes.tem_mensalidade,
+              documentosRemovidos: [],
+              configuracoes: {
+                expectativa_operacoes: response.configuracoes.expectativa_operacoes,
+                temMensalidade: response.configuracoes.temMensalidade,
+                valor_mensalidade: response.configuracoes.valor_mensalidade,
+                tipo_acesso: response.configuracoes.tipo_acesso,
+                suporte: response.configuracoes.suporte
+              } 
             },
           }
         })
@@ -172,82 +190,110 @@ export default {
         })
     },
 
-    submit() {
-      this.loading = true
-      this.$store.dispatch('layout/carregando', true)
-      this.$store.dispatch('layout/mensagemCarregando', 'Atualizando Empresa')
+    async submit() {
+      try {
+        this.loading = true
+        
 
-      const form = {
-        ...this.empresa,
-        ...{
+
+        
+        const form = {
+          ...this.empresa,
+          ...{
           // Edição geral de empresa
-          tipo: this.empresa.tipo,
-          nome_fantasia: this.empresa.nome_fantasia,
-          nome: this.empresa.nome,
-          cnpj: this.empresa.cnpj,
-          cpf: this.empresa.cnpj,
-          creci: this.empresa.creci,
-          // Edição de endereço de empresas
-          cep: this.empresa.cep,
-          cidade_id: this.empresa.cidade_id,
-          bairro: this.empresa.bairro,
-          endereco: this.empresa.endereco,
-          numero: this.empresa.numero,
-          complemento: this.empresa.complemento,
-          // Edição do contato da empresa
-          filial: {
-            id: this.empresa.filial.id,
-            telefone_01: this.empresa.filial.telefone_01,
-            telefone_02: this.empresa.filial.telefone_02,
-            celular: this.empresa.filial.celular,
+            tipo: this.empresa.tipo,
+            nome_fantasia: this.empresa.nome_fantasia,
+            nome: this.empresa.nome,
+            cnpj: this.empresa.cnpj,
+            cpf: this.empresa.cnpj,
+            creci: this.empresa.creci,
+            // Edição de endereço de empresas
+            cep: this.empresa.cep,
+            cidade_id: this.empresa.cidade_id,
+            bairro: this.empresa.bairro,
+            endereco: this.empresa.endereco,
+            numero: this.empresa.numero,
+            complemento: this.empresa.complemento,
+            // Edição do contato da empresa
+            filial: {
+              id: this.empresa.filial.id,
+              telefone_01: this.empresa.filial.telefone_01,
+              telefone_02: this.empresa.filial.telefone_02,
+              celular: this.empresa.filial.celular,
+            },
+            // Edição das informações de sistema da empresa
+            taxa_cobranca: {
+              valor_real: this.empresa.plano.valor_real,
+            },
+            tipo_acesso: this.empresa.configuracoes.tipo_acesso,
+            suporte: this.empresa.suporte,
+            // Edição de modulos de acesso
+            modulos: [
+              {
+                modulo: 'venda',
+                valor: this.empresa.venda === true ? 1 : 0,
+              },
+              {
+                modulo: 'locacao',
+                valor: this.empresa.locacao === true ? this.empresa.valor_modulo_locacao : 0,
+              },
+              {
+                modulo: 'nota_fiscal',
+                valor: this.empresa.nota_fiscal === true ? 1 : 0,
+              },
+              {
+                modulo: 'financeiro',
+                valor: this.empresa.financeiro === true ? 1 : 0,
+              },
+            ],
+            // edicão da senha de acesso do Asaas
+            senha_asaas: this.empresa.senha_asaas,
           },
-          // Edição das informações de sistema da empresa
-          taxa_cobranca: {
-            valor_real: this.empresa.plano.valor_real,
-          },
-          tipo_acesso: this.empresa.configuracoes.tipo_acesso,
-          suporte: this.empresa.suporte,
-          // Edição de modulos de acesso
-          modulos: [
-            {
-              modulo: 'venda',
-              valor: this.empresa.venda === true ? 1 : 0,
-            },
-            {
-              modulo: 'locacao',
-              valor: this.empresa.locacao === true ? this.empresa.valor_modulo_locacao : 0,
-            },
-            {
-              modulo: 'nota_fiscal',
-              valor: this.empresa.nota_fiscal === true ? 1 : 0,
-            },
-            {
-              modulo: 'financeiro',
-              valor: this.empresa.financeiro === true ? 1 : 0,
-            },
-          ],
-          // edicão da senha de acesso do Asaas
-          senha_asaas: this.empresa.senha_asaas,
-        },
-      }
+        }
+        this.$store.dispatch('layout/carregando', true)
+        this.$store.dispatch('layout/mensagemCarregando', 'Atualizando Empresa')
 
-      this.$store
-        .dispatch('empresas/editarEmpresa', {
-          id: this.empresa.id,
-          data: form,
-        }).then(() => {
-          this.$nuxt.$emit('notify', {
-            type: 'success',
-            message: 'Empresa editada com sucesso',
+        const res = await this.$store
+          .dispatch('empresas/editarEmpresa', {
+            id: this.empresa.id,
+            data: form,
           })
-          this.loading = false
-          this.carregarCaixa()
-          this.carregarEmpresa()
-          this.$store.dispatch('layout/carregando', false)
-        }).catch(() => {
-          this.loading = false
-          this.$store.dispatch('layout/carregando', false)
-        })
+        // o for .. of não retorna o index por padrão
+        // esse é um hack que permite pegar o index e a foto
+        for (const [i, arquivo] of this.empresa.documentos
+          .filter(arquivo => !arquivo.id)
+          .entries()) {
+          const form = new FormData()
+          form.append('documento', arquivo.file)
+          // aguarda a imagem ser enviada para enviar a próxima
+          await this.$store.dispatch(
+            'layout/mensagemCarregando',
+            `Enviando arquivos (${i + 1})`,
+          )
+          await this.$store.dispatch('empresas/cadastrarArquivos', {
+            id: res.id,
+            data: form
+          })
+        }
+
+        for (const arquivo of this.empresa.documentosRemovidos.filter(id => id)) {
+          // aguarda a imagem ser deletada para deletar a próxima
+          this.$store.dispatch(
+            'layout/mensagemCarregando',
+            `Removendo arquivos (${arquivo})`,
+          )
+          await this.$store.dispatch('empresas/removerArquivos', {
+            empresa_id: res.id,
+            id: arquivo,
+          })
+        }
+      } catch (err) {
+        console.log(err)
+      } finally {
+        window.location.reload()
+        this.carregarCaixa()
+        this.carregarEmpresa()
+      } 
     },
   },
 }

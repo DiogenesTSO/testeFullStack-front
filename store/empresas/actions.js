@@ -100,10 +100,6 @@ export default {
       axios
         .patch(`controle/empresas/${data.id}`, data.data)
         .then((response) => {
-          commit('UPDATE', {
-            item: 'currentEmpresa',
-            data: response.data.data,
-          })
           resolve(response.data.data)
         })
         .catch(err => reject(err))
@@ -141,6 +137,28 @@ export default {
         .get(`controle/empresas/${data.empresa_id}/pix`, data.data)
         .then((response) => {
           commit('STORE', { item: 'chaves', data: response.data.data })
+          resolve(response.data.data)
+        })
+        .catch(err => reject(err))
+    })
+  },
+
+  cadastrarArquivos({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`controle/empresas/${data.id}/contrato-imobia`, data.data)
+        .then((response) => {
+          resolve(response.data.data)
+        })
+        .catch(err => reject(err))
+    })
+  },
+
+  removerArquivos({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .delete(`controle/empresas/${data.empresa_id}/contrato-imobia/${data.id}`)
+        .then((response) => {
           resolve(response.data.data)
         })
         .catch(err => reject(err))

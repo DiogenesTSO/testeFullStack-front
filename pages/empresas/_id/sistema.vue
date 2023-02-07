@@ -27,6 +27,17 @@
             type="real"
           />
         </v-col>
+        <v-col cols="6" md="4" lg="2">
+          <v-checkbox v-model="empresa.altera_mensalidade" class="ma-1" hide-details label="Mensalidade" />
+        </v-col>
+        <v-col cols="12" md="6" lg="3">
+          <imobia-value
+            v-if="empresa.altera_mensalidade"
+            v-model="empresa.configuracoes.valor_mensalidade"
+            label="Valor da Mensalidade"
+            type="real"
+          />
+        </v-col>
       </v-row>
       <v-row>
         <v-col cols="6" md="4" lg="2">

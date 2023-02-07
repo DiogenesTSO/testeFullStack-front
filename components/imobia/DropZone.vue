@@ -55,14 +55,14 @@
                   </div>
                   <div v-else>
                     <v-icon
-                      v-if="img.type.includes('pdf')"
+                      v-if="img.type?.includes('pdf')"
                       size="7.5em"
                       color="red"
                     >
                       mdi-file-pdf-box
                     </v-icon>
                     <v-icon
-                      v-else-if="img.type.includes('wordprocessingml')"
+                      v-else-if="img.type?.includes('wordprocessingml')"
                       size="7.5em"
                       color="blue"
                     >

@@ -73,7 +73,9 @@ export default {
         venda: 0,
         locacao: 0,
         numero_locacao: 0,
-        expectativa_operacoes: 0
+        expectativa_operacoes: 0,
+        temMensalidade: false,
+        valor_mensalidade: 0
       },
       cidades: [],
 
