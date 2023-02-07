@@ -45,39 +45,25 @@
               @click.native="clickHandler(img, i)"
             >
               <template #placeholder>
-                <v-row
-                  class="fill-height w-100 ma-0"
-                  align="center"
-                  justify="center"
-                >
+                <v-row class="fill-height w-100 ma-0" align="center" justify="center">
                   <div v-if="img.loading">
                     <v-progress-circular indeterminate color="primary" />
                   </div>
                   <div v-else>
-                    <v-icon
-                      v-if="img.type?.includes('pdf')"
-                      size="7.5em"
-                      color="red"
-                    >
+                    <v-icon v-if="img.type?.includes('pdf')" size="7.5em" color="red">
                       mdi-file-pdf-box
                     </v-icon>
-                    <v-icon
-                      v-else-if="img.type?.includes('wordprocessingml')"
-                      size="7.5em"
-                      color="blue"
-                    >
+                    <v-icon v-else-if="img.type?.includes('wordprocessingml')" size="7.5em" color="blue">
                       mdi-microsoft-word
                     </v-icon>
-                    <v-icon v-else size="7.5em" color="primary">
+                    <v-icon v-else size="7.5em" color="primary" @click="downloadImage(img)">
                       mdi-text-box
                     </v-icon>
                   </div>
                 </v-row>
               </template>
 
-              <div
-                class="d-flex w-100 dz-image-menu pa-2 justify-space-between align-center"
-              >
+              <div class="d-flex w-100 dz-image-menu pa-2 justify-space-between align-center">
                 <div class="dz-image-text text-truncate">
                   <div :title="img.name" class="text-h6 lh-1">
                     {{ img.name }}
@@ -89,13 +75,7 @@
                 <div class="pl-2 d-flex flex-column">
                   <v-menu top auto offset-y>
                     <template #activator="{ on, attrs }">
-                      <v-btn
-                        v-bind="attrs"
-                        icon
-                        small
-                        color="primary"
-                        v-on="on"
-                      >
+                      <v-btn v-bind="attrs" icon small color="primary" v-on="on">
                         <v-icon>
                           mdi-dots-vertical
                         </v-icon>
@@ -108,15 +88,18 @@
                         </v-icon>
                         <v-list-item-title>Renomear</v-list-item-title>
                       </v-list-item>
+                      <v-list-item @click="downloadImage(img)">
+                        <v-icon dense class="align-self-center mr-2">
+                          mdi-eye
+                        </v-icon>
+                        <v-list-item-title>
+                          Visualizar
+                        </v-list-item-title>
+                      </v-list-item>
                       <v-list-item @click="deleteImage(i)">
-                        <v-icon
-                          dense
-                          class="align-self-center mr-2"
-                          color="error"
-                        >
+                        <v-icon dense class="align-self-center mr-2" color="error">
                           mdi-delete
                         </v-icon>
-
                         <v-list-item-title class="error--text">
                           Remover
                         </v-list-item-title>
@@ -127,13 +110,7 @@
               </div>
             </v-img>
           </v-col>
-          <v-col
-            :cols="size.cols"
-            :sm="size.sm"
-            :md="size.md"
-            :lg="size.lg"
-            class=""
-          >
+          <v-col :cols="size.cols" :sm="size.sm" :md="size.md" :lg="size.lg" class="">
             <v-responsive
               v-ripple
               aspect-ratio="1"
@@ -141,10 +118,7 @@
               width="100%"
               @click="openFilePicker"
             >
-              <div
-                v-if="!disabled"
-                class="h-100 d-flex flex-column justify-center align-center"
-              >
+              <div v-if="!disabled" class="h-100 d-flex flex-column justify-center align-center">
                 <v-icon color="normal" size="4.5em">
                   mdi-plus
                 </v-icon>
@@ -159,12 +133,7 @@
 
       <v-card v-if="loading" class="dz-sending-image px-4 py-2" color="card">
         <div class="d-flex justify-center align-center">
-          <v-progress-circular
-            size="20"
-            indeterminate
-            color="primary"
-            class="mr-2"
-          />
+          <v-progress-circular size="20" indeterminate color="primary" class="mr-2" />
           Enviando arquivo
         </div>
       </v-card>
@@ -210,7 +179,7 @@
 
 <script>
 import draggable from 'vuedraggable'
-import moment from 'moment'
+// import moment from 'moment'
 export default {
   name: 'DropZone',
   components: {
@@ -237,7 +206,7 @@ export default {
     },
     maxLength: {
       type: [String, Number],
-      default: 40,
+      default: 250,
     },
     loading: {
       type: [Boolean, String, Number],
@@ -259,13 +228,13 @@ export default {
     },
     defaultFields: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   data() {
     return {
       images: this.value.map((val) => {
-        return { ...val, ...{ loading: true } }
+        return { ...val, ...{ loading: false } }
       }),
       selectedImage: {},
       selectedIndex: -1,
@@ -416,13 +385,11 @@ export default {
       })
     },
     downloadImage(src) {
-      const link = document.createElement('a')
-      link.href = src
-      link.download =
-        this.user?.empresa?.nome + moment().format('DD-MM-YYYY hh:mm:ss')
-      document.body.appendChild(link)
+      const link = window.document.createElement('a')
+      link.href = src.url
+      link.target = "_blank"
       link.click()
-      document.body.removeChild(link)
+      window.URL.revokeObjectURL(link.href)
     },
     showError(message) {
       this.showAlert = true
