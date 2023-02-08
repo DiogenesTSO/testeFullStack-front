@@ -7,7 +7,7 @@
       />
     </v-col>
     <v-col cols="12" sm="6" md="3">
-      <dashboard-home-boletos :loading="loadingCards.operacoes" :data="dashboardGeramBoletos" />
+      <dashboard-home-boletos :loading="loadingCards.boletos" :data="dashboardGeramBoletos" />
     </v-col>
     <v-col cols="12" sm="6" md="3">
       <dashboard-home-operacoes :loading="loadingCards.operacoes" :data="dashboardOperacoes" />
