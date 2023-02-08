@@ -6,8 +6,6 @@ export default {
   },
 
   STORE(state, payload) {
-    console.log(state[payload.item])
-    console.log(payload.data)
     state[payload.item] = payload.data
   },
 

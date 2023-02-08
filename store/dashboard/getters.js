@@ -1,8 +1,6 @@
 export default {
 
   operacoes(state) {
-    console.log('state')
-    console.log(state)
     return [{
       color: 'green',
       value: state.dashboardOperacoes.operacoes_liquidadas,
@@ -12,6 +10,19 @@ export default {
       color: 'orange',
       value: state.dashboardOperacoes.operacoes_cadastradas,
       text: 'Operações Cadastradas',
+    }
+    ]
+  },
+  geramBoletos(state) {
+    return [{
+      color: 'green',
+      value: state.dashboardGeramBoletos.geram_boletos,
+      text: 'Geram boletos',
+    },
+    {
+      color: 'orange',
+      value: state.dashboardGeramBoletos.nao_geram_boletos,
+      text: 'Não Geram boletos',
     }
     ]
   },

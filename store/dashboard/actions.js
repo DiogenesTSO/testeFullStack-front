@@ -6,16 +6,27 @@ export default {
       axios
         .get('controle/dashboard/operacoes-mes', {
           params: {
-            
-            data_criada: {
-              min: '2022/04/29',
-              max: '2023/02/01'
-            }
+            data
           }
         })
         .then((response) => {
           commit('STORE', {
             item: 'dashboardOperacoes',
+            data: response.data,
+          }
+          )
+          resolve(response.data.data)
+        })
+        .catch(err => reject(err))
+    })
+  },
+  geramBoletos({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('controle/dashboard/geram-boletos')
+        .then((response) => {
+          commit('STORE', {
+            item: 'dashboardGeramBoletos',
             data: response.data,
           }
           )
