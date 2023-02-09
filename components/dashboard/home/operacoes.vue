@@ -3,9 +3,9 @@
     <div class="mt-2">
       <v-list-item>
         <v-list-item-avatar class="justify-center">
-          <v-avatar class="align-self-center" color="orange">
+          <v-avatar class="align-self-center" color="purple">
             <v-icon class="white--text">
-              mdi-home-city
+              mdi-bank-transfer
             </v-icon>
           </v-avatar>
         </v-list-item-avatar>

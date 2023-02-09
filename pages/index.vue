@@ -1,16 +1,23 @@
 <template>
   <v-row>
-    <v-col cols="12" sm="6" md="3">
-      <dashboard-home-operacoes 
-        :loading="loadingCards.operacoes" 
-        :data="dashboardOperacoes" 
+    <v-col cols="12" md="12">
+      <dashboard-home-anual
+        :loading="loadingCards.operacoes"
+        :show-data="usuarioPermitidoFinanceiro"
+        :data="dashboardOperacoes"
       />
     </v-col>
     <v-col cols="12" sm="6" md="3">
-      <dashboard-home-boletos :loading="loadingCards.boletos" :data="dashboardGeramBoletos" />
+      <dashboard-home-boletos 
+        :loading="loadingCards.boletos" 
+        :data="dashboardGeramBoletos" 
+      />
     </v-col>
     <v-col cols="12" sm="6" md="3">
-      <dashboard-home-operacoes :loading="loadingCards.operacoes" :data="dashboardOperacoes" />
+      <dashboard-home-status 
+        :loading="loadingCards.status" 
+        :data="dashboardStatus" 
+      />
     </v-col>
   </v-row>
 </template>
@@ -27,7 +34,8 @@ export default {
       mesReferencia: moment().format('MMM'),
       loadingCards: {
         operacoes: true,
-        boletos: true
+        boletos: true,
+        status: true
       },
 
       dataOperacoes: {
@@ -60,6 +68,9 @@ export default {
     dashboardGeramBoletos() {
       return this.$store.getters['dashboard/geramBoletos']
     },
+    dashboardStatus() {
+      return this.$store.getters['dashboard/statusEmpresas']
+    },
 
   },
   mounted() {
@@ -68,6 +79,9 @@ export default {
     })
     this.$store.dispatch('dashboard/geramBoletos').finally(() => {
       this.loadingCards.boletos = false
+    })
+    this.$store.dispatch('dashboard/statusEmpresas').finally(() => {
+      this.loadingCards.status = false
     })
   },
 }

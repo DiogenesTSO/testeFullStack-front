@@ -1,4 +1,5 @@
 export default () => ({
-  dashboardOperacoes: {},
+  dashboardOperacoes: [],
   dashboardGeramBoletos: {},
+  dashboardStatusEmpresas: {},
 })

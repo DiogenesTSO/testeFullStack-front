@@ -3,24 +3,23 @@
     <div class="mt-2">
       <v-list-item>
         <v-list-item-avatar class="justify-center">
-          <v-avatar class="align-self-center" color="blue">
+          <v-avatar class="align-self-center" color="green">
             <v-icon class="white--text">
-              mdi-piggy-bank
+              mdi-home-city
             </v-icon>
           </v-avatar>
         </v-list-item-avatar>
 
         <v-list-item-content>
           <v-list-item-title>
-            <span class="text-h5 normal--text">Boletos</span>
+            <span class="text-h5 normal--text">Empresas</span>
           </v-list-item-title>
         </v-list-item-content>
 
         <v-list-item-action>
-          <span class="text-h5 orange--text">
+          <span class="text-h5 green--text">
             {{
-              data.operacoes_cadastradas
-            }}
+              data[0].value + data[1].value + data[2].value }}
           </span>
         </v-list-item-action>
       </v-list-item>

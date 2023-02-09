@@ -4,7 +4,7 @@ export default {
   carregarOperacoes({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios
-        .get('controle/dashboard/operacoes-mes', {
+        .get('controle/dashboard/operacoes-ano', {
           params: {
             data
           }
@@ -19,7 +19,7 @@ export default {
         })
         .catch(err => reject(err))
     })
-  },
+  }, 
   geramBoletos({ commit }) {
     return new Promise((resolve, reject) => {
       axios
@@ -35,4 +35,20 @@ export default {
         .catch(err => reject(err))
     })
   },
+  statusEmpresas({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('controle/dashboard/quantidade-status-empresas')
+        .then((response) => {
+          commit('STORE', {
+            item: 'dashboardStatusEmpresas',
+            data: response.data,
+          }
+          )
+          resolve(response.data.data)
+        })
+        .catch(err => reject(err))
+    })
+  },
+  
 }
