@@ -126,7 +126,6 @@ export default {
           this.$store
             .dispatch('empresas/atualizarStatusEmpresa', this.status)
             .then((res) => {
-              this.$root.$emit('notify', res),
               this.$root.$emit('alterarStatus', false)
             })
             .finally(() => {

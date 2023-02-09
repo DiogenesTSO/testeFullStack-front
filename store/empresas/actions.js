@@ -164,4 +164,15 @@ export default {
         .catch(err => reject(err))
     })
   },
+
+  carregarHistorico({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`controle/empresas/${data}/historico-status`)
+        .then((response) => {
+          resolve(response.data.data)
+        })
+        .catch(err => reject(err))
+    })
+  },
 }

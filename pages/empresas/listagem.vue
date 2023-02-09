@@ -127,11 +127,23 @@
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
+            <v-list-item @click="historicoStatusModal(row.id)">
+              <v-list-item-avatar class="ma-0">
+                <v-icon>mdi-check</v-icon>
+              </v-list-item-avatar>
+              <v-list-item-content class="pa-0">
+                <v-list-item-title>Status</v-list-item-title>
+                <v-list-item-subtitle>
+                  Ver histórico de status
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
           </v-list>
         </v-menu>
       </template>
     </imobia-col-list>
     <empresas-modal-alterar-status :current-status="statusModal" />
+    <empresas-modal-historico-status :status-passados="historicoModal" />
     <imobia-load-more
       color="primary"
       :filters="filtros"
@@ -201,8 +213,8 @@ export default {
       statusModal: {
         id: '',
         status: '',
-
       },
+      historicoModal: 0
     }
   },
   computed: {
@@ -219,7 +231,34 @@ export default {
     abrirModal(portal){
       this.$root.$emit('modalPortal', true)
       this.portalModal = portal
-    }
+    },
+    historicoStatusModal(id) {
+      this.$store.dispatch('empresas/carregarHistorico', id).then((res) => {
+        this.historicoModal = res.map((status) => {
+          if (status.status_anterior === 'A') {
+            status.status_anterior = 'Ativa'
+          }
+          if (status.status_anterior === 'B') {
+            status.status_anterior = 'Bloqueada'
+          }
+          if (status.status_anterior === 'C') {
+            status.status_anterior = 'Cancelada'
+          }
+          if (status.status_novo === 'A') {
+            status.status_novo = 'Ativa'
+          }
+          if (status.status_novo === 'B') {
+            status.status_novo = 'Bloqueada'
+          }
+          if (status.status_novo === 'C') {
+            status.status_novo = 'Cancelada'
+          }
+          console.log(status)
+          return status
+        })
+      })
+      this.$root.$emit('historicoStatus', true)
+    },
 
 
   }
