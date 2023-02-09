@@ -17,9 +17,9 @@
         </v-list-item-content>
 
         <v-list-item-action>
-          <span class="text-h5 orange--text">
+          <span class="text-h5 green--text">
             {{
-              data.operacoes_cadastradas
+              data[0].value
             }}
           </span>
         </v-list-item-action>
