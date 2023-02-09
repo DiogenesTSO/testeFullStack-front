@@ -257,6 +257,7 @@ export default {
           return status
         })
       })
+      console.log(this.historicoModal)
       this.$root.$emit('historicoStatus', true)
     },
 

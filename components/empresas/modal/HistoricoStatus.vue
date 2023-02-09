@@ -15,16 +15,11 @@
         <template #fim="{ row }">
           {{ row.status_anterior }}
         </template>
-        <template #opcoes="{ row }">
-          <imobia-icon-tooltip 
-            class="po-absolute"
-            large
-          >
-            <div>
-              <span class="font-weight-bold">Cadastrado por:</span>
-              {{ row.usuario_alteracao.nome }}
-            </div>
-          </imobia-icon-tooltip>
+        <template #usuario="{ row }">
+          {{ row.usuario_alteracao?.nome }}
+        </template>
+        <template #data="{ row }">
+          {{ row.data_alteracao }}
         </template>
       </imobia-col-table>
     </div>
@@ -58,11 +53,16 @@ export default {
         },
         {
           text: 'Usuário',
-          value: 'observacoes',
+          value: 'usuario',
           justify: 'center',
           customClass: 'text-no-wrap',
           lg: 3,
         },
+        {
+          text: 'Data Alteração',
+          value: 'data',
+          lg: 3,
+        }
       ],
     }
   },
