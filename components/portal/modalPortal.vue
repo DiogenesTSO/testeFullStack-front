@@ -138,7 +138,6 @@ export default {
             action = 'portais/cadastrarPortal'
           }
 
-          console.log(this.portal)
           this.portal = {
             ...this.portal,
             ...{
@@ -156,8 +155,6 @@ export default {
           if (typeof this.portal.url_logo === 'string' || this.portal.url_logo === null) {
             formData.delete('url_logo')
           }
-
-          console.log(formData)
 
           this.$store
             .dispatch(action, formData)

@@ -120,7 +120,6 @@ const functions = {
     image.src = img.src
     image.crossOrigin = 'anonymous'
     return (image.onload = () => {
-      console.log(image)
       canvas.width = deg % 180 === 0 ? image.width : image.height
       canvas.height = deg % 180 === 0 ? image.height : image.width
 
@@ -128,7 +127,6 @@ const functions = {
       ctx.rotate((deg * Math.PI) / 180)
       ctx.drawImage(image, image.width / -2, image.height / -2)
       canvas.toBlob((blob) => {
-        console.log(blob)
         const data = {
           ...img,
           ...{

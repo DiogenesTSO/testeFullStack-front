@@ -137,7 +137,6 @@ export default {
           formattedVal =
             formattedVal.replace?.(this.currentMask[location], '') ?? ''
         })
-        /*   console.log(formattedVal)
         this.val = formattedVal */
 
         this.maskInput(val)

@@ -4,6 +4,7 @@
     v-model="show"
     :loading-button="loading"
     no-action="true"
+    large
     title="Histórico de alterações de status"
     @input="reset"
   >
@@ -19,7 +20,10 @@
           {{ row.usuario_alteracao?.nome }}
         </template>
         <template #data="{ row }">
-          {{ row.data_alteracao }}
+          {{ $format.date(row.data_alteracai, 'DD/MM/YYYY HH:mm') }}
+        </template>
+        <template #motivo="{ row }">
+          {{ row.motivo_status }}
         </template>
       </imobia-col-table>
     </div>
@@ -44,12 +48,12 @@ export default {
         {
           text: 'Status Atual',
           value: 'inicio',
-          lg: 3,
+          lg: 2,
         },
         {
-          text: 'Status Passado',
+          text: 'Status Anterior',
           value: 'fim',
-          lg: 3,
+          lg: 2,
         },
         {
           text: 'Usuário',
@@ -62,6 +66,11 @@ export default {
           text: 'Data Alteração',
           value: 'data',
           lg: 3,
+        },
+        {
+          text: 'Motivo',
+          value: 'motivo',
+          lg: 2,
         }
       ],
     }

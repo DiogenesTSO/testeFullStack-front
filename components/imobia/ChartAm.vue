@@ -285,7 +285,6 @@ export default {
       this.series.dataFields.categoryX = 'text'
       this.series.dataFields.valueY = 'value'
       this.series.fill = 'color'
-      console.log(this.series)
       /*       this.series.columns.template.strokeOpacity = 0
       this.series.columns.template.column.cornerRadiusTopRight = 10
       this.series.columns.template.column.cornerRadiusTopLeft = 10
