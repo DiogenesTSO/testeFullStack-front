@@ -20,7 +20,7 @@
           {{ row.usuario_alteracao?.nome }}
         </template>
         <template #data="{ row }">
-          {{ $format.date(row.data_alteracai, 'DD/MM/YYYY HH:mm') }}
+          {{ $format.date(row.data_alteracao, 'DD/MM/YYYY HH:mm') }}
         </template>
         <template #motivo="{ row }">
           {{ row.motivo_status }}
