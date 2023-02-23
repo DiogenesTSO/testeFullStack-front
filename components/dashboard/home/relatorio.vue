@@ -39,11 +39,11 @@ export default {
     },
   },
   methods: {
-    gerarRelatorioDiario() {
-      this.$store.dispatch('dashboard/cadastradasComercialEmpresasRelatorio').then((res) => {
+    async gerarRelatorioDiario() {
+      await this.$store.dispatch('dashboard/cadastradasComercialEmpresasRelatorio').then((res) => {
         this.download(res.data.url)
       })
-      this.$store.dispatch('dashboard/locacoesCadastradasEmpresasRelatorio').then((res) => {
+      await this.$store.dispatch('dashboard/locacoesCadastradasEmpresasRelatorio').then((res) => {
         this.download(res.data.url)
       })
     },
