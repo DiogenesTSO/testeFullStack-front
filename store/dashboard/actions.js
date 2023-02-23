@@ -50,5 +50,19 @@ export default {
         .catch(err => reject(err))
     })
   },
+
+  cadastradasEmpresasRelatorio() {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('controle/exportar/cadastradas-comercial')
+        .then((response) => {
+          console.log('response')
+          console.log(response)
+          resolve(response.data)
+        })
+        .catch(err => reject(err))
+    })
+  }
+ 
   
 }

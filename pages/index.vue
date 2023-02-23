@@ -19,6 +19,9 @@
         :data="dashboardStatus" 
       />
     </v-col>
+    <v-col>
+      <dashboard-home-relatorio />
+    </v-col>
   </v-row>
 </template>
 
