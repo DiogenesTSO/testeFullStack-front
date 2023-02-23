@@ -134,7 +134,7 @@ export default {
           icon: 'mdi-file-document',
           text: 'Contratos',
           to: 'contratos',
-        },
+        }
       ],
     }
   },

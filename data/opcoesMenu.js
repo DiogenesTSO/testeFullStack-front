@@ -26,6 +26,13 @@ export default [
         group: 'empresas',
         to: 'empresas-listagem',
       },
+      {
+        icon: 'import',
+        text: 'Importações',
+        active: false,
+        group: 'empresas',
+        to: 'empresas-importacoes',
+      },
     ],
   },
 

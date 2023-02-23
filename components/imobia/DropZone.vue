@@ -110,7 +110,14 @@
               </div>
             </v-img>
           </v-col>
-          <v-col :cols="size.cols" :sm="size.sm" :md="size.md" :lg="size.lg" class="">
+          <v-col
+            v-if="images.length <= maxLength"
+            :cols="size.cols"
+            :sm="size.sm"
+            :md="size.md"
+            :lg="size.lg"
+            class=""
+          >
             <v-responsive
               v-ripple
               aspect-ratio="1"
@@ -118,7 +125,7 @@
               width="100%"
               @click="openFilePicker"
             >
-              <div v-if="!disabled" class="h-100 d-flex flex-column justify-center align-center">
+              <div class="h-100 d-flex flex-column justify-center align-center">
                 <v-icon color="normal" size="4.5em">
                   mdi-plus
                 </v-icon>
@@ -375,7 +382,7 @@ export default {
           } else {
             this.$root.$emit('notify', {
               type: 'warning',
-              message: `Máximo de ${this.maxLength} arquivos.`,
+              message: `Máximo de ${this.maxLength + 1} arquivos.`,
             })
           }
 

@@ -175,4 +175,24 @@ export default {
         .catch(err => reject(err))
     })
   },
+  importarClientes({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`controle/empresas/${data.empresaId}/importar-clientes`, data.file)
+        .then((res) => {
+          resolve(res)
+        })
+        .catch(err => reject(err))
+    })
+  },
+  importarImoveis({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`controle/empresas/${data.empresaId}/importar-imoveis`, data.file)
+        .then((res) => {
+          resolve(res)
+        })
+        .catch(err => reject(err))
+    })
+  }
 }
