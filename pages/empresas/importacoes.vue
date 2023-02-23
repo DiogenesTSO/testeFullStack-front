@@ -118,9 +118,6 @@ export default {
           file: form
         }).then((res) => {
           this.loading = false
-          this.empresa = ''
-          this.arquivo = []
-          this.modulo = ''
         }).finally(() => {
           this.loading = false
         })
