@@ -40,11 +40,14 @@ export default {
   },
   methods: {
     gerarRelatorioDiario() {
-      this.$store.dispatch('dashboard/cadastradasEmpresasRelatorio').then((res) => {
-        this.download(res.data.url, res.data.url)
+      this.$store.dispatch('dashboard/cadastradasComercialEmpresasRelatorio').then((res) => {
+        this.download(res.data.url)
+      })
+      this.$store.dispatch('dashboard/locacoesCadastradasEmpresasRelatorio').then((res) => {
+        this.download(res.data.url)
       })
     },
-    download(uri, nome) {
+    download(uri) {
       const link = document.createElement("a")
       link.href = uri
       link.click()
