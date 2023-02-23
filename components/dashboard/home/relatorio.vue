@@ -48,6 +48,7 @@ export default {
       const link = document.createElement("a")
       link.href = uri
       link.click()
+      window.URL.revokeObjectURL(link.href)
     }
     
   }
