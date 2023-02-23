@@ -100,8 +100,10 @@ export default {
   methods: {
     submit() {
       this.loading = true
+
       const form = new FormData()
-      form.append('file', this.arquivo)
+      form.append('file', this.arquivo[0].file)
+
       if (this.modulo === 2) {
         this.$store.dispatch('empresas/importarClientes', {
           empresaId: this.empresa,
@@ -114,11 +116,16 @@ export default {
         this.$store.dispatch('empresas/importarImoveis', {
           empresaId: this.empresa,
           file: form
+        }).then((res) => {
+          this.loading = false
+          this.empresa = ''
+          this.arquivo = []
+          this.modulo = ''
         }).finally(() => {
           this.loading = false
         })
       }
-    }
+    },
   }
 }
 
