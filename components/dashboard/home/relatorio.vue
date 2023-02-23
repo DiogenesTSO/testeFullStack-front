@@ -42,6 +42,7 @@ export default {
     async gerarRelatorioDiario() {
       await this.$store.dispatch('dashboard/cadastradasComercialEmpresasRelatorio').then((res) => {
         this.download(res.data.url)
+        return true
       })
       await this.$store.dispatch('dashboard/locacoesCadastradasEmpresasRelatorio').then((res) => {
         this.download(res.data.url)
