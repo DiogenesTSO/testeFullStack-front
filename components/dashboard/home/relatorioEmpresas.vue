@@ -1,7 +1,10 @@
 <template>
   <v-card
     :loading="loading ? 'primary' : ''"
-    class="my-1"
+    class="my-1 
+    d-flex
+    flex-column
+    justify-space-between"
     color="card"
   >
     <v-list-item class="pa-3" @click="gerarRelatorioDiario('empresas')">
@@ -16,21 +19,6 @@
       <v-list-item-content>
         <v-list-item-title>
           <span class="text-h5 normal--text">Relatório de empresas cadastradas</span>
-        </v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
-    <v-list-item class="pa-3" @click="gerarRelatorioDiario('locacoes')">
-      <v-list-item-avatar class="justify-center">
-        <v-avatar class="align-self-center" color="blue">
-          <v-icon class="white--text">
-            mdi-file-document
-          </v-icon>
-        </v-avatar>
-      </v-list-item-avatar>
-
-      <v-list-item-content>
-        <v-list-item-title>
-          <span class="text-h5 normal--text">Relatório de operações cadastradas</span>
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
@@ -54,17 +42,10 @@ export default {
     },
   },
   methods: {
-    gerarRelatorioDiario(modulo) {
-      if (modulo === 'empresas') {
-        this.$store.dispatch('dashboard/cadastradasComercialEmpresasRelatorio').then((res) => {
-          this.download(res.data.url)
-        })
-      }
-      if (modulo === 'locacoes') {
-        this.$store.dispatch('dashboard/locacoesCadastradasEmpresasRelatorio').then((res) => {
-          this.download(res.data.url)
-        })
-      }
+    gerarRelatorioDiario() {
+      this.$store.dispatch('dashboard/cadastradasComercialEmpresasRelatorio').then((res) => {
+        this.download(res.data.url)
+      })
     },
     download(uri) {
       const link = document.createElement("a")

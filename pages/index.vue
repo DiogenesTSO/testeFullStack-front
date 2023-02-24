@@ -19,8 +19,14 @@
         :data="dashboardStatus" 
       />
     </v-col>
-    <v-col>
-      <dashboard-home-relatorio />
+    <v-col
+      cols="12"
+      md="6"
+      lg="6"
+      class="d-flex flex-column"
+    >
+      <dashboard-home-relatorio-empresas />
+      <dashboard-home-relatorio-locacoes />
     </v-col>
   </v-row>
 </template>
