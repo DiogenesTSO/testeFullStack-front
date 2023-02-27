@@ -51,7 +51,7 @@ export default {
     })
   },
 
-  cadastradasEmpresasRelatorio() {
+  cadastradasComercialEmpresasRelatorio() {
     return new Promise((resolve, reject) => {
       axios
         .get('controle/exportar/cadastradas-comercial')
@@ -60,7 +60,17 @@ export default {
         })
         .catch(err => reject(err))
     })
-  }
+  },
  
+  locacoesCadastradasEmpresasRelatorio() {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('controle/exportar/locacoes-cadastradas-empresas')
+        .then((response) => {
+          resolve(response.data)
+        })
+        .catch(err => reject(err))
+    })
+  }
   
 }
