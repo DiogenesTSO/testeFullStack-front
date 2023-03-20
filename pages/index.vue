@@ -1,12 +1,12 @@
 <template>
   <v-row>
-    <v-col cols="12" md="12">
+    <!-- <v-col cols="12" md="12">
       <dashboard-home-anual
         :loading="loadingCards.operacoes"
         :show-data="usuarioPermitidoFinanceiro"
         :data="dashboardOperacoes"
       />
-    </v-col>
+    </v-col> -->
     <v-col cols="12" sm="6" md="3">
       <dashboard-home-boletos 
         :loading="loadingCards.boletos" 
