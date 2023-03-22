@@ -19,7 +19,7 @@ export default {
         })
         .catch(err => reject(err))
     })
-  }, 
+  },
   geramBoletos({ commit }) {
     return new Promise((resolve, reject) => {
       axios
@@ -61,7 +61,7 @@ export default {
         .catch(err => reject(err))
     })
   },
- 
+
   locacoesCadastradasEmpresasRelatorio() {
     return new Promise((resolve, reject) => {
       axios
@@ -71,6 +71,16 @@ export default {
         })
         .catch(err => reject(err))
     })
+  },
+  locacoesPrimeiroVencimento() {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('controle/exportar/primeiros-vencimentos')
+        .then((response) => {
+          resolve(response.data)
+        })
+        .catch(err => reject(err))
+    })
   }
-  
+
 }

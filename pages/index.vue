@@ -8,25 +8,21 @@
       />
     </v-col> -->
     <v-col cols="12" sm="6" md="3">
-      <dashboard-home-boletos 
-        :loading="loadingCards.boletos" 
-        :data="dashboardGeramBoletos" 
+      <dashboard-home-boletos
+        :loading="loadingCards.boletos"
+        :data="dashboardGeramBoletos"
       />
     </v-col>
     <v-col cols="12" sm="6" md="3">
-      <dashboard-home-status 
-        :loading="loadingCards.status" 
-        :data="dashboardStatus" 
+      <dashboard-home-status
+        :loading="loadingCards.status"
+        :data="dashboardStatus"
       />
     </v-col>
-    <v-col
-      cols="12"
-      md="6"
-      lg="6"
-      class="d-flex flex-column"
-    >
+    <v-col cols="12" md="6" lg="6" class="d-flex flex-column">
       <dashboard-home-relatorio-empresas />
       <dashboard-home-relatorio-locacoes />
+      <dashboard-home-relatorio-primeiro-vencimento />
     </v-col>
   </v-row>
 </template>
@@ -44,12 +40,12 @@ export default {
       loadingCards: {
         operacoes: true,
         boletos: true,
-        status: true
+        status: true,
       },
 
       dataOperacoes: {
         mes_referencia: moment().format('YYYY/MM/01'),
-      }
+      },
     }
   },
 
@@ -80,12 +76,13 @@ export default {
     dashboardStatus() {
       return this.$store.getters['dashboard/statusEmpresas']
     },
-
   },
   mounted() {
-    this.$store.dispatch('dashboard/carregarOperacoes', this.dataOperacoes).finally(() => {
-      this.loadingCards.operacoes = false
-    })
+    this.$store
+      .dispatch('dashboard/carregarOperacoes', this.dataOperacoes)
+      .finally(() => {
+        this.loadingCards.operacoes = false
+      })
     this.$store.dispatch('dashboard/geramBoletos').finally(() => {
       this.loadingCards.boletos = false
     })
