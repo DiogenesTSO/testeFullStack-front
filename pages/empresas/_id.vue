@@ -281,7 +281,7 @@ export default {
         console.log(err)
       } finally {
         this.$store.dispatch('layout/carregando', false)
-        // window.location.reload()
+        window.location.reload()
         this.carregarCaixa()
         this.carregarEmpresa()
       } 
