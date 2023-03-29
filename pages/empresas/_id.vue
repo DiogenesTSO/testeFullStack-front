@@ -153,16 +153,9 @@ export default {
             ...this.empresa,
             ...response,
             ...{
-              plano:
-                response.plano === null
-                  ? {
-                      valor_real: 0,
-                    }
-                  : response.plano,
-            },
-            ...{
               altera_mensalidade: response.configuracoes.tem_mensalidade,
               documentosRemovidos: [],
+              valor_taxa_cobranca: response.plano.valor_real,
               configuracoes: {
                 expectativa_operacoes: response.configuracoes.expectativa_operacoes,
                 temMensalidade: response.configuracoes.temMensalidade,
@@ -194,9 +187,6 @@ export default {
       try {
         this.loading = true
         
-
-
-        
         const form = {
           ...this.empresa,
           ...{
@@ -223,7 +213,7 @@ export default {
             },
             // Edição das informações de sistema da empresa
             taxa_cobranca: {
-              valor_real: this.empresa.plano.valor_real,
+              valor_real: this.empresa.valor_taxa_cobranca,
             },
             tipo_acesso: this.empresa.configuracoes.tipo_acesso,
             suporte: this.empresa.suporte,
@@ -290,7 +280,8 @@ export default {
       } catch (err) {
         console.log(err)
       } finally {
-        window.location.reload()
+        this.$store.dispatch('layout/carregando', false)
+        // window.location.reload()
         this.carregarCaixa()
         this.carregarEmpresa()
       } 

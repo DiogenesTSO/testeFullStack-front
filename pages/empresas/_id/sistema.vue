@@ -22,7 +22,7 @@
         </v-col>
         <v-col cols="12" md="3">
           <imobia-value
-            v-model="empresa.plano.valor_real"
+            v-model="empresa.valor_taxa_cobranca"
             label="Valor da taxa de cobrança"
             type="real"
           />
@@ -106,7 +106,6 @@ export default {
       },
       deep: true,
     },
-
     empresa: {
       handler() {
         this.$emit('input', this.empresa)
