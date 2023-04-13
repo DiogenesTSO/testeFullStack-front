@@ -75,6 +75,7 @@ export default {
         numero_locacao: 0,
         expectativa_operacoes: 0,
         temMensalidade: false,
+        cobranca_manual: false,
         valor_mensalidade: 0
       },
       cidades: [],

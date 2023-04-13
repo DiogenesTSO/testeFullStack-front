@@ -161,7 +161,8 @@ export default {
                 temMensalidade: response.configuracoes.temMensalidade,
                 valor_mensalidade: response.configuracoes.valor_mensalidade,
                 tipo_acesso: response.configuracoes.tipo_acesso,
-                suporte: response.configuracoes.suporte
+                suporte: response.configuracoes.suporte,
+                cobranca_manual: !!response.configuracoes.cobranca_manual
               } 
             },
           }
