@@ -162,7 +162,8 @@ export default {
                 valor_mensalidade: response.configuracoes.valor_mensalidade,
                 tipo_acesso: response.configuracoes.tipo_acesso,
                 suporte: response.configuracoes.suporte,
-                cobranca_manual: !!response.configuracoes.cobranca_manual
+                cobranca_manual: !!response.configuracoes.cobranca_manual,
+                dias_boleto_automatico: response.configuracoes.dias_boleto_automatico
               } 
             },
           }
@@ -217,6 +218,7 @@ export default {
               valor_real: this.empresa.valor_taxa_cobranca,
             },
             tipo_acesso: this.empresa.configuracoes.tipo_acesso,
+            dias_boleto_automatico: this.empresa.configuracoes.dias_boleto_automatico,
             suporte: this.empresa.suporte,
             // Edição de modulos de acesso
             modulos: [

@@ -38,6 +38,14 @@
             type="real"
           />
         </v-col>
+        <v-col cols="12" md="3">
+          <imobia-select
+            v-model="empresa.configuracoes.dias_boleto_automatico"
+            :items="diasBoleto"
+            suffix="dias antes"
+            label="Geração automatica da cobrança "
+          />
+        </v-col>
       </v-row>
       <v-row>
         <v-col cols="6" md="4" lg="2">
@@ -99,6 +107,16 @@ export default {
       tipoAcessoEmpresa: [
         { id: 'acesso_basico', nome: 'Acesso básico' },
         { id: 'acesso_completo', nome: 'Acesso completo' },
+      ],
+      diasBoleto: [
+        { id: 3, nome: 3 },
+        { id: 4, nome: 4 },
+        { id: 5, nome: 5 },
+        { id: 6, nome: 6 },
+        { id: 7, nome: 7 },
+        { id: 8, nome: 8 },
+        { id: 9, nome: 9 },
+        { id: 10, nome: 10 },
       ],
     }
   },
