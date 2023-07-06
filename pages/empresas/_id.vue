@@ -36,6 +36,32 @@
             </v-list-item>
           </v-list>
         </template>
+        <template #left>
+          <div class="d-flex flex-column">
+            <div v-if="empresa.status_asaas !== 'ativo'" class="mb-2">
+              <imobia-input 
+                v-model="empresa.onboardingUrl" 
+                label="Onboarding URL" 
+                :disabled="empresa.status_asaas !== 'ativo' ? true : false"
+              />
+              <v-btn text small color="primary" @click="gerarUrl()">
+                <v-icon left>
+                  mdi-plus
+                </v-icon>
+                Gerar nova URL
+              </v-btn>
+            </div>
+            <div>
+              <v-btn
+                label
+                small
+                :class="statusContasAsaas[empresa.status_asaas].cor + ' mr-3'"
+              >
+                Status Asaas: {{ statusContasAsaas[empresa.status_asaas].nome }}
+              </v-btn>
+            </div>
+          </div>
+        </template>
         <NuxtChild v-model="empresa" />
       </imobia-tab-card>
     </v-col>
@@ -94,8 +120,15 @@ export default {
         altera_mensalidade: false,
         documentos: [],
         documentosRemovidos: [],
+        onboardingUrl: '',
+        status_asaas: 'inativo'
       },
       cidades: [],
+
+      statusContasAsaas: {
+        ativo: { cor: 'green', nome: 'Ativo' },
+        inativo: { cor: 'red', nome: 'Inativo' },
+      },
 
       items: [
         {
@@ -163,7 +196,8 @@ export default {
                 tipo_acesso: response.configuracoes.tipo_acesso,
                 suporte: response.configuracoes.suporte,
                 cobranca_manual: !!response.configuracoes.cobranca_manual,
-                dias_boleto_automatico: response.configuracoes.dias_boleto_automatico
+                dias_boleto_automatico: response.configuracoes.dias_boleto_automatico,
+                statusEmpresas: response.status_asaas
               } 
             },
           }
