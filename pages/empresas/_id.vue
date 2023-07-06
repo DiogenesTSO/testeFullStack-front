@@ -197,7 +197,6 @@ export default {
                 suporte: response.configuracoes.suporte,
                 cobranca_manual: !!response.configuracoes.cobranca_manual,
                 dias_boleto_automatico: response.configuracoes.dias_boleto_automatico,
-                statusEmpresas: response.status_asaas
               } 
             },
           }
