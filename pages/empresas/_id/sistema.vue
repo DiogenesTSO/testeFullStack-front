@@ -140,7 +140,7 @@ export default {
 
   methods: {
     formatarModulos(){
-      this.empresa.modulos.map((modulo) => {
+      this.empresa?.modulos?.map((modulo) => {
         if (modulo.modulo === "venda"){
           this.empresa.venda = true
         }

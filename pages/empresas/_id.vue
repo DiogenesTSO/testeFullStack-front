@@ -188,7 +188,7 @@ export default {
             ...{
               altera_mensalidade: response.configuracoes.tem_mensalidade,
               documentosRemovidos: [],
-              valor_taxa_cobranca: response.plano.valor_real,
+              valor_taxa_cobranca: response.plano ? response.plano.valor_real : 0,
               configuracoes: {
                 expectativa_operacoes: response.configuracoes.expectativa_operacoes,
                 temMensalidade: response.configuracoes.temMensalidade,
