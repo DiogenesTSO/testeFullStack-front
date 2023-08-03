@@ -19,6 +19,14 @@
           <v-col cols="12" md="3">
             <imobia-input v-model="empresa.cnpj" required type="cpf cnpj" label="CNPJ" />
           </v-col>
+          <v-col v-if="empresa.tipo === 'PF'" cols="12" md="3">
+            <imobia-date-picker
+              v-model="empresa.data_nascimento"
+              left
+              min="1890-01-01"
+              label="Data de nascimento"
+            />
+          </v-col>
           <v-col cols="12" md="3">
             <imobia-input v-model="empresa.creci" required label="CRECI" />
           </v-col>
