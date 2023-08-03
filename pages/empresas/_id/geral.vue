@@ -23,6 +23,7 @@
             <imobia-date-picker
               v-model="empresa.data_nascimento"
               left
+              :required="empresa.tipo === 'PF'"
               min="1890-01-01"
               label="Data de nascimento"
             />

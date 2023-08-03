@@ -292,6 +292,7 @@ export default {
           tipo: 'bancario',
           correntista_documento: this.empresa.cnpj,
           conta_tipo: this.caixa.tipo,
+          data_nascimento: this.empresa.tipo === "PF" ? this.empresa.data_nascimento : null
         },
       }
 
