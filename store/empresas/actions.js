@@ -194,5 +194,15 @@ export default {
         })
         .catch(err => reject(err))
     })
+  },
+  novaOnboardingUrl({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`empresas/${data.empresaId}/gerar-nova-url-onboarding`)
+        .then((res) => {
+          resolve(res)
+        })
+        .catch(err => reject(err))
+    })
   }
 }

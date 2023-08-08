@@ -42,7 +42,7 @@
               <imobia-input 
                 v-model="empresa.onboardingUrl" 
                 label="Onboarding URL" 
-                :disabled="empresa.status_asaas !== 'ativo' ? true : false"
+                :disabled="empresa.status_asaas === 'ativo' ? true : false"
               />
               <v-btn text small color="primary" @click="gerarUrl()">
                 <v-icon left>
@@ -216,6 +216,15 @@ export default {
         })
         .then((response) => {
           this.empresa.caixas = response
+        })
+    },
+
+    gerarUrl() {
+      this.$store
+        .dispatch('empresas/novaOnboardingUrl', {
+          empresa_id: this.empresa.id,
+        }).then((res) => {
+          this.empresa.onboardingUrl = res.data
         })
     },
 
