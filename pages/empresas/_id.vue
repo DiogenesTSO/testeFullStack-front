@@ -128,6 +128,7 @@ export default {
 
       statusContasAsaas: {
         ativo: { cor: 'green', nome: 'Ativo' },
+        pendente: { cor: 'warning', nome: 'Pendente' },
         inativo: { cor: 'red', nome: 'Inativo' },
       },
 
@@ -188,6 +189,7 @@ export default {
             ...response,
             ...{
               altera_mensalidade: response.configuracoes.tem_mensalidade,
+              onboardingUrl: response.onboardingUrl,
               documentosRemovidos: [],
               valor_taxa_cobranca: response.plano ? response.plano.valor_real : 0,
               configuracoes: {
