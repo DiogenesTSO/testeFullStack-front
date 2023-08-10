@@ -40,7 +40,7 @@
           <div class="d-flex flex-column">
             <div v-if="empresa.status_asaas !== 'ativo'" class="mb-2">
               <imobia-input 
-                v-model="empresa.onboardingUrl" 
+                v-model="empresa.onboarding_url" 
                 label="Onboarding URL" 
                 :disabled="empresa.status_asaas === 'ativo' ? true : false"
               />
@@ -121,7 +121,7 @@ export default {
         altera_mensalidade: false,
         documentos: [],
         documentosRemovidos: [],
-        onboardingUrl: '',
+        onboarding_url: '',
         status_asaas: 'inativo'
       },
       cidades: [],
@@ -189,7 +189,6 @@ export default {
             ...response,
             ...{
               altera_mensalidade: response.configuracoes.tem_mensalidade,
-              onboardingUrl: response.onboardingUrl,
               documentosRemovidos: [],
               valor_taxa_cobranca: response.plano ? response.plano.valor_real : 0,
               configuracoes: {
@@ -226,7 +225,7 @@ export default {
         .dispatch('empresas/novaOnboardingUrl', {
           empresa_id: this.empresa.id,
         }).then((res) => {
-          this.empresa.onboardingUrl = res.data
+          this.empresa.onboarding_url = res.data
         })
     },
 
