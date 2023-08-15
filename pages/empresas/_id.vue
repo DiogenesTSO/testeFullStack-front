@@ -223,7 +223,7 @@ export default {
     gerarUrl() {
       this.$store
         .dispatch('empresas/novaOnboardingUrl', {
-          empresa_id: this.empresa.id,
+          empresa_id: this.$route.params.id,
         }).then((res) => {
           this.empresa.onboarding_url = res.data
         })
