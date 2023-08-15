@@ -196,10 +196,12 @@ export default {
     })
   },
   novaOnboardingUrl({ commit }, data) {
+    console.log(data)
     return new Promise((resolve, reject) => {
       axios
-        .get(`empresas/${data.empresaId}/gerar-nova-url-onboarding`)
+        .get(`empresas/${data.empresa_id}/gerar-nova-url-onboarding`)
         .then((res) => {
+          console.log(res)
           resolve(res)
         })
         .catch(err => reject(err))
