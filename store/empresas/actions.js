@@ -200,7 +200,7 @@ export default {
       axios
         .get(`/controle/empresas/${data.empresa_id}/gerar-nova-url-onboarding`)
         .then((res) => {
-          resolve(res.data)
+          resolve(res.data.data)
         })
         .catch(err => reject(err))
     })

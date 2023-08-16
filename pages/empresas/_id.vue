@@ -225,6 +225,7 @@ export default {
         .dispatch('empresas/novaOnboardingUrl', {
           empresa_id: this.$route.params.id,
         }).then((res) => {
+          console.log(res)
           this.empresa.onboarding_url = res.nova_url
         })
     },
