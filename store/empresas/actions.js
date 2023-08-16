@@ -199,7 +199,7 @@ export default {
     console.log(data)
     return new Promise((resolve, reject) => {
       axios
-        .post(`empresas/${data.empresa_id}/gerar-nova-url-onboarding`)
+        .get(`/controle/empresas/${data.empresa_id}/gerar-nova-url-onboarding`)
         .then((res) => {
           console.log(res)
           resolve(res)
