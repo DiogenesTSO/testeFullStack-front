@@ -221,13 +221,16 @@ export default {
     },
 
     gerarUrl() {
+      this.$store.dispatch('layout/carregando', true)
       this.$store
         .dispatch('empresas/novaOnboardingUrl', {
           empresa_id: this.$route.params.id,
         }).then((res) => {
-          console.log(res)
           this.empresa.onboarding_url = res.nova_url
+        }).finally(() => {
+          this.$store.dispatch('layout/carregando', false)
         })
+    },
     },
 
     async submit() {
