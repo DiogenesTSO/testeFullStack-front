@@ -204,5 +204,16 @@ export default {
         })
         .catch(err => reject(err))
     })
+  },
+
+  enviarDocumentoAsaas({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`/controle/empresas/${data.empresa_id}/enviar-documento`, { file: data.file, type: data.type })
+        .then((res) => {
+          resolve(res.data.data)
+        })
+        .catch(err => reject(err))
+    })
   }
 }

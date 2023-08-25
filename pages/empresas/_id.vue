@@ -122,7 +122,8 @@ export default {
         documentos: [],
         documentosRemovidos: [],
         onboarding_url: '',
-        status_asaas: 'inativo'
+        status_asaas: 'inativo',
+        documentos_asaas: []
       },
       cidades: [],
 
@@ -169,6 +170,11 @@ export default {
           icon: 'mdi-file-document',
           text: 'Contratos',
           to: 'contratos',
+        },
+        {
+          icon: 'mdi-file-document-arrow-right-outline',
+          text: 'Documentos ASAAS',
+          to: 'documentos_asaas',
         }
       ],
     }
@@ -294,6 +300,21 @@ export default {
       }
       this.$store.dispatch('layout/carregando', true)
       this.$store.dispatch('layout/mensagemCarregando', 'Atualizando Empresa')
+
+      
+
+      if (this.empresa.documentos_asaas) {
+        await this.$store
+          .dispatch('empresas/enviarDocumentoAsaas', {
+            file: this.empresa.documentos_asaas,
+            type: this.empresa.tipo === 'LIMITED'
+              ? 'SOCIAL_CONTRACT'
+              : this.empresa.tipo === 'INDIVIDUAL'
+                ? 'ENTREPRENEUR_REQUIREMENT'
+                : '',
+            empresa_id: this.empresa.id
+          })
+      }
 
       const res = await this.$store
         .dispatch('empresas/editarEmpresa', {
