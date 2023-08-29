@@ -302,7 +302,7 @@ export default {
 
       
 
-        if (this.empresa.documentos_asaas) {
+        if (this.empresa.documentos_asaas.length) {
           await this.$store
             .dispatch('empresas/enviarDocumentoAsaas', {
               file: this.empresa.documentos_asaas,
