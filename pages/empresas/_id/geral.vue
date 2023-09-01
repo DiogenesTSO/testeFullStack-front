@@ -21,7 +21,7 @@
           </v-col>
           <v-col v-if="empresa.tipo === 'PF'" cols="12" md="3">
             <imobia-date-picker
-              v-model="empresa.data_nascimento.asaas"
+              v-model="empresa.data_nascimento_asaas"
               left
               :required="empresa.tipo === 'PF'"
               min="1890-01-01"
