@@ -92,7 +92,7 @@ export default {
         tipo: '',
         nome_empresa: '',
         nome_fantasia: '',
-        data_nascimento: '',
+        data_nascimento_asaas: '',
         cpfcnpj: '',
         cnpj: '',
         creci: '',
@@ -252,7 +252,7 @@ export default {
             cnpj: this.empresa.cnpj,
             cpf: this.empresa.cnpj,
             creci: this.empresa.creci,
-            data_nascimento: this.empresa.tipo === "PF" ? this.empresa.data_nascimento : null,
+            data_nascimento_asaas: this.empresa.tipo === "PF" ? this.empresa.data_nascimento.asaas : null,
             // Edição de endereço de empresas
             cep: this.empresa.cep,
             cidade_id: this.empresa.cidade_id,
