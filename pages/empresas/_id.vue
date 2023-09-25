@@ -39,9 +39,9 @@
         <template #left>
           <div class="d-flex flex-column">
             <div v-if="empresa.status_asaas !== 'ativo'" class="mb-2">
-              <imobia-input 
-                v-model="empresa.onboarding_url" 
-                label="Onboarding URL" 
+              <imobia-input
+                v-model="empresa.onboarding_url"
+                label="Onboarding URL"
                 :disabled="empresa.status_asaas === 'ativo' ? true : false"
               />
               <v-btn text small color="primary" @click="gerarUrl()">
@@ -87,7 +87,7 @@ export default {
           expectativa_operacoes: 0,
           temMensalidade: false,
           valor_mensalidade: 0,
-          tipo_acesso: ''
+          tipo_acesso: '',
         },
         tipo: '',
         nome_empresa: '',
@@ -96,6 +96,7 @@ export default {
         cpfcnpj: '',
         cnpj: '',
         creci: '',
+        cnae: '',
         cep: '',
         endereco: '',
         numero: '',
@@ -123,7 +124,7 @@ export default {
         documentosRemovidos: [],
         onboarding_url: '',
         status_asaas: 'inativo',
-        documentos_asaas: []
+        documentos_asaas: [],
       },
       cidades: [],
 
@@ -175,7 +176,7 @@ export default {
           icon: 'mdi-file-document-arrow-right-outline',
           text: 'Documentos ASAAS',
           to: 'documentos_asaas',
-        }
+        },
       ],
     }
   },
@@ -196,16 +197,20 @@ export default {
             ...{
               altera_mensalidade: response.configuracoes.tem_mensalidade,
               documentosRemovidos: [],
-              valor_taxa_cobranca: response.plano ? response.plano.valor_real : 0,
+              valor_taxa_cobranca: response.plano
+                ? response.plano.valor_real
+                : 0,
               configuracoes: {
-                expectativa_operacoes: response.configuracoes.expectativa_operacoes,
+                expectativa_operacoes:
+                  response.configuracoes.expectativa_operacoes,
                 temMensalidade: response.configuracoes.temMensalidade,
                 valor_mensalidade: response.configuracoes.valor_mensalidade,
                 tipo_acesso: response.configuracoes.tipo_acesso,
                 suporte: response.configuracoes.suporte,
                 cobranca_manual: !!response.configuracoes.cobranca_manual,
-                dias_boleto_automatico: response.configuracoes.dias_boleto_automatico,
-              } 
+                dias_boleto_automatico:
+                  response.configuracoes.dias_boleto_automatico,
+              },
             },
           }
         })
@@ -231,9 +236,11 @@ export default {
       this.$store
         .dispatch('empresas/novaOnboardingUrl', {
           empresa_id: this.$route.params.id,
-        }).then((res) => {
+        })
+        .then((res) => {
           this.empresa.onboarding_url = res.nova_url
-        }).finally(() => {
+        })
+        .finally(() => {
           this.$store.dispatch('layout/carregando', false)
         })
     },
@@ -241,18 +248,22 @@ export default {
     async submit() {
       try {
         this.loading = true
-        
+
         const form = {
           ...this.empresa,
           ...{
-          // Edição geral de empresa
+            // Edição geral de empresa
             tipo: this.empresa.tipo,
             nome_fantasia: this.empresa.nome_fantasia,
             nome: this.empresa.nome,
             cnpj: this.empresa.cnpj,
             cpf: this.empresa.cnpj,
             creci: this.empresa.creci,
-            data_nascimento_asaas: this.empresa.tipo === "PF" ? this.empresa.data_nascimento_asaas : null,
+            cnae: this.empresa.cnae,
+            data_nascimento_asaas:
+              this.empresa.tipo === 'PF'
+                ? this.empresa.data_nascimento_asaas
+                : null,
             // Edição de endereço de empresas
             cep: this.empresa.cep,
             cidade_id: this.empresa.cidade_id,
@@ -272,7 +283,8 @@ export default {
               valor_real: this.empresa.valor_taxa_cobranca,
             },
             tipo_acesso: this.empresa.configuracoes.tipo_acesso,
-            dias_boleto_automatico: this.empresa.configuracoes.dias_boleto_automatico,
+            dias_boleto_automatico: this.empresa.configuracoes
+              .dias_boleto_automatico,
             suporte: this.empresa.suporte,
             // Edição de modulos de acesso
             modulos: [
@@ -282,7 +294,10 @@ export default {
               },
               {
                 modulo: 'locacao',
-                valor: this.empresa.locacao === true ? this.empresa.valor_modulo_locacao : 0,
+                valor:
+                  this.empresa.locacao === true
+                    ? this.empresa.valor_modulo_locacao
+                    : 0,
               },
               {
                 modulo: 'nota_fiscal',
@@ -300,30 +315,27 @@ export default {
         this.$store.dispatch('layout/carregando', true)
         this.$store.dispatch('layout/mensagemCarregando', 'Atualizando Empresa')
 
-      
-
         if (this.empresa.documentos_asaas.length) {
-          await this.$store
-            .dispatch('empresas/enviarDocumentoAsaas', {
-              file: this.empresa.documentos_asaas,
-              type: this.empresa.tipo === 'LIMITED'
+          await this.$store.dispatch('empresas/enviarDocumentoAsaas', {
+            file: this.empresa.documentos_asaas,
+            type:
+              this.empresa.tipo === 'LIMITED'
                 ? 'SOCIAL_CONTRACT'
                 : this.empresa.tipo === 'INDIVIDUAL'
-                  ? 'ENTREPRENEUR_REQUIREMENT'
-                  : '',
-              empresa_id: this.empresa.id
-            })
+                ? 'ENTREPRENEUR_REQUIREMENT'
+                : '',
+            empresa_id: this.empresa.id,
+          })
         }
 
-        const res = await this.$store
-          .dispatch('empresas/editarEmpresa', {
-            id: this.empresa.id,
-            data: form,
-          })
+        const res = await this.$store.dispatch('empresas/editarEmpresa', {
+          id: this.empresa.id,
+          data: form,
+        })
         // o for .. of não retorna o index por padrão
         // esse é um hack que permite pegar o index e a foto
         for (const [i, arquivo] of this.empresa.documentos
-          .filter(arquivo => !arquivo.id)
+          .filter((arquivo) => !arquivo.id)
           .entries()) {
           const form = new FormData()
           form.append('documento', arquivo.file)
@@ -334,12 +346,14 @@ export default {
           )
           await this.$store.dispatch('empresas/cadastrarArquivos', {
             id: res.id,
-            data: form
+            data: form,
           })
         }
 
-        for (const arquivo of this.empresa.documentosRemovidos.filter(id => id)) {
-        // aguarda a imagem ser deletada para deletar a próxima
+        for (const arquivo of this.empresa.documentosRemovidos.filter(
+          (id) => id,
+        )) {
+          // aguarda a imagem ser deletada para deletar a próxima
           this.$store.dispatch(
             'layout/mensagemCarregando',
             `Removendo arquivos (${arquivo})`,
@@ -356,8 +370,8 @@ export default {
         window.location.reload()
         this.carregarCaixa()
         this.carregarEmpresa()
-      } 
-    }, 
+      }
+    },
   },
 }
 </script>

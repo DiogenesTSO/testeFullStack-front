@@ -55,6 +55,7 @@ export default {
         cpfcnpj: '',
         cnpj: '',
         creci: '',
+        cnae: '',
         cep: '',
         endereco: '',
         numero: '',
@@ -155,6 +156,7 @@ export default {
           cnpj: this.empresa.cnpj,
           cpf: this.empresa.cnpj,
           creci: this.empresa.creci,
+          cnae: this.empresa.cnae,
           // Cadastro de endereço de empresas
           cep: this.empresa.cep,
           cidade_id: this.empresa.cidade_id,
