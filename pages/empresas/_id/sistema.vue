@@ -134,30 +134,6 @@ export default {
       deep: true,
     },
   },
-  // mounted(){
-  //   this.formatarModulos()
-  // },
-
-  // methods: {
-  //   formatarModulos(){
-  //     this.empresa?.modulos?.map((modulo) => {
-  //       if (modulo.modulo === "venda"){
-  //         this.empresa.venda = true
-  //       }
-  //       if (modulo.modulo === "locacao") {
-  //         this.empresa.locacao = true
-  //         this.empresa.valor_modulo_locacao = modulo.valor
-  //       }
-  //       if (modulo.modulo === "nota_fiscal"){
-  //         this.empresa.nota_fiscal = true
-  //       }
-  //       if (modulo.modulo === "financeiro"){
-  //         this.empresa.financeiro = true
-  //       }
-  //       return true
-  //     })
-  //   }
-  // },
 }
 </script>
 
