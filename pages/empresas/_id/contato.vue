@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      empresa: this.$help.deepClone(this.value)
+      empresa: this.value
     }
   },
   watch: {

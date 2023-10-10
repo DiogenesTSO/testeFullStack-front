@@ -109,6 +109,10 @@ export default {
           telefone_02: '',
           celular: '',
         },
+        user: {
+          nome: '',
+          email: ''
+        },
         nome_admin: '',
         email: '',
         tipo_acesso: '',
@@ -125,6 +129,13 @@ export default {
         onboarding_url: '',
         status_asaas: 'inativo',
         documentos_asaas: [],
+        modulos: {
+          suporte: false,
+          financeiro: false,
+          nota_fiscal: false,
+          locacao: false,
+          venda: false,
+        }
       },
       cidades: [],
 
@@ -236,19 +247,32 @@ export default {
               valor_taxa_cobranca: response.plano
                 ? response.plano.valor_real
                 : 0,
+              filial: {
+                telefone_01: response.filial.telefone_01,
+                telefone_02: response.filial.telefone_02,
+                celular: response.filial.celular,
+                id: response.filial.id,
+                nome: response.filial.nome,
+                email_01: response.filial.email_01
+              },
+              modulos: this.verificarModulos(response.modulos),
+              valor_modulo_locacao: response.modulos.find(modulo => modulo.modulo === 'locacao').valor ?? 0,
               configuracoes: {
                 expectativa_operacoes:
                   response.configuracoes.expectativa_operacoes,
                 temMensalidade: response.configuracoes.temMensalidade,
                 valor_mensalidade: response.configuracoes.valor_mensalidade,
-                tipo_acesso: response.configuracoes.tipo_acesso,
                 suporte: response.configuracoes.suporte,
+                tipo_acesso: response.configuracoes.tipo_acesso,
                 cobranca_manual: !!response.configuracoes.cobranca_manual,
                 dias_boleto_automatico:
                   response.configuracoes.dias_boleto_automatico,
               },
             },
           }
+        }).finally(() => {
+          this.$store.dispatch('layout/carregando', false)
+          this.loading = false
         })
     },
 
@@ -279,6 +303,22 @@ export default {
         .finally(() => {
           this.$store.dispatch('layout/carregando', false)
         })
+    },
+
+    verificarModulos(modulos) {
+      const modulosEmpresa = {
+        suporte: false,
+        financeiro: false,
+        nota_fiscal: false,
+        locacao: false,
+        venda: false,
+      }
+      modulos.map((modulo) => {
+        modulosEmpresa[modulo.modulo] = true
+        return modulo
+      })
+
+      return modulosEmpresa
     },
 
     async submit() {
@@ -321,27 +361,27 @@ export default {
             tipo_acesso: this.empresa.configuracoes.tipo_acesso,
             dias_boleto_automatico: this.empresa.configuracoes
               .dias_boleto_automatico,
-            suporte: this.empresa.suporte,
+            suporte: this.empresa.configuracoes.suporte,
             // Edição de modulos de acesso
             modulos: [
               {
                 modulo: 'venda',
-                valor: this.empresa.venda === true ? 1 : 0,
+                valor: this.empresa.modulos?.venda ? 1 : 0,
               },
               {
                 modulo: 'locacao',
                 valor:
-                  this.empresa.locacao === true
+                  this.empresa.modulos.locacao
                     ? this.empresa.valor_modulo_locacao
                     : 0,
               },
               {
                 modulo: 'nota_fiscal',
-                valor: this.empresa.nota_fiscal === true ? 1 : 0,
+                valor: this.empresa.modulos?.nota_fiscal ? 1 : 0,
               },
               {
                 modulo: 'financeiro',
-                valor: this.empresa.financeiro === true ? 1 : 0,
+                valor: this.empresa.modulos?.financeiro ? 1 : 0,
               },
             ],
             // edicão da senha de acesso do Asaas
@@ -403,7 +443,7 @@ export default {
         console.log(err)
       } finally {
         this.$store.dispatch('layout/carregando', false)
-        window.location.reload()
+        // window.location.reload()
         this.carregarCaixa()
         this.carregarEmpresa()
       }

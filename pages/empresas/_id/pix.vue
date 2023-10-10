@@ -111,6 +111,12 @@ export default {
     },
   },
   watch: {
+    value: {
+      handler() {
+        this.empresa = this.value
+      },
+      deep: true,
+    },
     empresa: {
       handler() {
         this.$emit('input', this.empresa)
