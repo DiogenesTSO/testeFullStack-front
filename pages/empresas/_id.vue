@@ -256,7 +256,7 @@ export default {
                 email_01: response.filial.email_01
               },
               modulos: this.verificarModulos(response.modulos),
-              valor_modulo_locacao: response.modulos.find(modulo => modulo.modulo === 'locacao').valor ?? 0,
+              valor_modulo_locacao: response.modulos.find(modulo => modulo.modulo === 'locacao') ? response.modulos.find(modulo => modulo.modulo === 'locacao').valor : 0,
               configuracoes: {
                 expectativa_operacoes:
                   response.configuracoes.expectativa_operacoes,
