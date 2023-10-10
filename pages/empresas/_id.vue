@@ -181,6 +181,42 @@ export default {
     }
   },
 
+  computed: {
+    disableSave() {
+      return !(
+        this.empresa.nome_fantasia &&
+        this.empresa.nome &&
+        this.empresa.tipo && 
+        this.empresa.cnpj &&
+        this.empresa.creci &&
+        this.empresa.cnae &&
+        this.empresa.cep &&
+        this.empresa.cidade_id &&
+        this.empresa.bairro &&
+        this.empresa.endereco &&
+        this.empresa.filial.telefone_01 &&
+        this.empresa.configuracoes.tipo_acesso
+      )
+    },
+    disabledMessage(){
+      return (
+        'Para cadastrar a empresa preencha os seguintes campos: ' + 
+        (this.empresa.nome_fantasia ? '' : '<br>- Nome fantasia') + 
+        (this.empresa.nome ? '' : '<br>- Razão social') + 
+        (this.empresa.tipo ? '' : '<br>- Tipo de empresa') + 
+        (this.empresa.cnpj ? '' : '<br>- CPF/CNPJ') +
+        (this.empresa.creci ? '' : '<br>- CRECI') + 
+        (this.empresa.cnae ? '' : '<br>- CNAE') +  
+        (this.empresa.cep ? '' : '<br>- CEP') + 
+        (this.empresa.cidade_id ? '' : '<br>- Cidade') + 
+        (this.empresa.bairro ? '' : '<br>- Bairro') + 
+        (this.empresa.endereco ? '' : '<br>- Rua') + 
+        (this.empresa.filial.telefone_01 ? '' : '<br>- Telefone primário') + 
+        (this.empresa.configuracoes.tipo_acesso ? '' : '<br>- Tipo de acesso') 
+      )
+    }
+  },
+
   mounted() {
     this.carregarEmpresa()
     this.carregarCaixa()
@@ -322,8 +358,8 @@ export default {
               this.empresa.tipo === 'LIMITED'
                 ? 'SOCIAL_CONTRACT'
                 : this.empresa.tipo === 'INDIVIDUAL'
-                ? 'ENTREPRENEUR_REQUIREMENT'
-                : '',
+                  ? 'ENTREPRENEUR_REQUIREMENT'
+                  : '',
             empresa_id: this.empresa.id,
           })
         }
@@ -335,7 +371,7 @@ export default {
         // o for .. of não retorna o index por padrão
         // esse é um hack que permite pegar o index e a foto
         for (const [i, arquivo] of this.empresa.documentos
-          .filter((arquivo) => !arquivo.id)
+          .filter(arquivo => !arquivo.id)
           .entries()) {
           const form = new FormData()
           form.append('documento', arquivo.file)
@@ -351,7 +387,7 @@ export default {
         }
 
         for (const arquivo of this.empresa.documentosRemovidos.filter(
-          (id) => id,
+          id => id,
         )) {
           // aguarda a imagem ser deletada para deletar a próxima
           this.$store.dispatch(

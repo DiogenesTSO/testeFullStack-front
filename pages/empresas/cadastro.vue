@@ -1,36 +1,42 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <imobia-tab-card
-        :loading="loading"
-        :tabs="items"
-        :disable-save="disableSave"
-        :disabled-tooltip="disabledMessage"
-        @save="submit"
-      >
-        <template #headerLeft>
-          <v-list class="py-0" color="transparent">
-            <v-list-item>
-              <v-list-item-avatar class="justify-center">
-                <v-avatar color="primary">
-                  <span class="white--text">
-                    {{ $format.initials(empresa.nome_fantasia || 'Nova empresa') }}
-                  </span>
-                </v-avatar>
-              </v-list-item-avatar>
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ (empresa.nome_fantasia || 'Nova empresa') }}
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  CNPJ: {{ $format.mask(empresa.cnpj, 'cnpj') }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </template>
-        <NuxtChild v-model="empresa" />
-      </imobia-tab-card>
+      <v-form ref="formEmpresa" v-model="valid">
+        <imobia-tab-card
+          :loading="loading"
+          :tabs="items"
+          :disable-save="disableSave"
+          :disabled-tooltip="disabledMessage"
+          @save="submit"
+        >
+          <template #headerLeft>
+            <v-list class="py-0" color="transparent">
+              <v-list-item>
+                <v-list-item-avatar class="justify-center">
+                  <v-avatar color="primary">
+                    <span class="white--text">
+                      {{ $format.initials(empresa.nome_fantasia || 'Nova empresa') }}
+                    </span>
+                  </v-avatar>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ (empresa.nome_fantasia || 'Nova empresa') }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{ empresa.cnpj && empresa.tipo === 'PF' ? 
+                      `CPF: ${$format.mask(empresa.cnpj, 'cpf')}` : 
+                      empresa.cnpj ? `CNPJ: ${$format.mask(empresa.cnpj, 'cnpj')}` : 
+                      '' 
+                    }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </template>
+          <NuxtChild v-model="empresa" />
+        </imobia-tab-card>
+      </v-form>
     </v-col>
   </v-row>
 </template>
@@ -39,12 +45,13 @@
 export default {
   name: 'CadastroEmpresas',
   meta: {
-    title: 'Cadastro de empresas',
+    title: 'Cadastro de empresa',
   },
 
   data() {
     return {
       loading: false,
+      valid: false,
       empresa: {
         plano: {
           valor_real: '',
@@ -85,20 +92,17 @@ export default {
         {
           icon: 'mdi-account',
           text: 'Geral',
-          disabled: true,
           to: '/empresas/cadastro/geral',
         },
 
         {
           icon: 'mdi-map-marker',
           text: 'Endereço',
-          disabled: true,
           to: '/empresas/cadastro/endereco',
         },
         {
           icon: 'mdi-phone',
           text: 'Contatos',
-          disabled: true,
           to: '/empresas/cadastro/contatos',
         },
         {
@@ -112,12 +116,44 @@ export default {
   computed: {
     disableSave() {
       return !(
-        this.empresa.nome_admin
+        this.empresa.nome_admin && 
+        this.empresa.nome_fantasia &&
+        this.empresa.nome_empresa &&
+        this.empresa.tipo && 
+        this.empresa.cnpj &&
+        this.empresa.creci &&
+        this.empresa.cnae &&
+        this.empresa.cep &&
+        this.empresa.cidade_id &&
+        this.empresa.bairro &&
+        this.empresa.rua &&
+        this.empresa.telefone_01 &&
+        this.empresa.nome_admin &&
+        this.empresa.email &&
+        this.empresa.tipo_acesso
       )
     },
+    disabledMessage(){
+      return (
+        'Para cadastrar a empresa preencha os seguintes campos: ' + 
+        (this.empresa.nome_fantasia ? '' : '<br>- Nome fantasia') + 
+        (this.empresa.nome_empresa ? '' : '<br>- Razão social') + 
+        (this.empresa.tipo ? '' : '<br>- Tipo de empresa') + 
+        (this.empresa.cnpj ? '' : '<br>- CPF/CNPJ') +
+        (this.empresa.creci ? '' : '<br>- CRECI') + 
+        (this.empresa.cnae ? '' : '<br>- CNAE') +  
+        (this.empresa.cep ? '' : '<br>- CEP') + 
+        (this.empresa.cidade_id ? '' : '<br>- Cidade') + 
+        (this.empresa.bairro ? '' : '<br>- Bairro') + 
+        (this.empresa.rua ? '' : '<br>- Rua') + 
+        (this.empresa.telefone_01 ? '' : '<br>- Telefone primário') + 
+        (this.empresa.nome_admin ? '' : '<br>- Nome do administrador') + 
+        (this.empresa.email ? '' : '<br>- E-mail do administrador') + 
+        (this.empresa.tipo_acesso ? '' : '<br>- Tipo de acesso') 
+      )
+    }
   },
   methods: {
-
     verificarModulos(empresa){
       const modulos = [
         {
@@ -145,6 +181,16 @@ export default {
 
     submit() {
       this.loading = true
+      this.$refs.formEmpresa.validate()
+
+      if (!this.valid){
+        this.$nuxt.$emit('notify', {
+          type: 'warning',
+          message: 'Preencha os campos obrigatórios',
+        })
+        this.loading = false
+        return
+      }
 
       const form = {
         ...this.empresa,
