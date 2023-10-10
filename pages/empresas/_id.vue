@@ -309,17 +309,18 @@ export default {
 
     verificarModulos(modulos) {
       const modulosEmpresa = {
-        suporte: false,
         financeiro: false,
         nota_fiscal: false,
         locacao: false,
         venda: false,
+        pessoas: false,
+        imoveis: false
       }
       modulos.map((modulo) => {
         modulosEmpresa[modulo.modulo] = true
         return modulo
       })
-
+      console.log(modulosEmpresa)
       return modulosEmpresa
     },
 
