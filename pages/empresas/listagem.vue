@@ -110,7 +110,7 @@
           transition="slide-x-transition"
         >
           <template #activator="{ on, attrs }">
-            <v-btn dark icon v-bind="attrs" v-on="on">
+            <v-btn icon v-bind="attrs" v-on="on">
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </template>
@@ -135,6 +135,17 @@
                 <v-list-item-title>Status</v-list-item-title>
                 <v-list-item-subtitle>
                   Ver histórico de status
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item @click="gerarRelatorioLocacao(row.id)">
+              <v-list-item-avatar class="ma-0">
+                <v-icon>mdi-format-list-bulleted</v-icon>
+              </v-list-item-avatar>
+              <v-list-item-content class="pa-0">
+                <v-list-item-title>Relatório de locação</v-list-item-title>
+                <v-list-item-subtitle>
+                  Ver relatório de locações da empresa
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -258,8 +269,18 @@ export default {
       })
       this.$root.$emit('historicoStatus', true)
     },
-
-
+    gerarRelatorioLocacao(id) {
+      console.log(id)
+      this.$store.dispatch('empresas/gerarRelatorioLocacao', id).then((res) => {
+        this.download(res.data.url)
+      })
+    },
+    download(uri) {
+      const link = document.createElement("a")
+      link.href = uri
+      link.click()
+      window.URL.revokeObjectURL(link.href)
+    }
   }
 
 }

@@ -215,5 +215,16 @@ export default {
         })
         .catch(err => reject(err))
     })
-  }
+  },
+
+  gerarRelatorioLocacao({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`controle/exportar/${id}/relatorio-locacoes`)
+        .then((response) => {
+          resolve(response.data)
+        })
+        .catch(err => reject(err))
+    })
+  },
 }
