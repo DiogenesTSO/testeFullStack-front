@@ -116,6 +116,7 @@ export default {
         nome_admin: '',
         email: '',
         tipo_acesso: '',
+        customer_id: '',
         suporte: 1,
         caixas: [],
         financeiro: false,
@@ -343,6 +344,7 @@ export default {
               this.empresa.tipo === 'PF'
                 ? this.empresa.data_nascimento_asaas
                 : null,
+            customer_id: this.empresa.customer_id,
             // Edição de endereço de empresas
             cep: this.empresa.cep,
             cidade_id: this.empresa.cidade_id,
