@@ -52,6 +52,9 @@
           <v-col cols="12" md="3">
             <imobia-input v-model="empresa.cnae" required label="CNAE" />
           </v-col>
+          <v-col cols="12" md="3">
+            <imobia-input v-model="empresa.customer_id" required label="Customer ID" />
+          </v-col>
         </v-row>
       </v-col>
     </v-row>
