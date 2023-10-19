@@ -50,7 +50,7 @@
             <imobia-input v-model="empresa.creci" required label="CRECI" />
           </v-col>
           <v-col cols="12" md="3">
-            <imobia-input v-model="empresa.cnae" required label="CNAE" />
+            <imobia-input v-model="empresa.cnae" required label="CNAE" number :maxlength="7" />
           </v-col>
           <v-col cols="12" md="3">
             <imobia-input v-model="empresa.customer_id" required label="Customer ID" />
