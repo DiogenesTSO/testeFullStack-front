@@ -52,11 +52,7 @@
               </v-btn>
             </div>
             <div>
-              <v-btn
-                label
-                small
-                :class="statusContasAsaas[empresa.status_asaas].cor + ' mr-3'"
-              >
+              <v-btn label small :class="statusContasAsaas[empresa.status_asaas].cor + ' mr-3'">
                 Status Asaas: {{ statusContasAsaas[empresa.status_asaas].nome }}
               </v-btn>
             </div>
@@ -198,7 +194,7 @@ export default {
       return !(
         this.empresa.nome_fantasia &&
         this.empresa.nome &&
-        this.empresa.tipo && 
+        this.empresa.tipo &&
         this.empresa.cnpj &&
         this.empresa.creci &&
         this.empresa.cnae &&
@@ -210,21 +206,21 @@ export default {
         this.empresa.configuracoes.tipo_acesso
       )
     },
-    disabledMessage(){
+    disabledMessage() {
       return (
-        'Para cadastrar a empresa preencha os seguintes campos: ' + 
-        (this.empresa.nome_fantasia ? '' : '<br>- Nome fantasia') + 
-        (this.empresa.nome ? '' : '<br>- Razão social') + 
-        (this.empresa.tipo ? '' : '<br>- Tipo de empresa') + 
+        'Para cadastrar a empresa preencha os seguintes campos: ' +
+        (this.empresa.nome_fantasia ? '' : '<br>- Nome fantasia') +
+        (this.empresa.nome ? '' : '<br>- Razão social') +
+        (this.empresa.tipo ? '' : '<br>- Tipo de empresa') +
         (this.empresa.cnpj ? '' : '<br>- CPF/CNPJ') +
-        (this.empresa.creci ? '' : '<br>- CRECI') + 
-        (this.empresa.cnae ? '' : '<br>- CNAE') +  
-        (this.empresa.cep ? '' : '<br>- CEP') + 
-        (this.empresa.cidade_id ? '' : '<br>- Cidade') + 
-        (this.empresa.bairro ? '' : '<br>- Bairro') + 
-        (this.empresa.endereco ? '' : '<br>- Rua') + 
-        (this.empresa.filial.telefone_01 ? '' : '<br>- Telefone primário') + 
-        (this.empresa.configuracoes.tipo_acesso ? '' : '<br>- Tipo de acesso') 
+        (this.empresa.creci ? '' : '<br>- CRECI') +
+        (this.empresa.cnae ? '' : '<br>- CNAE') +
+        (this.empresa.cep ? '' : '<br>- CEP') +
+        (this.empresa.cidade_id ? '' : '<br>- Cidade') +
+        (this.empresa.bairro ? '' : '<br>- Bairro') +
+        (this.empresa.endereco ? '' : '<br>- Rua') +
+        (this.empresa.filial.telefone_01 ? '' : '<br>- Telefone primário') +
+        (this.empresa.configuracoes.tipo_acesso ? '' : '<br>- Tipo de acesso')
       )
     }
   },
@@ -270,6 +266,7 @@ export default {
                 cobranca_manual: !!response.configuracoes.cobranca_manual,
                 dias_boleto_automatico:
                   response.configuracoes.dias_boleto_automatico,
+                saque_automatico: response.configuracoes.saque_automatico
               },
             },
           }

@@ -3,29 +3,21 @@
     <v-col>
       <v-row>
         <v-col cols="12" md="6">
-          <imobia-input
-            v-model="empresa.user.nome"
-            required
-            disabled
-            label="Nome do administrador"
-          />
+          <imobia-input v-model="empresa.user.nome" required disabled label="Nome do administrador" />
         </v-col>
         <v-col cols="12" md="5">
-          <imobia-input
-            v-model="empresa.user.email"
-            disabled
-            label="E-mail do administrador"
-          />
+          <imobia-input v-model="empresa.user.email" disabled label="E-mail do administrador" />
         </v-col>
         <v-col cols="12" md="8" lg="3">
-          <imobia-select v-model="empresa.configuracoes.tipo_acesso" :items="tipoAcessoEmpresa" required label="Tipo de acesso" />
+          <imobia-select
+            v-model="empresa.configuracoes.tipo_acesso"
+            :items="tipoAcessoEmpresa"
+            required
+            label="Tipo de acesso"
+          />
         </v-col>
         <v-col cols="12" md="3">
-          <imobia-value
-            v-model="empresa.valor_taxa_cobranca"
-            label="Valor da taxa de cobrança"
-            type="real"
-          />
+          <imobia-value v-model="empresa.valor_taxa_cobranca" label="Valor da taxa de cobrança" type="real" />
         </v-col>
         <v-col cols="6" md="4" lg="2">
           <v-checkbox v-model="empresa.altera_mensalidade" class="ma-1" hide-details label="Mensalidade" />
@@ -63,8 +55,13 @@
         <v-col cols="6" md="4" lg="2">
           <v-checkbox v-model="empresa.modulos.venda" class="ma-1" label="Venda" />
         </v-col>
-        <v-col cols="8" md="2" lg="6">
+      </v-row>
+      <v-row>
+        <v-col cols="8" md="2" lg="2">
           <v-checkbox v-model="empresa.configuracoes.cobranca_manual" class="ma-1" label="Cobrança manual" />
+        </v-col>
+        <v-col cols="8" md="2" lg="6">
+          <v-checkbox v-model="empresa.configuracoes.saque_automatico" class="ma-1" label="Saque automatico" />
         </v-col>
       </v-row>
       <v-row>
@@ -78,12 +75,12 @@
           />
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <imobia-input-number 
-            v-if="empresa.modulos.locacao" 
-            v-model="empresa.configuracoes.expectativa_operacoes" 
+          <imobia-input-number
+            v-if="empresa.modulos.locacao"
+            v-model="empresa.configuracoes.expectativa_operacoes"
             label="Expectativa de locações"
             :min="0"
-            required 
+            required
           />
         </v-col>
       </v-row>
@@ -137,6 +134,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
