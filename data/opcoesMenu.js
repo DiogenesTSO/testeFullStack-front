@@ -80,10 +80,17 @@ export default [
     children: [
       {
         icon: 'format-list-bulleted-square',
-        text: 'Listar chaves',
+        text: 'Listar chaves de site',
         active: false,
         group: 'chaves',
         to: 'sites-listagem',
+      },
+      {
+        icon: 'format-list-bulleted-square',
+        text: 'Listar chaves de api externa',
+        active: false,
+        group: 'chaves',
+        to: 'chaves-api-listagem',
       },
     ],
   },
