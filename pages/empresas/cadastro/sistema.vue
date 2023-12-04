@@ -27,18 +27,18 @@
           />
         </v-col>
         <v-col cols="6" md="4" lg="2">
-          <v-checkbox 
-            v-model="empresa.temMensalidade" 
-            class="ma-1" 
+          <v-checkbox
+            v-model="empresa.temMensalidade"
+            class="ma-1"
             label="Mensalidade"
           />
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <imobia-value 
+          <imobia-value
             v-if="empresa.temMensalidade"
-            v-model="empresa.valor_mensalidade" 
-            label="Valor da Mensalidade" 
-            type="real" 
+            v-model="empresa.valor_mensalidade"
+            label="Valor da Mensalidade"
+            type="real"
           />
         </v-col>
       </v-row>
@@ -58,27 +58,33 @@
         <v-col cols="4" md="2" lg="2">
           <v-checkbox v-model="empresa.venda" class="ma-1" label="Venda" />
         </v-col>
-        <v-col cols="8" md="2" lg="6">
+        <v-col cols="6" md="2" lg="4">
           <v-checkbox v-model="empresa.cobranca_manual" class="ma-1" label="Cobrança manual" />
+        </v-col>
+        <v-col cols="6" md="2" lg="4">
+          <v-checkbox v-model="empresa.saque_automatico" class="ma-1" label="Saque automatico" />
+        </v-col>
+        <v-col cols="6" md="2" lg="4">
+          <v-checkbox v-model="empresa.integracao_sci" class="ma-1" label="Integração SCI" />
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" md="6" lg="3">
           <imobia-input-number
-            v-if="empresa.locacao" 
-            v-model="empresa.numero_locacao" 
-            label="Limite de locações" 
+            v-if="empresa.locacao"
+            v-model="empresa.numero_locacao"
+            label="Limite de locações"
             :min="0"
             required
           />
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <imobia-input-number 
-            v-if="empresa.locacao" 
-            v-model="empresa.expectativa_operacoes" 
-            label="Expectativa de locações" 
-            :min="0" 
-            required 
+          <imobia-input-number
+            v-if="empresa.locacao"
+            v-model="empresa.expectativa_operacoes"
+            label="Expectativa de locações"
+            :min="0"
+            required
           />
         </v-col>
       </v-row>

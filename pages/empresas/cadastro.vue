@@ -24,10 +24,10 @@
                     {{ (empresa.nome_fantasia || 'Nova empresa') }}
                   </v-list-item-title>
                   <v-list-item-subtitle>
-                    {{ empresa.cnpj && empresa.tipo === 'PF' ? 
-                      `CPF: ${$format.mask(empresa.cnpj, 'cpf')}` : 
-                      empresa.cnpj ? `CNPJ: ${$format.mask(empresa.cnpj, 'cnpj')}` : 
-                      '' 
+                    {{ empresa.cnpj && empresa.tipo === 'PF' ?
+                      `CPF: ${$format.mask(empresa.cnpj, 'cpf')}` :
+                      empresa.cnpj ? `CNPJ: ${$format.mask(empresa.cnpj, 'cnpj')}` :
+                      ''
                     }}
                   </v-list-item-subtitle>
                 </v-list-item-content>
@@ -84,6 +84,8 @@ export default {
         expectativa_operacoes: 0,
         temMensalidade: false,
         cobranca_manual: false,
+        saque_automatico: false,
+        integracao_sci: false,
         valor_mensalidade: 0
       },
       cidades: [],
@@ -116,10 +118,10 @@ export default {
   computed: {
     disableSave() {
       return !(
-        this.empresa.nome_admin && 
+        this.empresa.nome_admin &&
         this.empresa.nome_fantasia &&
         this.empresa.nome_empresa &&
-        this.empresa.tipo && 
+        this.empresa.tipo &&
         this.empresa.cnpj &&
         this.empresa.creci &&
         this.empresa.cnae &&
@@ -135,21 +137,21 @@ export default {
     },
     disabledMessage(){
       return (
-        'Para cadastrar a empresa preencha os seguintes campos: ' + 
-        (this.empresa.nome_fantasia ? '' : '<br>- Nome fantasia') + 
-        (this.empresa.nome_empresa ? '' : '<br>- Razão social') + 
-        (this.empresa.tipo ? '' : '<br>- Tipo de empresa') + 
+        'Para cadastrar a empresa preencha os seguintes campos: ' +
+        (this.empresa.nome_fantasia ? '' : '<br>- Nome fantasia') +
+        (this.empresa.nome_empresa ? '' : '<br>- Razão social') +
+        (this.empresa.tipo ? '' : '<br>- Tipo de empresa') +
         (this.empresa.cnpj ? '' : '<br>- CPF/CNPJ') +
-        (this.empresa.creci ? '' : '<br>- CRECI') + 
-        (this.empresa.cnae ? '' : '<br>- CNAE') +  
-        (this.empresa.cep ? '' : '<br>- CEP') + 
-        (this.empresa.cidade_id ? '' : '<br>- Cidade') + 
-        (this.empresa.bairro ? '' : '<br>- Bairro') + 
-        (this.empresa.rua ? '' : '<br>- Rua') + 
-        (this.empresa.telefone_01 ? '' : '<br>- Telefone primário') + 
-        (this.empresa.nome_admin ? '' : '<br>- Nome do administrador') + 
-        (this.empresa.email ? '' : '<br>- E-mail do administrador') + 
-        (this.empresa.tipo_acesso ? '' : '<br>- Tipo de acesso') 
+        (this.empresa.creci ? '' : '<br>- CRECI') +
+        (this.empresa.cnae ? '' : '<br>- CNAE') +
+        (this.empresa.cep ? '' : '<br>- CEP') +
+        (this.empresa.cidade_id ? '' : '<br>- Cidade') +
+        (this.empresa.bairro ? '' : '<br>- Bairro') +
+        (this.empresa.rua ? '' : '<br>- Rua') +
+        (this.empresa.telefone_01 ? '' : '<br>- Telefone primário') +
+        (this.empresa.nome_admin ? '' : '<br>- Nome do administrador') +
+        (this.empresa.email ? '' : '<br>- E-mail do administrador') +
+        (this.empresa.tipo_acesso ? '' : '<br>- Tipo de acesso')
       )
     }
   },
