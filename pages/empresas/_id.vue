@@ -8,7 +8,8 @@
             <v-list-item>
               <v-list-item-avatar class="justify-center">
                 <v-avatar>
-                  <v-img width="100%" max-height="50px" :src="(empresa.configuracoes.url_logo
+                  <v-img 
+                  width="100%" max-height="50px" :src="(empresa.configuracoes.url_logo
                     ? empresa.configuracoes.url_logo
                     : $vuetify.theme.dark
                       ? 'https://static.useimobia.com.br/sistema/nao_encontrada_dark.png'

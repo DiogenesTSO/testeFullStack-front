@@ -126,7 +126,7 @@ export default {
         this.empresa.cep &&
         this.empresa.cidade_id &&
         this.empresa.bairro &&
-        this.empresa.rua &&
+        this.empresa.endereco &&
         this.empresa.telefone_01 &&
         this.empresa.nome_admin &&
         this.empresa.email &&
@@ -145,7 +145,7 @@ export default {
         (this.empresa.cep ? '' : '<br>- CEP') + 
         (this.empresa.cidade_id ? '' : '<br>- Cidade') + 
         (this.empresa.bairro ? '' : '<br>- Bairro') + 
-        (this.empresa.rua ? '' : '<br>- Rua') + 
+        (this.empresa.endereco ? '' : '<br>- Rua') + 
         (this.empresa.telefone_01 ? '' : '<br>- Telefone primário') + 
         (this.empresa.nome_admin ? '' : '<br>- Nome do administrador') + 
         (this.empresa.email ? '' : '<br>- E-mail do administrador') + 
