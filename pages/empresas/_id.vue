@@ -1,15 +1,22 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <imobia-tab-card :loading="loading" :tabs="items" :disable-save="disableSave" :disabled-tooltip="disabledMessage"
-        @save="submit">
+      <imobia-tab-card
+        :loading="loading"
+        :tabs="items"
+        :disable-save="disableSave"
+        :disabled-tooltip="disabledMessage"
+        @save="submit"
+      >
         <template #headerLeft>
           <v-list class="py-0" color="transparent">
             <v-list-item>
               <v-list-item-avatar class="justify-center">
                 <v-avatar>
                   <v-img 
-                  width="100%" max-height="50px" :src="(empresa.configuracoes.url_logo
+                  width="100%" 
+                  max-height="50px" 
+                  :src="(empresa.configuracoes.url_logo
                     ? empresa.configuracoes.url_logo
                     : $vuetify.theme.dark
                       ? 'https://static.useimobia.com.br/sistema/nao_encontrada_dark.png'
@@ -31,8 +38,11 @@
         <template #left>
           <div class="d-flex flex-column">
             <div v-if="empresa.status_asaas !== 'ativo'" class="mb-2">
-              <imobia-input v-model="empresa.onboarding_url" label="Onboarding URL"
-                :disabled="empresa.status_asaas === 'ativo' ? true : false" />
+              <imobia-input
+                v-model="empresa.onboarding_url"
+                label="Onboarding URL"
+                :disabled="empresa.status_asaas === 'ativo' ? true : false"
+              />
               <v-btn text small color="primary" @click="gerarUrl()">
                 <v-icon left>
                   mdi-plus
@@ -253,9 +263,9 @@ export default {
                 suporte: response.configuracoes.suporte,
                 tipo_acesso: response.configuracoes.tipo_acesso,
                 cobranca_manual: !!response.configuracoes.cobranca_manual,
-                dias_boleto_automatico:
-                  response.configuracoes.dias_boleto_automatico,
-                saque_automatico: response.configuracoes.saque_automatico
+                saque_automatico: !!response.configuracoes.saque_automatico,
+                integracao_sci: !!response.configuracoes.integracao_sci,
+                dias_boleto_automatico: response.configuracoes.dias_boleto_automatico
               },
             },
           }
@@ -307,7 +317,6 @@ export default {
         modulosEmpresa[modulo.modulo] = true
         return modulo
       })
-      console.log(modulosEmpresa)
       return modulosEmpresa
     },
 

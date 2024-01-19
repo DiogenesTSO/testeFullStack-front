@@ -57,11 +57,14 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="8" md="2" lg="2">
+        <v-col cols="6" md="2" lg="4">
           <v-checkbox v-model="empresa.configuracoes.cobranca_manual" class="ma-1" label="Cobrança manual" />
         </v-col>
-        <v-col cols="8" md="2" lg="6">
+        <v-col cols="6" md="2" lg="4">
           <v-checkbox v-model="empresa.configuracoes.saque_automatico" class="ma-1" label="Saque automatico" />
+        </v-col>
+        <v-col cols="6" md="2" lg="4">
+          <v-checkbox v-model="empresa.configuracoes.integracao_sci" class="ma-1" label="Integração SCI" />
         </v-col>
       </v-row>
       <v-row>
