@@ -394,7 +394,7 @@ export default {
 
         if (this.empresa.documentos_asaas.length) {
           await this.$store.dispatch('empresas/enviarDocumentoAsaas', {
-            file: this.empresa.documentos_asaas,
+            file: this.empresa.documentos_asaas[0],
             type:
               this.empresa.tipo === 'LIMITED'
                 ? 'SOCIAL_CONTRACT'
