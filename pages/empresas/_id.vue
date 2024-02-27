@@ -266,6 +266,7 @@ export default {
                 cobranca_manual: !!response.configuracoes.cobranca_manual,
                 saque_automatico: !!response.configuracoes.saque_automatico,
                 integracao_sci: !!response.configuracoes.integracao_sci,
+                debito_por_baixa: !!response.configuracoes.debito_por_baixa,
                 dias_boleto_automatico: response.configuracoes.dias_boleto_automatico
               },
             },

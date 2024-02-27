@@ -86,7 +86,8 @@ export default {
         cobranca_manual: false,
         saque_automatico: false,
         integracao_sci: false,
-        valor_mensalidade: 0
+        valor_mensalidade: 0,
+        debito_por_baixa: false
       },
       cidades: [],
 
@@ -221,6 +222,7 @@ export default {
           taxa_cobranca: this.empresa.plano,
           tipo_acesso: this.empresa.tipo_acesso,
           suporte: this.empresa.suporte,
+          debito_por_baixa: this.empresa.debito_por_baixa,
           // Formata os modulos
           modulos: this.verificarModulos(this.empresa),
           // Criando usuario para a empresa

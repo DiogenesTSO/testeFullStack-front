@@ -58,14 +58,17 @@
         <v-col cols="4" md="2" lg="2">
           <v-checkbox v-model="empresa.venda" class="ma-1" label="Venda" />
         </v-col>
-        <v-col cols="6" md="2" lg="4">
+        <v-col cols="6" md="4" lg="3">
           <v-checkbox v-model="empresa.cobranca_manual" class="ma-1" label="Cobrança manual" />
         </v-col>
-        <v-col cols="6" md="2" lg="4">
+        <v-col cols="6" md="4" lg="3">
           <v-checkbox v-model="empresa.saque_automatico" class="ma-1" label="Saque automatico" />
         </v-col>
-        <v-col cols="6" md="2" lg="4">
+        <v-col cols="6" md="4" lg="3">
           <v-checkbox v-model="empresa.integracao_sci" class="ma-1" label="Integração SCI" />
+        </v-col>
+        <v-col cols="6" md="4" lg="3">
+          <v-checkbox v-model="empresa.debito_por_baixa" class="ma-1" label="Débito por baixa" />
         </v-col>
       </v-row>
       <v-row>
