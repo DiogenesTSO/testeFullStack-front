@@ -87,7 +87,8 @@ export default {
         saque_automatico: false,
         integracao_sci: false,
         valor_mensalidade: 0,
-        debito_por_baixa: false
+        debito_por_baixa: 1,
+        dia_vencimento_debito_por_baixa: 10
       },
       cidades: [],
 
@@ -223,6 +224,7 @@ export default {
           tipo_acesso: this.empresa.tipo_acesso,
           suporte: this.empresa.suporte,
           debito_por_baixa: this.empresa.debito_por_baixa,
+          dia_vencimento_debito_por_baixa: this.empresa.dia_vencimento_debito_por_baixa,
           // Formata os modulos
           modulos: this.verificarModulos(this.empresa),
           // Criando usuario para a empresa
