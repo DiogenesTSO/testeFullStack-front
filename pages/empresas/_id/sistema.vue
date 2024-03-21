@@ -35,7 +35,14 @@
             v-model="empresa.configuracoes.dias_boleto_automatico"
             :items="diasBoleto"
             suffix="dias antes"
-            label="Geração automatica da cobrança "
+            label="Geração automatica da cobrança"
+          />
+        </v-col>
+        <v-col cols="12" md="3">
+          <imobia-select
+            v-model="empresa.configuracoes.dia_vencimento_debito_por_baixa"
+            :items="diasDebito"
+            label="Data vencimento conta de debito"
           />
         </v-col>
       </v-row>
@@ -120,6 +127,14 @@ export default {
         { id: 8, nome: 8 },
         { id: 9, nome: 9 },
         { id: 10, nome: 10 },
+      ],
+      diasDebito: [
+        { id: 5, nome: 5 },
+        { id: 10, nome: 10 },
+        { id: 15, nome: 15 },
+        { id: 20, nome: 20 },
+        { id: 25, nome: 25 },
+        { id: 30, nome: 30 },
       ],
     }
   },

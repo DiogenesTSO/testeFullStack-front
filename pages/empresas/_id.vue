@@ -84,6 +84,7 @@ export default {
           temMensalidade: false,
           valor_mensalidade: 0,
           tipo_acesso: '',
+          dia_vencimento_debito_por_baixa: ''
         },
         tipo: '',
         nome_empresa: '',
@@ -267,7 +268,8 @@ export default {
                 saque_automatico: !!response.configuracoes.saque_automatico,
                 integracao_sci: !!response.configuracoes.integracao_sci,
                 debito_por_baixa: !!response.configuracoes.debito_por_baixa,
-                dias_boleto_automatico: response.configuracoes.dias_boleto_automatico
+                dias_boleto_automatico: response.configuracoes.dias_boleto_automatico,
+                dia_vencimento_debito_por_baixa: response.configuracoes.dia_vencimento_debito_por_baixa
               },
             },
           }
