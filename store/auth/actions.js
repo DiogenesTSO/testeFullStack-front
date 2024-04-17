@@ -28,24 +28,29 @@ export default {
     }
   },
 
-  login({ commit, state }, dados) {
+  login({ commit, state }, { dados, nuxt }) {
     return new Promise((resolve, reject) => {
       axios
         .post('controle/login', dados)
         .then((response) => {
-          // redirecionamento para a página que o usuário estava tentando acessar
-          if (response.data.usuario.is_master) {
-            this.$router.push(state.route.name ? state.route : '/')
+          if (response.data.mfa === 'validar') {
+            nuxt.$emit('modalValidarMfaMfa', dados)
+            nuxt.$emit('modalValidarMfa', true)
           } else {
-            this.$router.push(state.route.name ? state.route : '/')
-          }
+            // redirecionamento para a página que o usuário estava tentando acessar
+            if (response.data.usuario.is_master) {
+              this.$router.push(state.route.name ? state.route : '/')
+            } else {
+              this.$router.push(state.route.name ? state.route : '/')
+            }
 
-          commit('STORE_USERDATA', {
-            accessToken: response.data.access_token,
-            usuario: response.data.usuario,
-            expiresAt: response.data.expires_at,
-          })
-          resolve(response.data)
+            commit('STORE_USERDATA', {
+              accessToken: response.data.access_token,
+              usuario: response.data.usuario,
+              expiresAt: response.data.expires_at,
+            })
+            resolve(response.data)
+          }
         })
         .catch(err => reject(err))
     })
@@ -92,4 +97,26 @@ export default {
         .catch(() => resolve(false))
     })
   },
+
+  challengeMfa({ commit, state }, dados) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`controle/login/validar-codigo-mfa`, dados)
+        .then((response) => {
+          this.$router.push({
+            name: state.route || 'index',
+            params: { isMaster: true, loggedIn: true },
+          })
+
+          commit('STORE_USERDATA', {
+            accessToken: response.data.access_token,
+            mfaToken: response.data.mfaToken,
+            usuario: response.data.usuario,
+            expiresAt: response.data.expires_at,
+          })
+          resolve(response.data)
+        })
+        .catch(() => reject(false))
+    })
+  }
 }

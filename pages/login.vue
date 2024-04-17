@@ -2,20 +2,13 @@
   <div class="overflow-hidden">
     <v-row class="ma-0">
       <v-col class="pa-0 d-none d-md-flex" md="6" lg="4">
-        <v-img
-          class="bg-login"
-          :src="$vuetify.theme.dark ? '/bg-login-dark.webp' : '/bg-login.webp'"
-        />
+        <v-img class="bg-login" :src="$vuetify.theme.dark ? '/bg-login-dark.webp' : '/bg-login.webp'" />
       </v-col>
       <v-col class="form-container" cols="12" md="6" lg="4">
         <v-row class="justify-center">
           <div class="theme-change">
             <v-scale-transition leave-absolute group>
-              <span
-                v-if="$vuetify.theme.dark"
-                key="lightmode"
-                @click="toggleDarkMode"
-              >
+              <span v-if="$vuetify.theme.dark" key="lightmode" @click="toggleDarkMode">
                 <v-icon color="yellow darken-3">
                   mdi-white-balance-sunny
                 </v-icon>
@@ -27,19 +20,11 @@
           </div>
 
           <v-col class="text-center" cols="10" md="9" xl="7">
-            <img
-              class="logo"
-              :src="$vuetify.theme.dark ? '/logo-v-dark.png' : '/logo-v.png'"
-            >
+            <img class="logo" :src="$vuetify.theme.dark ? '/logo-v-dark.png' : '/logo-v.png'">
           </v-col>
           <v-col cols="10" md="9" xl="7">
             <v-slide-x-transition hide-on-leave>
-              <v-form
-                v-if="!recuperacaoSenha"
-                key="1"
-                ref="form"
-                v-model="valid"
-              >
+              <v-form v-if="!recuperacaoSenha" key="1" ref="form" v-model="valid">
                 <h4 class="text-h4 primary--text">
                   Entrar
                 </h4>
@@ -69,11 +54,7 @@
                   @keyup.enter="submit"
                 />
                 <div>
-                  <v-switch
-                    v-model="formData.lembrar"
-                    inset
-                    :label="`Lembrar-me`"
-                  />
+                  <v-switch v-model="formData.lembrar" inset :label="`Lembrar-me`" />
                 </div>
 
                 <v-btn
@@ -106,24 +87,12 @@
                 />
                 <v-row class="mt-4">
                   <v-col>
-                    <v-btn
-                      dark
-                      text
-                      :loading="loading"
-                      block
-                      @click="recuperacaoSenha = false"
-                    >
+                    <v-btn dark text :loading="loading" block @click="recuperacaoSenha = false">
                       Voltar
                     </v-btn>
                   </v-col>
                   <v-col>
-                    <v-btn
-                      dark
-                      :loading="loading"
-                      color="primary"
-                      block
-                      @click="recuperarSenha"
-                    >
+                    <v-btn dark :loading="loading" color="primary" block @click="recuperarSenha">
                       Enviar
                     </v-btn>
                   </v-col>
@@ -177,12 +146,10 @@
         </v-row>
       </v-col>
       <v-col class="pa-0 d-none d-md-flex" md="6" lg="4">
-        <v-img
-          class="bg-login"
-          :src="$vuetify.theme.dark ? '/bg-login-dark.webp' : '/bg-login.webp'"
-        />
+        <v-img class="bg-login" :src="$vuetify.theme.dark ? '/bg-login-dark.webp' : '/bg-login.webp'" />
       </v-col>
     </v-row>
+    <mfa-modal-validar />
   </div>
 </template>
 
@@ -261,8 +228,7 @@ export default {
       }
       this.loading = true
       this.$store
-        .dispatch('auth/login', this.formData)
-
+        .dispatch('auth/login', { dados: this.formData, nuxt: this.$nuxt })
         .finally(() => {
           this.loading = false
         })
@@ -318,9 +284,11 @@ export default {
       }
     }
   }
+
   .overflow-hidden {
     overflow-y: hidden;
   }
+
   .theme-change {
     position: relative;
 
