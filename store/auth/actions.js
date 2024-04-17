@@ -31,7 +31,7 @@ export default {
   login({ commit, state }, { dados, nuxt }) {
     return new Promise((resolve, reject) => {
       axios
-        .post('controle/login', dados)
+        .post('controle/login', { ...dados, ...{ mfa_token: Cookies.get('mfaToken') ? Cookies.get('mfaToken') : null } })
         .then((response) => {
           if (response.data.mfa === 'validar') {
             nuxt.$emit('modalValidarMfaMfa', dados)
