@@ -9,12 +9,8 @@
           <imobia-input v-model="empresa.user.email" disabled label="E-mail do administrador" />
         </v-col>
         <v-col cols="12" md="8" lg="3">
-          <imobia-select
-            v-model="empresa.configuracoes.tipo_acesso"
-            :items="tipoAcessoEmpresa"
-            required
-            label="Tipo de acesso"
-          />
+          <imobia-select v-model="empresa.configuracoes.tipo_acesso" :items="tipoAcessoEmpresa" required
+            label="Tipo de acesso" />
         </v-col>
         <v-col cols="12" md="3">
           <imobia-value v-model="empresa.valor_taxa_cobranca" label="Valor da taxa de cobrança" type="real" />
@@ -23,27 +19,16 @@
           <v-checkbox v-model="empresa.altera_mensalidade" class="ma-1" hide-details label="Mensalidade" />
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <imobia-value
-            v-if="empresa.altera_mensalidade"
-            v-model="empresa.configuracoes.valor_mensalidade"
-            label="Valor da Mensalidade"
-            type="real"
-          />
+          <imobia-value v-if="empresa.altera_mensalidade" v-model="empresa.configuracoes.valor_mensalidade"
+            label="Valor da Mensalidade" type="real" />
         </v-col>
         <v-col cols="12" md="3">
-          <imobia-select
-            v-model="empresa.configuracoes.dias_boleto_automatico"
-            :items="diasBoleto"
-            suffix="dias antes"
-            label="Geração automatica da cobrança"
-          />
+          <imobia-select v-model="empresa.configuracoes.dias_boleto_automatico" :items="diasBoleto" suffix="dias antes"
+            label="Geração automatica da cobrança" />
         </v-col>
         <v-col cols="12" md="3">
-          <imobia-select
-            v-model="empresa.configuracoes.dia_vencimento_debito_por_baixa"
-            :items="diasDebito"
-            label="Data vencimento conta de debito"
-          />
+          <imobia-select v-model="empresa.configuracoes.dia_vencimento_debito_por_baixa" :items="diasDebito"
+            :required="empresa.configuracoes.debito_por_baixa" label="Data vencimento conta de debito" />
         </v-col>
       </v-row>
       <v-row>
@@ -79,22 +64,12 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="6" lg="3">
-          <imobia-input-number
-            v-if="empresa.modulos.locacao"
-            v-model="empresa.valor_modulo_locacao"
-            label="Limite de locações"
-            :min="0"
-            required
-          />
+          <imobia-input-number v-if="empresa.modulos.locacao" v-model="empresa.valor_modulo_locacao"
+            label="Limite de locações" :min="0" required />
         </v-col>
         <v-col cols="12" md="6" lg="3">
-          <imobia-input-number
-            v-if="empresa.modulos.locacao"
-            v-model="empresa.configuracoes.expectativa_operacoes"
-            label="Expectativa de locações"
-            :min="0"
-            required
-          />
+          <imobia-input-number v-if="empresa.modulos.locacao" v-model="empresa.configuracoes.expectativa_operacoes"
+            label="Expectativa de locações" :min="0" required />
         </v-col>
       </v-row>
     </v-col>
