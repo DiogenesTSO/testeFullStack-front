@@ -38,7 +38,7 @@ export default {
             nuxt.$emit('modalValidarMfa', true)
           } else {
             // redirecionamento para a página que o usuário estava tentando acessar
-            if (response.data.usuario.is_master) {
+            if (response.data?.usuario?.is_master) {
               this.$router.push(state.route.name ? state.route : '/')
             } else {
               this.$router.push(state.route.name ? state.route : '/')
