@@ -58,6 +58,9 @@
         <v-col cols="4" md="2" lg="2">
           <v-checkbox v-model="empresa.venda" class="ma-1" label="Venda" />
         </v-col>
+        <v-col cols="4" md="2" lg="2">
+          <v-checkbox v-model="empresa.pagamento_contas" class="ma-1" label="Pagamentos de Contas" />
+        </v-col>
         <v-col cols="6" md="4" lg="3">
           <v-checkbox v-model="empresa.cobranca_manual" class="ma-1" label="Cobrança manual" />
         </v-col>

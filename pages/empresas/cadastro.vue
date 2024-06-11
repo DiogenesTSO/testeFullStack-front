@@ -88,7 +88,8 @@ export default {
         integracao_sci: false,
         valor_mensalidade: 0,
         debito_por_baixa: 1,
-        dia_vencimento_debito_por_baixa: 10
+        dia_vencimento_debito_por_baixa: 10,
+        pagamento_contas: 0
       },
       cidades: [],
 

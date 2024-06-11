@@ -269,7 +269,8 @@ export default {
                 integracao_sci: !!response.configuracoes.integracao_sci,
                 debito_por_baixa: !!response.configuracoes.debito_por_baixa,
                 dias_boleto_automatico: response.configuracoes.dias_boleto_automatico,
-                dia_vencimento_debito_por_baixa: response.configuracoes.dia_vencimento_debito_por_baixa
+                dia_vencimento_debito_por_baixa: response.configuracoes.dia_vencimento_debito_por_baixa,
+                pagamento_contas: !!response.configuracoes.pagamento_contas,
               },
             },
           }
