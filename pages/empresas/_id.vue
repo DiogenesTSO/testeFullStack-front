@@ -446,8 +446,8 @@ export default {
             empresa_id: res.id,
             id: arquivo,
           })
-          // }
         }
+        // }
       } catch (err) {
         console.log(err)
       } finally {
