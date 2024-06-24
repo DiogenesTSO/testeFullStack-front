@@ -258,8 +258,7 @@ export default {
                 return modulo.modulo === 'locacao'
               })?.valor ?? 0,
               configuracoes: {
-                expectativa_operacoes:
-                  response.configuracoes.expectativa_operacoes,
+                expectativa_operacoes: response.configuracoes.expectativa_operacoes,
                 temMensalidade: response.configuracoes.temMensalidade,
                 valor_mensalidade: response.configuracoes.valor_mensalidade,
                 suporte: response.configuracoes.suporte,
@@ -413,6 +412,10 @@ export default {
           id: this.empresa.id,
           data: form,
         })
+
+        // if (
+        //   !this.$help.arrayEquals(this.empresa.documentos, this.documentosTemp)
+        // ) {
         // o for .. of não retorna o index por padrão,
         // esse é um hack que permite pegar o index e a foto
         for (const [i, arquivo] of this.empresa.documentos
@@ -423,7 +426,7 @@ export default {
           // aguarda a imagem ser enviada para enviar a próxima
           await this.$store.dispatch(
             'layout/mensagemCarregando',
-            `Enviando arquivos (${i + 1})`,
+              `Enviando arquivos (${i + 1})`,
           )
           await this.$store.dispatch('empresas/cadastrarArquivos', {
             id: res.id,
@@ -437,12 +440,13 @@ export default {
           // aguarda a imagem ser deletada para deletar a próxima
           this.$store.dispatch(
             'layout/mensagemCarregando',
-            `Removendo arquivos (${arquivo})`,
+              `Removendo arquivos (${arquivo})`,
           )
           await this.$store.dispatch('empresas/removerArquivos', {
             empresa_id: res.id,
             id: arquivo,
           })
+          // }
         }
       } catch (err) {
         console.log(err)

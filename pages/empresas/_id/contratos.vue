@@ -6,6 +6,7 @@
       <imobia-drop-zone
         v-model="empresa.documentos"
         class="mt-2"
+        accept="*/*"
         @delete="empresa.documentosRemovidos.push(...$event.map((img) => img.id))"
       />
     </v-col>
