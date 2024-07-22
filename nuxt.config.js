@@ -25,8 +25,8 @@ if (process.env.NODE_ENV === 'production') {
   env = {
     ...env,
     ...{
-      domain: '.useimobia.com.br',
-      backendUrl: 'http://apicontrole.useimobia.com.br/',
+      domain: '.sistemaimobia.com.br',
+      backendUrl: 'http://apicontrole.sistemaimobia.com.br/',
       app3Url: 'http://legado.sistemaimobia.com.br/',
       linkShare: 'https://compartilhamento.sistemaimobia.com.br/',
     },
