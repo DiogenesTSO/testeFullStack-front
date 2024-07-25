@@ -64,7 +64,7 @@
           <v-checkbox v-model="empresa.modulos.venda" class="ma-1" label="Venda" />
         </v-col>
         <v-col cols="6" md="4" lg="2">
-          <v-checkbox v-model="empresa.configuracoes.pagamento_contas" class="ma-1" label="Pagamento de contas" />
+          <v-checkbox v-model="empresa.configuracoes.pagamento_contas" class="ma-1" label="Pague Contas" />
         </v-col>
       </v-row>
       <v-row>
