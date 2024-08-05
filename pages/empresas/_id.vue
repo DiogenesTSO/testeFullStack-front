@@ -56,6 +56,9 @@
                 Status Asaas: {{ statusContasAsaas[empresa.status_asaas].nome }}
               </v-btn>
             </div>
+            <div class="mt-2">
+              Data de cadastro: {{ $format.date(empresa.created_at, 'DD/MM/YYYY') }}
+            </div>
           </div>
         </template>
         <NuxtChild v-model="empresa" keep-alive />
