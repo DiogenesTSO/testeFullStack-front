@@ -44,4 +44,16 @@ export default {
         })
     })
   },
+  carregarUsuarios({ commit }, query) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('autocomplete/usuarios', { params: query })
+        .then((res) => {
+          resolve(res.data.data)
+        })
+        .catch((err) => {
+          reject(err)
+        })
+    })
+  },
 }

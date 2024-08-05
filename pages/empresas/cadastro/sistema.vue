@@ -33,12 +33,22 @@
             label="Mensalidade"
           />
         </v-col>
+        
         <v-col cols="12" md="6" lg="3">
           <imobia-value
             v-if="empresa.temMensalidade"
             v-model="empresa.valor_mensalidade"
             label="Valor da Mensalidade"
             type="real"
+          />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="6">
+          <imobia-auto-complete
+            v-model="empresa.usuario_vendedor_id"
+            label="Vendedor"
+            module="usuarios"
           />
         </v-col>
       </v-row>

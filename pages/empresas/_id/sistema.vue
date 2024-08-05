@@ -46,6 +46,13 @@
             label="Data vencimento conta de debito"
           />
         </v-col>
+        <v-col cols="6">
+          <imobia-auto-complete
+            v-model="empresa.usuario_vendedor_id"
+            label="Vendedor"
+            module="usuarios"
+          />
+        </v-col>
       </v-row>
       <v-row>
         <v-col cols="6" md="4" lg="2">

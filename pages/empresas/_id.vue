@@ -133,7 +133,8 @@ export default {
           nota_fiscal: false,
           locacao: false,
           venda: false,
-        }
+        },
+        usuario_vendedor_id: ''
       },
       cidades: [],
 

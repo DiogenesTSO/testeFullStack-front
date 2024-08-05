@@ -89,7 +89,8 @@ export default {
         valor_mensalidade: 0,
         debito_por_baixa: 1,
         dia_vencimento_debito_por_baixa: 10,
-        pagamento_contas: 0
+        pagamento_contas: 0,
+        usuario_vendedor_id: ''
       },
       cidades: [],
 
@@ -231,6 +232,7 @@ export default {
           // Criando usuario para a empresa
           email: this.empresa.email,
           nome_admin: this.empresa.nome_admin,
+          usuario_vendedor_id: this.empresa.usuario_vendedor_id
         },
       }
 
