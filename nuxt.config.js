@@ -6,44 +6,13 @@ let env = {
   pusherAppCluster: 'sa1',
 }
 let appName = ''
-// Ambiente de Produção
-if (process.env.NODE_ENV === 'production') {
-  appName = 'Imobia Controle-3'
-  env = {
-    ...env,
-    ...{
-      domain: '.useimobia.com.br',
-      backendUrl: 'https://apicontrole.useimobia.com.br/',
-      app3Url: 'https://legado.imobia.app/',
-      linkShare: 'http://compartilhamento.imobia.app/',
-    },
-  }
-  // Ambiente de Desenvolvimento
-} else if (process.env.NODE_ENV === 'dev') {
-  appName = 'ImobiaDev'
-
-  env = {
-    ...env,
-    ...{
-      domain: '.sistemaimobia.com.br',
-      backendUrl: 'https://apicontrole3-testes.useimobia.com.br/',
-      app3Url: 'http://legado.sistemaimobia.com.br/',
-      linkShare: 'https://compartilhamento.sistemaimobia.com.br/',
-    },
-  }
-  // Ambiente Local
-} else {
-  appName = 'Imobia'
-  env = {
-    ...env,
-    ...{
-      domain: null,
-      backendUrl: 'http://127.0.0.1:8001/',
-      // se for abrir com o servidor do imobia antigo, abrir primeiro o servidor novo para manter as portas certas
-      app3Url: 'http://localhost:8081/',
-      linkShare: 'http://localhost:8080/',
-    },
-  }
+appName = 'Imobia'
+env = {
+  ...env,
+  ...{
+    domain: null,
+    backendUrl: 'http://127.0.0.1:8000/',
+  },
 }
 export default {
   ssr: false,

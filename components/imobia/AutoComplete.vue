@@ -152,9 +152,6 @@ export default {
           : [v => !!v || 'Este campo é obrigatório']
         : []
     },
-    user() {
-      return this.$store.state.auth.user
-    },
   },
   watch: {
     textInside() {
@@ -195,7 +192,7 @@ export default {
     },
   },
   mounted() {
-    if (this.user.is_master && this.module) {
+    if (this.module) {
       this.pesquisar()
     }
     if (
@@ -225,8 +222,7 @@ export default {
     }, 300),
     pesquisar() {
       if (
-        (this.textInside !== null && this.textInside.length > 2) ||
-        this.user.is_master
+        (this.textInside !== null && this.textInside.length > 2)
       ) {
         this.loadingCmp = true
         this.$store

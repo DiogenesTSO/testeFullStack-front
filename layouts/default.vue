@@ -29,10 +29,6 @@ export default {
     cadastro() {
       return this.$store.state.layout.meta?.[0]?.cadastro
     },
-
-    user() {
-      return this.$store.state.auth.user
-    },
   },
 
   mounted() {

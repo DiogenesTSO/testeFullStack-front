@@ -4,7 +4,6 @@
       <v-list-group
         v-if="
           item.children &&
-            checkPermissions(item.children) &&
             (item.render ? item.render(configuracoes) : true)
         "
         :key="'parent-' + item.text"
@@ -27,9 +26,7 @@
         </template>
         <template v-for="child in item.children">
           <v-list-item
-            v-if="
-              $help.checkPermission(child, user) &&
-                (child.render ? child.render(configuracoes) : true)
+            v-if="(child.render ? child.render(configuracoes) : true)
             "
             :key="'child-' + child.text"
             dense
@@ -62,8 +59,7 @@
       </v-list-group>
       <v-list-item
         v-else-if="
-          checkPermissions([item]) &&
-            (item.render ? item.render(configuracoes) : true)
+          (item.render ? item.render(configuracoes) : true)
         "
         :key="'children-' + item.text"
         link
@@ -146,12 +142,7 @@ export default {
     }
   },
   computed: {
-    user() {
-      return this.$store.state.auth.user
-    },
-    // configuracoes() {
-    //   return this.$store.state.configuracoes.configuracoesSistema
-    // },
+
   },
 
   watch: {
@@ -172,13 +163,6 @@ export default {
   },
 
   methods: {
-    checkPermissions(children) {
-      return children.reduce((acc, cur) => {
-        acc = this.$help.checkPermission(cur, this.user)
-        return acc
-      }, true)
-    },
-
     changeActive(event, index) {
       this.items[index].active = event
     },

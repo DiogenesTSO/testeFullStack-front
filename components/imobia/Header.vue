@@ -125,35 +125,12 @@ export default {
     }
   },
   computed: {
-    isAllowed() {
-      return (
-        this.$help.checkPermission(
-          {
-            permissions: [
-              'ver financeiro',
-              'editar financeiro',
-              'remover financeiro',
-            ],
-          },
-          this.user,
-        ) || this.user.is('administrador')
-      )
-    },
-    user() {
-      return this.$store.state.auth.user
-    },
     titulo() {
       return this.$store.state.layout.title
     },
     saldo() {
       return this.$store.state.financeiro.saldoAsaas
     },
-    asaasError() {
-      return this.$store.state.financeiro.asaasError
-    },
-    // configuracoes() {
-    //   return this.$store.state.configuracoes.configuracoesSistema
-    // },
     app3Url() {
       return process.env.app3Url
     },

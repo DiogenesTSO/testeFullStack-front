@@ -43,9 +43,6 @@ export default {
     }
   },
   computed: {
-    usuario() {
-      return this.$store.getters['auth/currentUser']
-    },
   },
   created() {
     /*     Padrao de data:
