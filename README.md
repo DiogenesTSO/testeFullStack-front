@@ -1,23 +1,15 @@
-# imobia4_client
+# Teste Imobia
 
-## Build Setup
+## Setup para desenvolvimento
 
 ```bash
-# install dependencies
+# instale as dependencias
 $ npm install
 
-# serve with hot reload at localhost:3000
+# inicia o projeto
 $ npm run dev
 
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
 ```
-
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
 ## Special Directories
 
