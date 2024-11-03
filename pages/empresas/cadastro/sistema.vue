@@ -1,5 +1,8 @@
 <template>
   <v-row>
+    <v-col cols="12">
+      <label class="text-h6 font-weight-bold">Configuração do Sistema</label>
+    </v-col>
     <v-col>
       <v-row>
         <v-col cols="12" md="6" lg="3">

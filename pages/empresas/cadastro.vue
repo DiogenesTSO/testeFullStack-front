@@ -97,7 +97,7 @@ export default {
       items: [
         {
           icon: 'mdi-account',
-          text: 'Dados da empresa',
+          text: 'Empresa',
           to: '/empresas/cadastro/geral',
         },
 
@@ -113,7 +113,7 @@ export default {
         }, */
         {
           icon: 'mdi-monitor-screenshot',
-          text: 'Dados do Sistema',
+          text: 'Sistema',
           to: '/empresas/cadastro/sistema',
         },
       ],

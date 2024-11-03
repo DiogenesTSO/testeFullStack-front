@@ -24,13 +24,13 @@
         <v-row v-if="!hideLeftHeader && !hideHeader">
           <v-col v-if="!hideLeft" cols="12" md="3" class="d-flex flex-column">
             <slot name="headerLeft" />
-            <v-divider v-if="tabs.length" class="my-2" />
+            <!--<v-divider v-if="tabs.length" class="my-2" />-->
           </v-col>
-          <v-divider
+          <!--<v-divider
             v-if="!hideLeft"
             class="d-none d-md-inline-flex"
             vertical
-          />
+          />-->
           <v-col
             cols="12"
             :md="hideLeft ? '12' : '9'"
@@ -62,7 +62,7 @@
               </template>
             </v-tabs>
             <v-spacer />
-            <v-divider v-if="tabs.length" class="my-2" />
+            <!--<v-divider v-if="tabs.length" class="my-2" />-->
           </v-col>
         </v-row>
         <v-row>
@@ -76,11 +76,11 @@
             <slot name="left" />
           </v-col>
 
-          <v-divider
+          <!--<v-divider
             v-if="!hideLeft"
             class="d-none d-md-inline-flex"
             vertical
-          />
+          />-->
 
           <v-col
             cols="12"
@@ -110,10 +110,10 @@
                 </span>
               </v-tab>
             </v-tabs>
-            <v-divider
+            <!--<v-divider
               v-if="tabs.length && hideLeftHeader && !hideHeader"
               class="mt-3 mb-6"
-            />
+            />-->
 
             <slot />
           </v-col>
@@ -123,11 +123,11 @@
           <v-col class="d-none d-md-block" cols="12" md="3">
             <slot name="bottomLeft" />
           </v-col>
-          <v-divider
+          <!--<v-divider
             v-if="!hideLeft"
             class="d-none d-md-inline-flex"
             vertical
-          />
+          />-->
           <v-col
             cols="12"
             md="9"
