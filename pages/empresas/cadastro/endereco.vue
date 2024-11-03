@@ -2,35 +2,29 @@
   <v-row>
     <v-col>
       <v-row>
-        <v-col cols="12" md="4">
+        <v-col cols="12" md="6">
           <imobia-input
-            v-model="empresa.cep"
+            v-model="empresa.nome_admin"
             required
-            label="CEP"
-            type="cep"
-            number
-            @address="fillAddress"
+            label="Nome do administrador"
           />
         </v-col>
-        <v-col cols="12" md="4">
-          <imobia-auto-complete
-            v-model="empresa.cidade"
-            :loading="loadingCidade"
-            module="cidades"
-            label="Cidade"
+        <v-col cols="12" md="5">
+          <imobia-input
+            v-model="empresa.email"
+            required
+            label="E-mail do administrador"
           />
         </v-col>
-        <v-col cols="12" md="4">
-          <imobia-input v-model="empresa.bairro" label="Bairro" />
+        <v-col cols="12" md="3">
+          <imobia-input v-model="empresa.celular" type="celular" required label="Celular" />
         </v-col>
-        <v-col cols="12" md="8" lg="6">
-          <imobia-input v-model="empresa.endereco" label="Rua" />
-        </v-col>
-        <v-col cols="6" md="4" lg="2">
-          <imobia-input v-model="empresa.numero" label="Número" />
-        </v-col>
-        <v-col cols="6" md="4" lg="4">
-          <imobia-input v-model="empresa.complemento" label="Complemento" />
+        <v-col cols="12" md="5">
+          <imobia-input
+            v-model="empresa.senha"
+            required
+            label="Senha"
+          />
         </v-col>
       </v-row>
     </v-col>

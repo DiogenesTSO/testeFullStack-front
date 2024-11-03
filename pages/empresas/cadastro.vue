@@ -61,8 +61,8 @@ export default {
         nome_fantasia: '',
         cpfcnpj: '',
         cnpj: '',
-        creci: '',
-        cnae: '',
+        // creci: '',
+        // cnae: '',
         cep: '',
         endereco: '',
         numero: '',
@@ -79,7 +79,7 @@ export default {
         financeiro: 0,
         nota_fiscal: 0,
         venda: 0,
-        locacao: 0,
+        locacao: 1,
         numero_locacao: 0,
         expectativa_operacoes: 0,
         temMensalidade: false,
@@ -97,23 +97,23 @@ export default {
       items: [
         {
           icon: 'mdi-account',
-          text: 'Geral',
+          text: 'Dados da empresa',
           to: '/empresas/cadastro/geral',
         },
 
         {
           icon: 'mdi-map-marker',
-          text: 'Endereço',
+          text: 'Administrador',
           to: '/empresas/cadastro/endereco',
         },
-        {
+        /* {
           icon: 'mdi-phone',
           text: 'Contatos',
           to: '/empresas/cadastro/contatos',
-        },
+        }, */
         {
           icon: 'mdi-monitor-screenshot',
-          text: 'Sistema',
+          text: 'Dados do Sistema',
           to: '/empresas/cadastro/sistema',
         },
       ],
@@ -127,8 +127,8 @@ export default {
         this.empresa.nome_empresa &&
         this.empresa.tipo &&
         this.empresa.cnpj &&
-        this.empresa.creci &&
-        this.empresa.cnae &&
+        // this.empresa.creci &&
+        // this.empresa.cnae &&
         this.empresa.cep &&
         this.empresa.cidade_id &&
         this.empresa.bairro &&
@@ -146,8 +146,8 @@ export default {
         (this.empresa.nome_empresa ? '' : '<br>- Razão social') +
         (this.empresa.tipo ? '' : '<br>- Tipo de empresa') +
         (this.empresa.cnpj ? '' : '<br>- CPF/CNPJ') +
-        (this.empresa.creci ? '' : '<br>- CRECI') + 
-        (this.empresa.cnae ? '' : '<br>- CNAE') +  
+        // (this.empresa.creci ? '' : '<br>- CRECI') + 
+        // (this.empresa.cnae ? '' : '<br>- CNAE') +  
         (this.empresa.cep ? '' : '<br>- CEP') + 
         (this.empresa.cidade_id ? '' : '<br>- Cidade') + 
         (this.empresa.bairro ? '' : '<br>- Bairro') + 
@@ -207,8 +207,9 @@ export default {
           nome: this.empresa.nome_empresa,
           cnpj: this.empresa.cnpj,
           cpf: this.empresa.cnpj,
-          creci: this.empresa.creci,
-          cnae: this.empresa.cnae,
+          // creci: this.empresa.creci,
+          // cnae: this.empresa.cnae,
+          
           // Cadastro de endereço de empresas
           cep: this.empresa.cep,
           cidade_id: this.empresa.cidade_id,
