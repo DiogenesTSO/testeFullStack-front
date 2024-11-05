@@ -24,13 +24,13 @@
         <v-row v-if="!hideLeftHeader && !hideHeader">
           <v-col v-if="!hideLeft" cols="12" md="3" class="d-flex flex-column">
             <slot name="headerLeft" />
-            <!--<v-divider v-if="tabs.length" class="my-2" />-->
+            <v-divider v-if="tabs.length" class="my-2" />
           </v-col>
-          <!--<v-divider
+          <v-divider
             v-if="!hideLeft"
             class="d-none d-md-inline-flex"
             vertical
-          />-->
+          />
           <v-col
             cols="12"
             :md="hideLeft ? '12' : '9'"
@@ -62,7 +62,7 @@
               </template>
             </v-tabs>
             <v-spacer />
-            <!--<v-divider v-if="tabs.length" class="my-2" />-->
+            <v-divider v-if="tabs.length" class="my-2" />
           </v-col>
         </v-row>
         <v-row>
@@ -76,11 +76,11 @@
             <slot name="left" />
           </v-col>
 
-          <!--<v-divider
+          <v-divider
             v-if="!hideLeft"
             class="d-none d-md-inline-flex"
             vertical
-          />-->
+          />
 
           <v-col
             cols="12"
@@ -110,10 +110,10 @@
                 </span>
               </v-tab>
             </v-tabs>
-            <!--<v-divider
+            <v-divider
               v-if="tabs.length && hideLeftHeader && !hideHeader"
               class="mt-3 mb-6"
-            />-->
+            />
 
             <slot />
           </v-col>
@@ -123,11 +123,11 @@
           <v-col class="d-none d-md-block" cols="12" md="3">
             <slot name="bottomLeft" />
           </v-col>
-          <!--<v-divider
+          <v-divider
             v-if="!hideLeft"
             class="d-none d-md-inline-flex"
             vertical
-          />-->
+          />
           <v-col
             cols="12"
             md="9"
@@ -139,31 +139,36 @@
             <div>
               <slot name="actionCenter">
                 <v-btn
-                  small
-                  color="primary"
+                  color="#1e3261"
                   class="mr-1"
                   :disabled="currentTabIndex <= 0"
                   @click="changeTab(-1)"
                 >
-                  <v-icon>
-                    mdi-chevron-left
-                  </v-icon>
+                  Voltar
                 </v-btn>
                 <v-btn
-                  small
-                  color="primary"
+                  v-if="currentTabIndex < tabs.length - 1"
+                  :disabled="disableSave"
+                  color="#1e3261"
                   class="ml-1"
-                  :disabled="currentTabIndex >= tabs.length - 1"
                   @click="changeTab(+1)"
                 >
-                  <v-icon>
-                    mdi-chevron-right
-                  </v-icon>
+                  Próximo
+                </v-btn>
+                <v-btn
+                  v-if="currentTabIndex === tabs.length - 1"
+                  :disabled="disableSave"
+                  color="#1e3261"
+                  class="ml-1"
+                  :loading="loading"
+                  @click="$emit('save')"
+                >
+                  Salvar
                 </v-btn>
               </slot>
             </div>
 
-            <v-tooltip left color="transparent">
+            <!-- <v-tooltip left color="transparent">
               <template #activator="{ on, attrs }">
                 <div v-bind="attrs" v-on="on">
                   <v-btn
@@ -177,7 +182,7 @@
                       mdi-check
                     </v-icon>
                     Salvar
-                  </v-btn>
+                  </v-btn> 
                 </div>
               </template>
               <v-alert
@@ -190,7 +195,7 @@
               >
                 <span v-html="disabledTooltip" />
               </v-alert>
-            </v-tooltip>
+            </v-tooltip> -->
           </v-col>
         </v-row>
       </v-card-text>
@@ -205,7 +210,7 @@ export default {
     tabs: {
       type: Array,
       default: () => [],
-    },
+    }, 
     hideLeft: {
       type: Boolean,
       default: false,
@@ -246,17 +251,44 @@ export default {
       return this.tabs.findIndex(
         tab => tab.to === this.model || tab.to.name === this.$route.name,
       )
-    },
+    }, 
   },
   methods: {
+    /* changeTab(direction) {
+      if (direction === 1 && !this.isCurrentTabValid()) {
+        this.$emit('notify', {
+          type: 'warning',
+          message: 'Preencha os campos obrigatórios'
+        })
+        return
+      }
+      if (this.currentTabIndex + direction >= 0 && this.currentTabIndex + direction < this.tabs.length) {
+        this.currentTabIndex += direction
+      }
+    }, */
+    validateCurrentTab() {
+      const formRef = this.$refs[`formAba${this.currentTabIndex + 1}`]
+
+      if (formRef) {
+        return formRef.validate()
+      }
+      return true
+    }, 
     changeTab(value) {
       if (
         this.currentTabIndex + value >= 0 &&
         this.currentTabIndex + value < this.tabs.length
       ) {
+        if (value > 0 && !this.validateCurrentTab()) {
+          this.$emit("notify", {
+            type: "warning",
+            message: "Preencha os campos obrigatórios"
+          })
+          return
+        }
         this.$router.push(this.tabs[this.currentTabIndex + value].to)
-      }
-    },
+      } 
+    }, 
   },
 }
 </script>

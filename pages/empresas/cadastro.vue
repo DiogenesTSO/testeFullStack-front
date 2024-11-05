@@ -130,14 +130,14 @@ export default {
         // this.empresa.creci &&
         // this.empresa.cnae &&
         this.empresa.cep &&
-        this.empresa.cidade_id &&
+        // this.empresa.cidade_id &&
         this.empresa.bairro &&
         this.empresa.endereco &&
         this.empresa.telefone_01 &&
         this.empresa.nome_admin &&
-        this.empresa.email &&
-        this.empresa.tipo_acesso
-      )
+        this.empresa.email 
+        // this.empresa.tipo_acesso
+      ) 
     },
     disabledMessage(){
       return (
@@ -149,13 +149,13 @@ export default {
         // (this.empresa.creci ? '' : '<br>- CRECI') + 
         // (this.empresa.cnae ? '' : '<br>- CNAE') +  
         (this.empresa.cep ? '' : '<br>- CEP') + 
-        (this.empresa.cidade_id ? '' : '<br>- Cidade') + 
+        // (this.empresa.cidade_id ? '' : '<br>- Cidade') + 
         (this.empresa.bairro ? '' : '<br>- Bairro') + 
         (this.empresa.endereco ? '' : '<br>- Rua') + 
         (this.empresa.telefone_01 ? '' : '<br>- Telefone primário') + 
         (this.empresa.nome_admin ? '' : '<br>- Nome do administrador') + 
-        (this.empresa.email ? '' : '<br>- E-mail do administrador') + 
-        (this.empresa.tipo_acesso ? '' : '<br>- Tipo de acesso') 
+        (this.empresa.email ? '' : '<br>- E-mail do administrador')  
+        // (this.empresa.tipo_acesso ? '' : '<br>- Tipo de acesso') 
       )
     }
   },
@@ -184,7 +184,6 @@ export default {
 
       return modulos
     },
-
     submit() {
       this.loading = true
       this.$refs.formEmpresa.validate()
