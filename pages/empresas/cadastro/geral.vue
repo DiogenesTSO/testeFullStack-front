@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form ref="formTab1" v-model="valid">
+    <v-form ref="formGeral" v-model="validGeral">
       <v-row>
         <v-col cols="12">
           <label class="text-h6 font-weight-bold">Dados da Empresa</label>
@@ -51,7 +51,7 @@
             </v-col>
             <v-col v-if="empresa.tipo === 'PF'" cols="12" md="3">
               <imobia-date-picker 
-                v-model="empresa.data"
+                v-model="empresa.data_nascimento"
                 required
                 label="Data Nascimento"
                 :format="dateFormat"
@@ -62,6 +62,13 @@
             </v-col>
             <v-col cols="12" md="3">
               <imobia-input v-model="empresa.celular" type="celular" label="Celular" />
+            </v-col>
+            <v-col cols="12" md="5">
+              <imobia-input
+                v-model="empresa.email_empresa"
+                required
+                label="E-mail corporativo"
+              />
             </v-col>
           </v-row>
         </v-col>
@@ -86,6 +93,14 @@
                 :loading="loadingCidade"
                 module="cidades"
                 label="Cidade"
+              />
+            </v-col>
+            <v-col cols="12" md="4">
+              <imobia-auto-complete
+                v-model="empresa.estado"
+                :loading="loadingCidade"
+                module="estados"
+                label="Estado"
               />
             </v-col>
             <v-col cols="12" md="4">
@@ -119,7 +134,7 @@ export default {
   },
   data() {
     return {
-      valid: false,
+      validGeral: false,
       empresa: this.value,
       tiposEmpresa: [
         { id: 'PF', nome: 'Pessoa Física' },
@@ -132,16 +147,15 @@ export default {
 
   watch: {
     empresa: {
+      immediate: true,
       handler() {
         this.$emit('input', this.empresa)
       },
       deep: true,
     },
   },
-  methods: {
-    validateForm() {
-      this.$refs.formTab1.validate()
-    }
-  } 
+  mounted() {
+    this.$emit("setFormRef", "geral", this.$refs.formGeral)
+  },
 }
 </script>

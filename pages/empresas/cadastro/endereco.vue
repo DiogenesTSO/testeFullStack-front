@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="formTab2" v-model="valid">
+  <v-form ref="formEndereco" v-model="validEndereco">
     <v-row>
       <v-col cols="12">
         <label class="text-h6 font-weight-bold">Dados do Administrador</label>
@@ -15,13 +15,13 @@
           </v-col>
           <v-col cols="12" md="5">
             <imobia-input
-              v-model="empresa.email"
+              v-model="empresa.email_admin"
               required
               label="E-mail do administrador"
             />
           </v-col>
           <v-col cols="12" md="3">
-            <imobia-input v-model="empresa.telefone_01" type="celular" required label="Celular" />
+            <imobia-input v-model="empresa.celular" type="celular" required label="Celular" />
           </v-col>
           <v-col cols="12" md="5">
             <imobia-input
@@ -50,7 +50,7 @@ export default {
     return {
       empresa: this.value,
       loadingCidade: false,
-      valid: false,
+      validEndereco: false,
     }
   },
   watch: {
@@ -61,7 +61,10 @@ export default {
       deep: true,
     },
   },
-  methods: {
+  mounted() {
+    this.$emit("setFormRef", "endereco", this.$refs.formEndereco)
+  },
+  /* methods: {
     fillAddress(endereco) {
       this.empresa.endereco = this.$format.endereco(endereco)
       this.loadingCidade = true
@@ -82,6 +85,6 @@ export default {
       this.empresa.bairro = endereco.bairro
       this.empresa.complemento = endereco.complemento
     },
-  },
+  }, */
 }
 </script>

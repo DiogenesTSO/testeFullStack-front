@@ -5,8 +5,7 @@
         <imobia-tab-card
           :loading="loading"
           :tabs="items"
-          :disable-save="disableSave"
-          :disabled-tooltip="disabledMessage"
+          @next="validateTab"
           @save="submit"
         >
           <template #headerLeft>
@@ -34,7 +33,7 @@
               </v-list-item>
             </v-list>
           </template>
-          <NuxtChild v-model="empresa" />
+          <NuxtChild v-model="empresa" @setFormRef="setFormRef" />
         </imobia-tab-card>
       </v-form>
     </v-col>
@@ -50,6 +49,17 @@ export default {
 
   data() {
     return {
+      formRefs: {
+        geral: null,
+        endereco: null,
+        sistema: null,
+      },
+      tabs: [
+        { name: 'geral', index: 0, route: '/empresas/cadastro/geral' },
+        { name: 'endereco', index: 1, route: '/empresas/cadastro/endereco' },
+        { name: 'sistema', index: 2, route: '/empresas/cadastro/sistema' },
+      ],
+      currentTabIndex: 0,
       loading: false,
       valid: false,
       empresa: {
@@ -73,7 +83,7 @@ export default {
         telefone_02: '',
         celular: '',
         nome_admin: '',
-        email: '',
+        // email: '',
         tipo_acesso: '',
         suporte: 1,
         financeiro: 0,
@@ -119,46 +129,16 @@ export default {
       ],
     }
   },
-  computed: {
-    disableSave() {
-      return !(
-        this.empresa.nome_admin &&
-        this.empresa.nome_fantasia &&
-        this.empresa.nome_empresa &&
-        this.empresa.tipo &&
-        this.empresa.cnpj &&
-        // this.empresa.creci &&
-        // this.empresa.cnae &&
-        this.empresa.cep &&
-        // this.empresa.cidade_id &&
-        this.empresa.bairro &&
-        this.empresa.endereco &&
-        this.empresa.telefone_01 &&
-        this.empresa.nome_admin &&
-        this.empresa.email 
-        // this.empresa.tipo_acesso
-      ) 
-    },
-    disabledMessage(){
-      return (
-        'Para cadastrar a empresa preencha os seguintes campos: ' +
-        (this.empresa.nome_fantasia ? '' : '<br>- Nome fantasia') +
-        (this.empresa.nome_empresa ? '' : '<br>- Razão social') +
-        (this.empresa.tipo ? '' : '<br>- Tipo de empresa') +
-        (this.empresa.cnpj ? '' : '<br>- CPF/CNPJ') +
-        // (this.empresa.creci ? '' : '<br>- CRECI') + 
-        // (this.empresa.cnae ? '' : '<br>- CNAE') +  
-        (this.empresa.cep ? '' : '<br>- CEP') + 
-        // (this.empresa.cidade_id ? '' : '<br>- Cidade') + 
-        (this.empresa.bairro ? '' : '<br>- Bairro') + 
-        (this.empresa.endereco ? '' : '<br>- Rua') + 
-        (this.empresa.telefone_01 ? '' : '<br>- Telefone primário') + 
-        (this.empresa.nome_admin ? '' : '<br>- Nome do administrador') + 
-        (this.empresa.email ? '' : '<br>- E-mail do administrador')  
-        // (this.empresa.tipo_acesso ? '' : '<br>- Tipo de acesso') 
-      )
+  watch: {
+    // Observa mudanças na rota para atualizar o currentTabIndex
+    $route(to) {
+      this.updateCurrentTabIndexBasedOnRoute(to.path)
     }
   },
+  mounted() {
+    // Chama ao carregar o componente para definir a aba com base na rota inicial
+    this.updateCurrentTabIndexBasedOnRoute(this.$route.path)
+  }, 
   methods: {
     verificarModulos(empresa){
       const modulos = [
@@ -184,9 +164,49 @@ export default {
 
       return modulos
     },
+    
+    // Função responsável para garantir que o currentTabIndex seja atualizado corretamente com base na rota atual.
+    updateCurrentTabIndexBasedOnRoute(path) {
+      const tab = this.tabs.find(tab => path.includes(tab.route))
+      if (tab) {
+        this.currentTabIndex = tab.index
+      }
+    }, 
+    /* Função para armazenar as referencias dos formulários geral, endereco e sistema. Type é o nome do arquivo +
+      ex: geral, endereco... ref é a referencia de cada v-form, ex. formGeral, formEndereco. */
+    setFormRef(type, ref) {
+      this.formRefs[type] = ref
+    },
+    /* ValidateTab é a função que da ao evento do botão próximo, ao clicar nele ele irá validar primeiro +
+      os campos obrigatórios, assim que todos preenchidos ele habilita para a próxima aba */
+    async validateTab() {
+      let isValid = false
+
+      // Faz as validações por cada aba, iniciando na posição 0 geral
+      if (this.currentTabIndex === 0 && this.formRefs.geral) {
+        isValid = await this.formRefs.geral.validate()
+      } else if (this.currentTabIndex === 1 && this.formRefs.endereco) {
+        isValid = await this.formRefs.endereco.validate()
+      } else if (this.currentTabIndex === 2 && this.formRefs.sistema) {
+        isValid = await this.formRefs.sistema.validate()
+      }
+
+      // Se os campos estão válidos pula para a próxima aba. Caso contrário emite um alerta e não deixa prosseguir.
+      if (isValid) {
+        if (this.currentTabIndex < this.tabs.length - 1) {
+          this.currentTabIndex += 1
+          this.$router.push(this.tabs[this.currentTabIndex].route)
+        }
+      } else {
+        this.$nuxt.$emit("notify", {
+          type: "warning",
+          message: "Preencha os campos obrigatórios",
+        })
+      }
+    },
     submit() {
       this.loading = true
-      this.$refs.formEmpresa.validate()
+      /* this.$refs.formEmpresa.validate()
 
       if (!this.valid){
         this.$nuxt.$emit('notify', {
@@ -194,8 +214,7 @@ export default {
           message: 'Preencha os campos obrigatórios',
         })
         this.loading = false
-        return
-      }
+      }  */
 
       const form = {
         ...this.empresa,
@@ -204,11 +223,12 @@ export default {
           tipo: this.empresa.tipo,
           nome_fantasia: this.empresa.nome_fantasia,
           nome: this.empresa.nome_empresa,
+          // email: this.empresa.email_empresa,
           cnpj: this.empresa.cnpj,
           cpf: this.empresa.cnpj,
-          // creci: this.empresa.creci,
-          // cnae: this.empresa.cnae,
-          
+          data_nascimento: this.empresa.data_nascimento,
+          telefone_01: this.empresa.telefone_01,
+          celular: this.empresa.celular,
           // Cadastro de endereço de empresas
           cep: this.empresa.cep,
           cidade_id: this.empresa.cidade_id,
@@ -216,10 +236,7 @@ export default {
           endereco: this.empresa.endereco,
           numero: this.empresa.numero,
           complemento: this.empresa.complemento,
-          // Cadastro do contato da empresa
-          telefone_01: this.empresa.telefone_01,
-          telefone_02: this.empresa.telefone_02,
-          celular: this.empresa.celular,
+          
           // Cadastro das informações de sistema da empresa
           valor_real: this.empresa.plano.valor_real,
           taxa_cobranca: this.empresa.plano,
@@ -243,8 +260,17 @@ export default {
           this.$router.push({
             name: 'empresas-listagem',
           })
-        })
+        }) 
     },
+    /* async saveDataToApi(api, data) {
+      try {
+        const response = await this.$store.dispatch(api, data)
+        return response
+      } catch (error) {
+        console.error('Erro ao salvar na API:', error)
+        return { success: false }
+      }
+    } */
   },
 }
 </script>

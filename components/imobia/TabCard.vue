@@ -148,10 +148,9 @@
                 </v-btn>
                 <v-btn
                   v-if="currentTabIndex < tabs.length - 1"
-                  :disabled="disableSave"
                   color="#1e3261"
                   class="ml-1"
-                  @click="changeTab(+1)"
+                  @click="$emit('next')"
                 >
                   Próximo
                 </v-btn>
@@ -254,41 +253,14 @@ export default {
     }, 
   },
   methods: {
-    /* changeTab(direction) {
-      if (direction === 1 && !this.isCurrentTabValid()) {
-        this.$emit('notify', {
-          type: 'warning',
-          message: 'Preencha os campos obrigatórios'
-        })
-        return
-      }
-      if (this.currentTabIndex + direction >= 0 && this.currentTabIndex + direction < this.tabs.length) {
-        this.currentTabIndex += direction
-      }
-    }, */
-    validateCurrentTab() {
-      const formRef = this.$refs[`formAba${this.currentTabIndex + 1}`]
-
-      if (formRef) {
-        return formRef.validate()
-      }
-      return true
-    }, 
     changeTab(value) {
       if (
         this.currentTabIndex + value >= 0 &&
         this.currentTabIndex + value < this.tabs.length
       ) {
-        if (value > 0 && !this.validateCurrentTab()) {
-          this.$emit("notify", {
-            type: "warning",
-            message: "Preencha os campos obrigatórios"
-          })
-          return
-        }
         this.$router.push(this.tabs[this.currentTabIndex + value].to)
       } 
-    }, 
+    } 
   },
 }
 </script>

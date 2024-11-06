@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="formTab3" v-model="valid">
+  <v-form ref="formSistema" v-model="validSistema">
     <v-row>
       <v-col cols="12">
         <label class="text-h6 font-weight-bold">Configuração do Sistema</label>
@@ -76,6 +76,7 @@ export default {
   },
   data() {
     return {
+      validSistema: false,
       empresa: this.value,
       tipoAcessoEmpresa: [
         { id: 'acesso_basico', nome: 'Acesso básico' },
@@ -90,6 +91,9 @@ export default {
       },
       deep: true,
     },
+  },
+  mounted() {
+    this.$emit("setFormRef", "sistema", this.$refs.formSistema)
   },
 }
 </script>
