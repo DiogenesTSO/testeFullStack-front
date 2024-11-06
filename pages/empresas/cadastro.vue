@@ -249,17 +249,22 @@ export default {
           // Criando usuario para a empresa
           email: this.empresa.email,
           nome_admin: this.empresa.nome_admin,
-          usuario_vendedor_id: this.empresa.usuario_vendedor_id
+          celular_admin: this.empresa.celular,
+          senha: this.empresa.senha
         },
       }
 
       this.$store
         .dispatch('empresas/cadastrarEmpresa', form)
+        .then((message) => {
+          console.log(message)
+          this.$router.push({ name: 'empresas-listagem' })
+        })
+        .catch((error) => {
+          console.error('Erro ao cadastrar', error)
+        })
         .finally(() => {
           this.loading = false
-          this.$router.push({
-            name: 'empresas-listagem',
-          })
         }) 
     },
     /* async saveDataToApi(api, data) {
@@ -274,5 +279,6 @@ export default {
   },
 }
 </script>
+
 
 <style lang="scss" scoped></style>

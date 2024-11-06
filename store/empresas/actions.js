@@ -13,7 +13,7 @@ export default {
   cadastrarEmpresa({ commit }, dados) {
     return new Promise((resolve, reject) => {
       axios
-        .post('empresas', dados)
+        .post('empresa/cadastrar', dados)
         .then((response) => {
           resolve(response.data.message)
         })
