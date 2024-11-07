@@ -12,8 +12,9 @@ export default {
   },
   cadastrarEmpresa({ commit }, dados) {
     return new Promise((resolve, reject) => {
+      console.log(dados)
       axios
-        .post('empresas', dados)
+        .post('http://127.0.0.1:8000/api/empresa/cadastrar', dados)
         .then((response) => {
           resolve(response.data.message)
         })

@@ -21,7 +21,7 @@
             />
           </v-col>
           <v-col cols="12" md="3">
-            <imobia-input v-model="empresa.celular" type="celular" required label="Celular" />
+            <imobia-input v-model="empresa.celular_admin" type="celular" required label="Celular" />
           </v-col>
           <v-col cols="12" md="5">
             <imobia-input

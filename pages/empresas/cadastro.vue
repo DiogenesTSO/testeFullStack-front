@@ -66,43 +66,39 @@ export default {
         plano: {
           valor_real: '',
         },
-        tipo: '',
-        nome_empresa: '',
-        nome_fantasia: '',
-        cpfcnpj: '',
-        cnpj: '',
-        // creci: '',
-        // cnae: '',
+        tipo: '', 
+        nome_empresa: '', 
+        nome_fantasia: '', 
+        documento: '',
+        data_nascimento: '',
+        telefone: '',
+        celular: '',
+        email_empresa: '',
+
         cep: '',
-        endereco: '',
+        cidade: '',
+        estado: '',
+        bairro: '',
+        rua: '',
         numero: '',
         complemento: '',
-        bairro: '',
-        cidade_id: '',
-        telefone_01: '',
-        telefone_02: '',
-        celular: '',
+        
         nome_admin: '',
-        // email: '',
-        tipo_acesso: '',
-        suporte: 1,
-        financeiro: 0,
+        email_admin: '',
+        celular_admin: '',
+        senha: '',
+
+        taxa_garantida_ate: '',
+        qtd_taxas_bonificadas: 0,
         nota_fiscal: 0,
-        venda: 0,
+        vendas: 0,
         locacao: 1,
-        numero_locacao: 0,
         expectativa_operacoes: 0,
-        temMensalidade: false,
-        cobranca_manual: false,
-        saque_automatico: false,
-        integracao_sci: false,
-        valor_mensalidade: 0,
         debito_por_baixa: 1,
-        dia_vencimento_debito_por_baixa: 10,
         pagamento_contas: 0,
-        usuario_vendedor_id: ''
       },
       cidades: [],
+      estados: [],
 
       items: [
         {
@@ -150,13 +146,10 @@ export default {
         }]
 
       if (empresa.locacao === true){
-        modulos.push({ modulo: 'locacao', valor: empresa.numero_locacao })
+        modulos.push({ modulo: 'locacao' })
       }
       if (empresa.venda === true){
         modulos.push({ modulo: 'venda' })
-      }
-      if (empresa.financeiro === true){
-        modulos.push({ modulo: 'financeiro' })
       }
       if (empresa.nota_fiscal === true){
         modulos.push({ modulo: 'nota_fiscal' })
@@ -206,15 +199,6 @@ export default {
     },
     submit() {
       this.loading = true
-      /* this.$refs.formEmpresa.validate()
-
-      if (!this.valid){
-        this.$nuxt.$emit('notify', {
-          type: 'warning',
-          message: 'Preencha os campos obrigatórios',
-        })
-        this.loading = false
-      }  */
 
       const form = {
         ...this.empresa,
@@ -223,43 +207,53 @@ export default {
           tipo: this.empresa.tipo,
           nome_fantasia: this.empresa.nome_fantasia,
           nome: this.empresa.nome_empresa,
-          // email: this.empresa.email_empresa,
-          cnpj: this.empresa.cnpj,
-          cpf: this.empresa.cnpj,
+          documento: this.empresa.documento,
           data_nascimento: this.empresa.data_nascimento,
-          telefone_01: this.empresa.telefone_01,
+          telefone: this.empresa.telefone,
           celular: this.empresa.celular,
+          email_empresa: this.empresa.email_empresa,
           // Cadastro de endereço de empresas
           cep: this.empresa.cep,
-          cidade_id: this.empresa.cidade_id,
+          cidade: this.empresa.cidade,
+          estado: this.empresa.estado,
           bairro: this.empresa.bairro,
-          endereco: this.empresa.endereco,
+          rua: this.empresa.endereco,
           numero: this.empresa.numero,
           complemento: this.empresa.complemento,
+
+          nome_admin: this.empresa.nome_admin,
+          email_admin: this.empresa.email_admin,
+          celular_admin: this.empresa.celular_admin,
+          senha: this.empresa.senha,
           
           // Cadastro das informações de sistema da empresa
-          valor_real: this.empresa.plano.valor_real,
-          taxa_cobranca: this.empresa.plano,
-          tipo_acesso: this.empresa.tipo_acesso,
-          suporte: this.empresa.suporte,
-          debito_por_baixa: this.empresa.debito_por_baixa,
-          dia_vencimento_debito_por_baixa: this.empresa.dia_vencimento_debito_por_baixa,
+          valor_taxa: this.empresa.plano.valor_real,
+          taxa_garantida_ate: this.empresa.taxa_garantida_ate,
+          qtd_taxas_bonificadas: this.empresa.baixa_manual,
+          expectativa_operacoes: this.empresa.expectativa_operacoes,
+          
+          
           // Formata os modulos
           modulos: this.verificarModulos(this.empresa),
           // Criando usuario para a empresa
-          email: this.empresa.email,
-          nome_admin: this.empresa.nome_admin,
-          usuario_vendedor_id: this.empresa.usuario_vendedor_id
+          
+          
+          
+          
         },
       }
 
       this.$store
         .dispatch('empresas/cadastrarEmpresa', form)
+        .then((message) => {
+          console.log(message)
+          this.$router.push({ name: 'empresas-listagem' })
+        })
+        .catch((error) => {
+          console.error('Erro ao cadastrar', error)
+        })
         .finally(() => {
           this.loading = false
-          this.$router.push({
-            name: 'empresas-listagem',
-          })
         }) 
     },
     /* async saveDataToApi(api, data) {

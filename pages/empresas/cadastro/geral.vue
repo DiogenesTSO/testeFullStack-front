@@ -35,7 +35,7 @@
           <v-row>
             <v-col v-if="empresa.tipo === 'PF'" cols="12" md="3">
               <imobia-input
-                v-model="empresa.cnpj"
+                v-model="empresa.documento"
                 required
                 type="cpf"
                 label="CPF"
@@ -43,7 +43,7 @@
             </v-col>
             <v-col v-if="empresa.tipo === 'MEI' || empresa.tipo === 'LIMITED' || empresa.tipo === 'INDIVIDUAL'" cols="12" md="3">
               <imobia-input
-                v-model="empresa.cnpj"
+                v-model="empresa.documento"
                 required
                 type="cnpj"
                 label="CNPJ"
@@ -58,7 +58,7 @@
               />
             </v-col>
             <v-col cols="12" md="3">
-              <imobia-input v-model="empresa.telefone_01" type="telefone" required label="Telefone" />
+              <imobia-input v-model="empresa.telefone" type="telefone" required label="Telefone" />
             </v-col>
             <v-col cols="12" md="3">
               <imobia-input v-model="empresa.celular" type="celular" label="Celular" />
@@ -91,6 +91,7 @@
               <imobia-auto-complete
                 v-model="empresa.cidade"
                 :loading="loadingCidade"
+                :items="cidades"
                 module="cidades"
                 label="Cidade"
               />
@@ -98,8 +99,7 @@
             <v-col cols="12" md="4">
               <imobia-auto-complete
                 v-model="empresa.estado"
-                :loading="loadingCidade"
-                module="estados"
+                :items="estados"
                 label="Estado"
               />
             </v-col>
@@ -136,6 +136,13 @@ export default {
     return {
       validGeral: false,
       empresa: this.value,
+      cidades: [
+        { id: 'Guabiruba', nome: 'Guabiruba' },
+        { id: 'Botuvera', nome: 'Botuverá' },
+      ],
+      estados: [
+        { id: 'SC', nome: 'Santa Catarina' },
+      ],
       tiposEmpresa: [
         { id: 'PF', nome: 'Pessoa Física' },
         { id: 'INDIVIDUAL', nome: 'Empresário Individual' },

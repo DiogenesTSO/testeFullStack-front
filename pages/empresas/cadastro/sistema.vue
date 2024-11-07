@@ -15,7 +15,7 @@
           </v-col>
           <v-col cols="12" md="3">
             <imobia-date-picker 
-              v-model="empresa.data"
+              v-model="empresa.taxa_garantida_ate"
               required
               type="data"
               label="Taxa garantida até"
