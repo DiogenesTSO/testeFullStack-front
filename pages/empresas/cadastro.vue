@@ -236,10 +236,9 @@ export default {
           // Formata os modulos
           modulos: this.verificarModulos(this.empresa),
           // Criando usuario para a empresa
-          
-          
-          
-          
+          email: this.empresa.email,
+          nome_admin: this.empresa.nome_admin,
+          usuario_vendedor_id: this.empresa.usuario_vendedor_id
         },
       }
 
@@ -268,5 +267,6 @@ export default {
   },
 }
 </script>
+
 
 <style lang="scss" scoped></style>
