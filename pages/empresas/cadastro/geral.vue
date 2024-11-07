@@ -33,7 +33,7 @@
         </v-col>
         <v-col cols="12">
           <v-row>
-            <v-col v-if="empresa.tipo === 'PF'" cols="12" md="3">
+            <v-col v-show="empresa.tipo === 'PF'" cols="12" md="3">
               <imobia-input
                 v-model="empresa.documento"
                 required
@@ -77,7 +77,7 @@
             <v-col cols="12">
               <label class="text-h6 font-weight-bold">Endereço da Empresa</label>
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="3">
               <imobia-input
                 v-model="empresa.cep"
                 required
@@ -90,6 +90,7 @@
             <v-col cols="12" md="4">
               <imobia-auto-complete
                 v-model="empresa.cidade"
+                required
                 :loading="loadingCidade"
                 :items="cidades"
                 module="cidades"
@@ -99,20 +100,21 @@
             <v-col cols="12" md="4">
               <imobia-auto-complete
                 v-model="empresa.estado"
+                required
                 :items="estados"
                 label="Estado"
               />
             </v-col>
-            <v-col cols="12" md="4">
-              <imobia-input v-model="empresa.bairro" label="Bairro" />
+            <v-col cols="12" md="3">
+              <imobia-input v-model="empresa.bairro" required label="Bairro" />
             </v-col>
-            <v-col cols="12" md="8" lg="6">
-              <imobia-input v-model="empresa.endereco" label="Rua" />
+            <v-col cols="12" md="4" lg="4">
+              <imobia-input v-model="empresa.endereco" required label="Rua" />
             </v-col>
             <v-col cols="6" md="4" lg="2">
-              <imobia-input v-model="empresa.numero" label="Número" />
+              <imobia-input v-model="empresa.numero" required label="Número" />
             </v-col>
-            <v-col cols="6" md="4" lg="4">
+            <v-col cols="6" md="3">
               <imobia-input v-model="empresa.complemento" label="Complemento" />
             </v-col>
           </v-row>
@@ -136,10 +138,10 @@ export default {
     return {
       validGeral: false,
       empresa: this.value,
-      cidades: [
+      /* cidades: [
         { id: 'Guabiruba', nome: 'Guabiruba' },
         { id: 'Botuvera', nome: 'Botuverá' },
-      ],
+      ], */
       estados: [
         { id: 'SC', nome: 'Santa Catarina' },
       ],
@@ -163,6 +165,28 @@ export default {
   },
   mounted() {
     this.$emit("setFormRef", "geral", this.$refs.formGeral)
+  },
+  methods: {
+    fillAddress(endereco) {
+      this.empresa.endereco = this.$format.endereco(endereco)
+      this.loadingCidade = true
+      const queryCidade = {
+        q: endereco.cidade,
+        uf: endereco.uf,
+      }
+      this.$store
+        .dispatch('autocomplete/carregarCidades', queryCidade)
+        .then((res) => {
+          this.empresa.cidade = res
+          this.empresa.cidade_id = res.id
+        })
+        .finally(() => {
+          this.loadingCidade = false
+        })
+      this.empresa.rua = endereco.rua
+      this.empresa.bairro = endereco.bairro
+      this.empresa.complemento = endereco.complemento
+    },
   },
 }
 </script>

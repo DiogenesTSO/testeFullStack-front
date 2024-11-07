@@ -136,36 +136,45 @@
             <div>
               <slot name="actionLeft" />
             </div>
-            <div>
-              <slot name="actionCenter">
+            <v-row justify="space-between">
+              <v-col cols="auto">
                 <v-btn
                   color="#1e3261"
-                  class="mr-1"
                   :disabled="currentTabIndex <= 0"
                   @click="changeTab(-1)"
                 >
+                  <v-icon>
+                    mdi-chevron-left
+                  </v-icon>
                   Voltar
                 </v-btn>
+              </v-col>
+              <v-col cols="auto">
                 <v-btn
                   v-if="currentTabIndex < tabs.length - 1"
                   color="#1e3261"
-                  class="ml-1"
+                  class="mr-3"
                   @click="$emit('next')"
                 >
                   Próximo
+                  <v-icon>
+                    mdi-chevron-right
+                  </v-icon>
                 </v-btn>
                 <v-btn
-                  v-if="currentTabIndex === tabs.length - 1"
-                  :disabled="disableSave"
-                  color="#1e3261"
-                  class="ml-1"
+                  v-else
+                  color="success"
+                  class="mr-3"
                   :loading="loading"
                   @click="$emit('save')"
                 >
+                  <v-icon left>
+                    mdi-check
+                  </v-icon>
                   Salvar
                 </v-btn>
-              </slot>
-            </div>
+              </v-col>
+            </v-row>
 
             <!-- <v-tooltip left color="transparent">
               <template #activator="{ on, attrs }">

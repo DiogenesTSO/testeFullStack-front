@@ -24,7 +24,7 @@
           </v-col>
           <v-col cols="12" md="6" lg="3">
             <imobia-input-number
-              v-model="empresa.baixa_manual"
+              v-model="empresa.taxa_bonificadas"
               label="Baixas manuais bonificadas por mês"
               :min="0"
               required

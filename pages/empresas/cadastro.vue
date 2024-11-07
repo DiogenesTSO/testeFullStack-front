@@ -23,9 +23,9 @@
                     {{ (empresa.nome_fantasia || 'Nova empresa') }}
                   </v-list-item-title>
                   <v-list-item-subtitle>
-                    {{ empresa.cnpj && empresa.tipo === 'PF' ?
-                      `CPF: ${$format.mask(empresa.cnpj, 'cpf')}` :
-                      empresa.cnpj ? `CNPJ: ${$format.mask(empresa.cnpj, 'cnpj')}` :
+                    {{ empresa.documento && empresa.tipo === 'PF' ?
+                      `CPF: ${$format.mask(empresa.documento, 'cpf')}` :
+                      empresa.documento ? `CNPJ: ${$format.mask(empresa.documento, 'cnpj')}` :
                       ''
                     }}
                   </v-list-item-subtitle>
@@ -91,7 +91,7 @@ export default {
         taxa_garantida_ate: '',
         qtd_taxas_bonificadas: 0,
         nota_fiscal: 0,
-        vendas: 0,
+        venda: 0,
         locacao: 1,
         expectativa_operacoes: 0,
         debito_por_baixa: 1,
@@ -201,9 +201,7 @@ export default {
       this.loading = true
 
       const form = {
-        ...this.empresa,
-        ...{
-          // Cadastro geral de empresa
+        empresaData: {
           tipo: this.empresa.tipo,
           nome_fantasia: this.empresa.nome_fantasia,
           nome: this.empresa.nome_empresa,
@@ -211,35 +209,33 @@ export default {
           data_nascimento: this.empresa.data_nascimento,
           telefone: this.empresa.telefone,
           celular: this.empresa.celular,
-          email_empresa: this.empresa.email_empresa,
-          // Cadastro de endereço de empresas
+          email: this.empresa.email_empresa,
+
           cep: this.empresa.cep,
           cidade: this.empresa.cidade,
           estado: this.empresa.estado,
           bairro: this.empresa.bairro,
           rua: this.empresa.endereco,
           numero: this.empresa.numero,
-          complemento: this.empresa.complemento,
-
-          nome_admin: this.empresa.nome_admin,
-          email_admin: this.empresa.email_admin,
-          celular_admin: this.empresa.celular_admin,
+          complemento: this.empresa.complemento
+        },
+        adminData: {
+          nome: this.empresa.nome_admin,
+          email: this.empresa.email_admin,
+          celular: this.empresa.celular_admin,
           senha: this.empresa.senha,
-          
-          // Cadastro das informações de sistema da empresa
+        },
+        configuracaoData: {
           valor_taxa: this.empresa.plano.valor_real,
           taxa_garantida_ate: this.empresa.taxa_garantida_ate,
-          qtd_taxas_bonificadas: this.empresa.baixa_manual,
+          qtd_taxas_bonificadas: this.empresa.taxa_bonificadas,
           expectativa_operacoes: this.empresa.expectativa_operacoes,
-          
-          
-          // Formata os modulos
-          modulos: this.verificarModulos(this.empresa),
-          // Criando usuario para a empresa
-          email: this.empresa.email,
-          nome_admin: this.empresa.nome_admin,
-          usuario_vendedor_id: this.empresa.usuario_vendedor_id
-        },
+          modulo_locacao: this.empresa.locacao,
+          modulo_vendas: this.empresa.venda,
+          modulo_pagamento_contas: this.empresa.pagamento_contas,
+          modulo_debito_por_baixa: this.empresa.debito_por_baixa,
+          modulo_nota_fiscal: this.empresa.nota_fiscal,
+        }
       }
 
       this.$store
@@ -255,15 +251,6 @@ export default {
           this.loading = false
         }) 
     },
-    /* async saveDataToApi(api, data) {
-      try {
-        const response = await this.$store.dispatch(api, data)
-        return response
-      } catch (error) {
-        console.error('Erro ao salvar na API:', error)
-        return { success: false }
-      }
-    } */
   },
 }
 </script>
