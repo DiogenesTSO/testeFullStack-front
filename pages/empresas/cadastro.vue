@@ -12,7 +12,7 @@
             <v-list class="py-0" color="transparent">
               <v-list-item>
                 <v-list-item-avatar class="justify-center">
-                  <v-avatar color="primary">
+                  <v-avatar color="#1e3261">
                     <span class="white--text">
                       {{ $format.initials(empresa.nome_fantasia || 'Nova empresa') }}
                     </span>
@@ -102,13 +102,13 @@ export default {
 
       items: [
         {
-          icon: 'mdi-account',
+          icon: 'mdi-briefcase',
           text: 'Empresa',
           to: '/empresas/cadastro/geral',
         },
 
         {
-          icon: 'mdi-map-marker',
+          icon: 'mdi-account',
           text: 'Administrador',
           to: '/empresas/cadastro/endereco',
         },
@@ -128,12 +128,12 @@ export default {
   watch: {
     // Observa mudanças na rota para atualizar o currentTabIndex
     $route(to) {
-      this.updateCurrentTabIndexBasedOnRoute(to.path)
+      this.updateCurrentTabIndex(to.path)
     }
   },
   mounted() {
     // Chama ao carregar o componente para definir a aba com base na rota inicial
-    this.updateCurrentTabIndexBasedOnRoute(this.$route.path)
+    this.updateCurrentTabIndex(this.$route.path)
   }, 
   methods: {
     verificarModulos(empresa){
@@ -159,7 +159,7 @@ export default {
     },
     
     // Função responsável para garantir que o currentTabIndex seja atualizado corretamente com base na rota atual.
-    updateCurrentTabIndexBasedOnRoute(path) {
+    updateCurrentTabIndex(path) {
       const tab = this.tabs.find(tab => path.includes(tab.route))
       if (tab) {
         this.currentTabIndex = tab.index
@@ -196,8 +196,16 @@ export default {
           message: "Preencha os campos obrigatórios",
         })
       }
+      return isValid
     },
-    submit() {
+    async submit() {
+      // Valida os campos obrigatórios da ultima tab
+      const isValid = await this.validateTab()
+
+      if (!isValid) {
+        return
+      }
+
       this.loading = true
 
       const form = {
@@ -240,12 +248,18 @@ export default {
 
       this.$store
         .dispatch('empresas/cadastrarEmpresa', form)
-        .then((message) => {
-          console.log(message)
+        .then(() => {
+          this.$nuxt.$emit("notify", {
+            type: "success",
+            message: "Empresa cadastrada com sucesso!"
+          })
           this.$router.push({ name: 'empresas-listagem' })
         })
-        .catch((error) => {
-          console.error('Erro ao cadastrar', error)
+        .catch(() => {
+          this.$nuxt.$emit("notify", {
+            type: "error",
+            message: "Erro ao cadastrar a empresa. Tente novamente"
+          })
         })
         .finally(() => {
           this.loading = false

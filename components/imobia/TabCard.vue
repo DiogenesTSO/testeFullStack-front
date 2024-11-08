@@ -18,7 +18,7 @@
     </v-card> -->
     <v-card :loading="loading" :disabled="loading" color="card">
       <template #progress>
-        <v-progress-linear color="primary" indeterminate />
+        <v-progress-linear color="#1e3261" indeterminate />
       </template>
       <v-card-text>
         <v-row v-if="!hideLeftHeader && !hideHeader">
@@ -107,6 +107,7 @@
                 </v-icon>
                 <span class="font-visby font-weight-black">
                   {{ item.text }}
+
                 </span>
               </v-tab>
             </v-tabs>

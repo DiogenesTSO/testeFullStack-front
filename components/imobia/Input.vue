@@ -286,6 +286,7 @@ export default {
             const endereco = {
               bairro: res.bairro ?? '',
               cidade: res.localidade ?? '',
+              estado: res.estado ?? '',
               rua: res.logradouro ?? '',
               //  complemento: res.complemento ?? '',
               uf: res.uf ?? '',

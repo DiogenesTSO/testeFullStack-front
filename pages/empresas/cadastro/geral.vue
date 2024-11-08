@@ -88,7 +88,7 @@
               />
             </v-col>
             <v-col cols="12" md="4">
-              <imobia-auto-complete
+              <imobia-input
                 v-model="empresa.cidade"
                 required
                 :loading="loadingCidade"
@@ -98,7 +98,7 @@
               />
             </v-col>
             <v-col cols="12" md="4">
-              <imobia-auto-complete
+              <imobia-input
                 v-model="empresa.estado"
                 required
                 :items="estados"
@@ -138,12 +138,13 @@ export default {
     return {
       validGeral: false,
       empresa: this.value,
-      /* cidades: [
-        { id: 'Guabiruba', nome: 'Guabiruba' },
-        { id: 'Botuvera', nome: 'Botuverá' },
-      ], */
+      cidades: [
+        { id: 1, nome: 'Guabiruba' },
+        { id: 2, nome: 'Botuverá' },
+        { id: 3, nome: 'Brusque' },
+      ], 
       estados: [
-        { id: 'SC', nome: 'Santa Catarina' },
+        { id: 1, nome: 'Santa Catarina' },
       ],
       tiposEmpresa: [
         { id: 'PF', nome: 'Pessoa Física' },
@@ -169,12 +170,12 @@ export default {
   methods: {
     fillAddress(endereco) {
       this.empresa.endereco = this.$format.endereco(endereco)
-      this.loadingCidade = true
-      const queryCidade = {
-        q: endereco.cidade,
-        uf: endereco.uf,
-      }
-      this.$store
+      // this.loadingCidade = true
+      // const queryCidade = {
+      //   q: endereco.cidade,
+      //   uf: endereco.uf,
+      // } 
+      /* this.$store
         .dispatch('autocomplete/carregarCidades', queryCidade)
         .then((res) => {
           this.empresa.cidade = res
@@ -182,11 +183,13 @@ export default {
         })
         .finally(() => {
           this.loadingCidade = false
-        })
+        }) */
+      this.empresa.cidade = endereco.cidade
+      this.empresa.estado = endereco.estado
       this.empresa.rua = endereco.rua
       this.empresa.bairro = endereco.bairro
       this.empresa.complemento = endereco.complemento
-    },
-  },
+    }, 
+  }, 
 }
 </script>
